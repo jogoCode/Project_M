@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : LivingObject
 {
     static public Action OnMoving;
-
-    [SerializeField] float m_speed;
-    [SerializeField] float m_gravity;
-    [SerializeField] float m_jumpForce;
+    //Movement
+    [SerializeField] protected float m_speed;
+    [SerializeField] protected float m_gravity;
+    [SerializeField] protected float m_jumpForce;
+    
+    
     Vector3 m_vel;
     CharacterController m_cC;
 
@@ -27,23 +29,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Move();
+        Movement();
     }
 
-    void Move()
+    new void Movement()
     {
        if(m_vel != Vector3.zero)
         m_vel.x = Input.GetAxisRaw("Horizontal");
         m_vel.z = Input.GetAxisRaw("Vertical");
         if (Input.GetButtonDown("Jump"))
         {
-            m_vel.y = m_jumpForce;
+            Jump(m_jumpForce);
         }
         ApplyGravity();
         var direction = (transform.right * m_vel.x + transform.forward * m_vel.z).normalized;
         Vector3 finalVel = new Vector3(direction.x, m_vel.y,direction.z);
         m_cC.Move(finalVel*m_speed*Time.deltaTime);
     }
+
+
+
 
     void ApplyGravity()
     {
@@ -56,5 +61,11 @@ public class PlayerController : MonoBehaviour
         {
             m_ySpeed = 0;
         }
+    }
+
+
+    void Jump(float jumpForce)
+    {
+        m_vel.y = jumpForce;
     }
 }
