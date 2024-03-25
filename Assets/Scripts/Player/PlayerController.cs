@@ -110,10 +110,10 @@ public class PlayerController : LivingObject
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,5,1<<6))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,2,1<<6))
             {
                 Debug.Log("Toucher");
-                Camera.main.GetComponent<FPSCamera>().CameraShake();
+                Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(0.05f,0.1f));
             }
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward*5,Color.red);
         }

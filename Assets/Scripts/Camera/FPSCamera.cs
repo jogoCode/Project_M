@@ -10,6 +10,8 @@ public class FPSCamera : MonoBehaviour
     [SerializeField] Transform m_player;
 
     Camera m_camera;
+    CameraShake m_cameraShake;
+
     float m_rand;
    CameraStates m_actualState = CameraStates.IDLE;
     enum CameraStates
@@ -30,6 +32,7 @@ public class FPSCamera : MonoBehaviour
             m_player = GetComponentInParent<PlayerController>().transform;
         }
         m_camera = GetComponent<Camera>();
+        m_cameraShake = GetComponent<CameraShake>();
     }
 
     void Update()
@@ -37,7 +40,8 @@ public class FPSCamera : MonoBehaviour
         var force = -_spring * _displacement - _damp * _vel;
         _vel += force * Time.deltaTime;
         _displacement += _vel * Time.deltaTime;
-        transform.position = new Vector3(transform.parent.position.x + _displacement, transform.parent.position.y+ 1.5f + _displacement, transform.parent.position.z);
+        var direction = transform.right + transform.forward;
+        transform.position = new Vector3(transform.parent.position.x + -_displacement, transform.position.y, transform.parent.position.z);
         RotateCamera();
     }
 
@@ -47,8 +51,9 @@ public class FPSCamera : MonoBehaviour
         m_mouseInput.y = Input.GetAxis("Mouse Y") * m_mouseSensivity;
         var camVRotation = m_mouseInput.y;
         transform.localEulerAngles += Vector3.right * -camVRotation;
-        camVRotation = Mathf.Clamp(camVRotation, -90, 90);
+        Debug.Log(camVRotation);
         m_player.Rotate(Vector3.up * m_mouseInput.x);
+        camVRotation = Mathf.Clamp(camVRotation, -90, 90);
     }
 
     void ChangeState(CameraStates newState)
@@ -56,15 +61,24 @@ public class FPSCamera : MonoBehaviour
         m_actualState = newState;
     }
 
-    public void CameraShake()
+    public IEnumerator Shake(float force, float time)
     {
-        transform.position = transform.position+transform.parent.position;
-        _vel = 20f;
+        Vector3 ogPos = transform.localPosition;
+        float elapsed = 0;
+        while (elapsed < time)
+        {
+            float x = Random.Range(-1, 1) * force;
+            float y = Random.Range(-1, 1) * force;
+            transform.localPosition = new Vector3(x, y+transform.parent.position.y, ogPos.z);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localPosition = ogPos;
     }
 
-    
- 
+
 
     //TODO Changer le fov de la camera quant on sprint
+    //TODO Finir le camera shake;
 
 }
