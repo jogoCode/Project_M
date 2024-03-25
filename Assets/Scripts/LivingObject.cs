@@ -23,7 +23,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public void Hit()
     {
-       
+        
     }
 
 
@@ -36,7 +36,6 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         m_hp += hp; 
     }
-
 
 
   

@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FPSCamera : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class FPSCamera : MonoBehaviour
         }
         m_camera = GetComponent<Camera>();
         m_cameraShake = GetComponent<CameraShake>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -48,34 +51,18 @@ public class FPSCamera : MonoBehaviour
     void RotateCamera()
     {
         m_mouseInput.x = Input.GetAxis("Mouse X") * m_mouseSensivity;
-        m_mouseInput.y = Input.GetAxis("Mouse Y") * m_mouseSensivity;
+        m_mouseInput.y += Input.GetAxis("Mouse Y") * m_mouseSensivity;
         var camVRotation = m_mouseInput.y;
-        transform.localEulerAngles += Vector3.right * -camVRotation;
+        m_mouseInput.y = Mathf.Clamp(m_mouseInput.y, -70, 70);
+        transform.localEulerAngles = Vector3.right * -camVRotation;
         Debug.Log(camVRotation);
         m_player.Rotate(Vector3.up * m_mouseInput.x);
-        camVRotation = Mathf.Clamp(camVRotation, -90, 90);
     }
 
     void ChangeState(CameraStates newState)
     {
         m_actualState = newState;
     }
-
-    public IEnumerator Shake(float force, float time)
-    {
-        Vector3 ogPos = transform.localPosition;
-        float elapsed = 0;
-        while (elapsed < time)
-        {
-            float x = Random.Range(-1, 1) * force;
-            float y = Random.Range(-1, 1) * force;
-            transform.localPosition = new Vector3(x, y+transform.parent.position.y, ogPos.z);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        transform.localPosition = ogPos;
-    }
-
 
 
     //TODO Changer le fov de la camera quant on sprint

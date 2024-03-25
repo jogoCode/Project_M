@@ -26,11 +26,12 @@ public class PlayerController : LivingObject
         HIT,
         DIE
     }
-
     Vector3 m_vel;
     CharacterController m_cC;
 
     float m_ySpeed;
+
+    bool m_canFeedBack;
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class PlayerController : LivingObject
             m_cC = GetComponent<CharacterController>();
         }
         m_baseSpeed = m_actualSpeed;
+        AnimationEvent.isActive += AttackFeedBack;
     }
 
     void Update()
@@ -85,13 +87,13 @@ public class PlayerController : LivingObject
         m_actualSpeed = Mathf.Lerp(m_actualSpeed,m_actualSpeed,Time.deltaTime*2);
     }
 
-    void ApplyMovement()
+    void ApplyMovement() //Applique les mouvements sur le Character Contrller
     {
         ApplyGravity();
         var direction = (transform.right * m_vel.x + transform.forward * m_vel.z).normalized;
         Vector3 finalVel = new Vector3(direction.x, m_vel.y, direction.z);
         m_cC.Move(finalVel * m_actualSpeed * Time.deltaTime);
-    } //Applique les mouvements sur le Character Contrller
+    } 
 
     void ApplyGravity()
     {
@@ -110,15 +112,23 @@ public class PlayerController : LivingObject
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,2,1<<6))
             {
-                Debug.Log("Toucher");
-                Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(0.05f,0.1f));
+                //FeedBack
+                m_canFeedBack = true;
             }
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward*5,Color.red);
+            GetComponentInChildren<Animator>().SetTrigger("IsAtk");
         }
     }
 
+    void AttackFeedBack()
+    {
+        if (!m_canFeedBack) return;
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(2f, 0.5f));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.07f, 0.008f));
+        m_canFeedBack = false;
+    }
 
     void Jump(float jumpForce)
     {
