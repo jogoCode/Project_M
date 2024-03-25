@@ -32,7 +32,7 @@ public class PlayerController : LivingObject
         Movement();
     }
 
-    new void Movement()
+    void Movement()
     {
        if(m_vel != Vector3.zero)
         m_vel.x = Input.GetAxisRaw("Horizontal");
