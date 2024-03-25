@@ -5,7 +5,7 @@ using UnityEngine;
 public class FPSCamera : MonoBehaviour
 {
     Vector2 m_mouseInput;
-    [SerializeField] float m_mouseSensivity;
+    [SerializeField] [Range(0.1f,100)]float m_mouseSensivity;
     [SerializeField] Transform m_player;
 
     private void Start()
@@ -25,9 +25,11 @@ public class FPSCamera : MonoBehaviour
     {
         m_mouseInput.x = Input.GetAxis("Mouse X") * m_mouseSensivity;
         m_mouseInput.y = Input.GetAxis("Mouse Y") * m_mouseSensivity;
-        var camVRotation = -m_mouseInput.y;
+        var camVRotation = m_mouseInput.y;
+        transform.localEulerAngles += Vector3.right * -camVRotation;
         camVRotation = Mathf.Clamp(camVRotation, -90, 90);
-        transform.localEulerAngles += Vector3.right * camVRotation;
         m_player.Rotate(Vector3.up * m_mouseInput.x);
     }
+
+    
 }
