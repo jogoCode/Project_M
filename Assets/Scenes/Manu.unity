@@ -253,9 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4442b64630025646868cf06f4d6fe99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 5
+  m_hp: 0
+  m_maxhp: 0
+  m_armor: 0
+  m_actualSpeed: 5
   m_gravity: -9.81
   m_jumpForce: 1
+  m_sprintSpeed: 15
+  m_actualState: 0
 --- !u!143 &417944455
 CharacterController:
   m_ObjectHideFlags: 0
@@ -679,9 +684,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462679447}
   m_LocalRotation: {x: 0.7014826, y: -0.089006715, z: -0.08900672, w: 0.70148265}
-  m_LocalPosition: {x: 0.537, y: -0.26399994, z: 0.86}
-  m_LocalScale: {x: 0.050000023, y: 0.4134262, z: 0.20000005}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.537, y: -0.26399994, z: 0.565}
+  m_LocalScale: {x: 0.03, y: 0.2480556, z: 0.119999975}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1214963605}
   m_Father: {fileID: 899644872}
@@ -891,7 +896,7 @@ Transform:
   m_GameObject: {fileID: 1990472397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
