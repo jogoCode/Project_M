@@ -7,8 +7,8 @@ public class EnemyController : LivingObject
 {
     [Header("EnemyController")]
     //MOVEMENT 
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private Transform _target;
+    [SerializeField] protected float _moveSpeed;
+    [SerializeField] protected Transform _target;
     [SerializeField] private float _rotSpeed;
 
     [SerializeField] private NavMeshAgent _agent;
@@ -18,62 +18,72 @@ public class EnemyController : LivingObject
     [SerializeField] private Transform _sphereR;
 
 
-    void Start()
+    protected virtual void Start()
     {
+
         if (_agent == null)
         {
             return;      
         }
+        
+        _target = FindObjectOfType<PlayerController>().gameObject.transform;
     }
 
     private void Update()
     {
         //LIFE
-       // Die();
-        if (m_hp <= 0)
-        {
-            Destroy(gameObject);
-        _agent.enabled = false;
-        }
+        Die();
 
         //DETECT AND MOVE
+        _agent.speed = _moveSpeed;
         MoveTowardsPlayer();
 
     }
 
-    public void MoveTowardsPlayer()
+    protected void MoveTowardsPlayer()
     {
         //DETECT PLAYER
         Collider[] player = Physics.OverlapSphere(_sphereR.position, _radiusR);
         foreach (Collider detection in player)
         {
+
             if (detection.GetComponent<PlayerController>() != null)
             {
+
         //TAKE THE DIRECTION
-                if (_target != null)
-                {
+                    if (_target != null)
+                    {
+                        //Debug.Log("shoot");                 
+                        EnemyShoot.OnShoot();
 
-                    Vector3 targetPos = _target.position;
-                    targetPos.y = transform.position.y;
+                        Vector3 targetPos = _target.position;
+                        targetPos.y = transform.position.y;
 
 
-                    Vector3 dir = (targetPos - transform.position).normalized;
+                        Vector3 dir = (targetPos - transform.position).normalized;
 
         //TURN SLOWLY
-                    Quaternion targetRot = Quaternion.LookRotation(dir);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, _rotSpeed * Time.deltaTime);
+                        Quaternion targetRot = Quaternion.LookRotation(dir);
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, _rotSpeed * Time.deltaTime);
 
-        //MOVE
-                    
-                    _agent.SetDestination(_target.position);
-                }
+        //MOVE IF AGENTNAVMESHACTIV
+                        if (_agent.enabled == true)
+                        {
+                            _agent.SetDestination(_target.position);
+                        }
+                        else
+                        {
+                            _agent.enabled = false;
+                        }
+                    }
 
             }
         }
+   
     }
 
 
-    //TAKE DAMAGE IF DEFENSE
+    //MAKE DAMAGE IF DEFENSE
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>())
@@ -84,10 +94,16 @@ public class EnemyController : LivingObject
             }
             else
             {
-            //SetHp(-1);
+            SetHp(-1);
             }
 
         }
+    }
+
+    //TAKE DAMAGE
+    public void TakeDamage()
+    {
+        SetHp(-1);
     }
 
  

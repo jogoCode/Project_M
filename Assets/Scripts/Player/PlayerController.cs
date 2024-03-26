@@ -79,6 +79,7 @@ public class PlayerController : LivingObject
             m_buffer++;
         }
         ApplyMovement();
+
     }
 
     void Movement() //Prend les inputs et les appliques à la variable m_vel

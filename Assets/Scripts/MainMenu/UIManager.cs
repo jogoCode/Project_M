@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject _pause;
+    [SerializeField] private FPSCamera _camera;
+    [SerializeField] private GameObject _endPanel;
 
     private void Start()
     {
@@ -18,13 +21,15 @@ public class UIManager : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) 
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-        PauseGame();
+            PauseGame();
         }
     }
     public void ChangeScene(int scene)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(scene);
     }
 
@@ -41,13 +46,16 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             _pause.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
         }
         else
         {
             Time.timeScale = 1f;
             _pause.SetActive(false);
-            AudioListener.volume = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPickable
+public interface ILevable
 {
-    public void Pick()
-    {
+    int GetLevel();
 
-    }
+    void AddExp(float amount);
+
 }

@@ -9,12 +9,9 @@ public class FPSCamera : MonoBehaviour
     Vector2 m_mouseInput;
     [SerializeField] [Range(0.1f,100)]float m_mouseSensivity;
     [SerializeField] Transform m_player;
-
     Camera m_camera;
     CameraShake m_cameraShake;
-
     float m_rand;
-
     private void Start()
     {
         if (!m_player)
