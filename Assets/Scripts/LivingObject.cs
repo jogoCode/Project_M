@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class LivingObject : MonoBehaviour , ILivingObject
 {
+
+    [Header("Enemy")]
     //Life
     [SerializeField] protected int m_hp;
     [SerializeField] protected int m_maxhp;
     [SerializeField] protected int m_armor;
 
+    public int GetArmor()
+    {
+        return m_armor;
 
+    }
 
     public void Attack()
     {
@@ -18,16 +24,13 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public void Die()
     {
-       
+       if (m_hp <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Hit()
-    {
-       
-    }
-
-
-    public void Movement()
     {
         
     }
@@ -36,7 +39,6 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         m_hp += hp; 
     }
-
 
 
   
