@@ -41,6 +41,7 @@ public class PlayerController : LivingObject
         }
         m_baseSpeed = m_actualSpeed;
         AnimationEvent.isActive += AttackFeedBack;
+
     }
 
     void Update()
@@ -65,9 +66,10 @@ public class PlayerController : LivingObject
                 break;
         }
         ApplyMovement();
+
     }
 
-    new void Movement() //Prend les inputs et les appliques à la variable m_vel
+    void Movement() //Prend les inputs et les appliques à la variable m_vel
     {
         if (m_vel != Vector3.zero)
             m_vel.x = Input.GetAxisRaw("Horizontal");
@@ -108,7 +110,7 @@ public class PlayerController : LivingObject
         }
     }
 
-    void Attack()
+    new void Attack()
     {
         if (Input.GetButtonDown("Fire1"))
         {

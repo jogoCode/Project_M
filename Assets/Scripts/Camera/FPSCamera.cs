@@ -55,7 +55,7 @@ public class FPSCamera : MonoBehaviour
         var camVRotation = m_mouseInput.y;
         m_mouseInput.y = Mathf.Clamp(m_mouseInput.y, -70, 70);
         transform.localEulerAngles = Vector3.right * -camVRotation;
-        Debug.Log(camVRotation);
+        //Debug.Log(camVRotation);
         m_player.Rotate(Vector3.up * m_mouseInput.x);
     }
 
