@@ -29,7 +29,12 @@ public class EnemyController : LivingObject
     private void Update()
     {
         //LIFE
-        Die();
+       // Die();
+        if (m_hp <= 0)
+        {
+            Destroy(gameObject);
+        _agent.enabled = false;
+        }
 
         //DETECT AND MOVE
         MoveTowardsPlayer();
