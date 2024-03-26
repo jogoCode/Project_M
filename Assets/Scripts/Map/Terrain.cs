@@ -34,13 +34,14 @@ public class Terrain : MonoBehaviour
         {
             for (int j = 0; j < _largeur; j++)
             {
-                //float randx = Random.Range(-10000, 10000);
-                //float randy = Random.Range(-10000, 10000);
+                float randx = Random.Range(-10000, 10000);
+                float randy = Random.Range(-10000, 10000);
                 float die = Mathf.PerlinNoise(i*0.01f, j*0.01f);
                 die *= Mathf.PerlinNoise(i * 0.02f, j * 0.02f);
                 die *= Mathf.PerlinNoise(i * 0.03f, j * 0.03f);
                 die *= Mathf.PerlinNoise(i * 0.04f, j * 0.04f);
-                _theWorld[i, j] = die *4 ;
+                die *= Mathf.PerlinNoise(i + randx, j + randy);
+                _theWorld[i, j] = die * 4 ;
             }
         }
     }
