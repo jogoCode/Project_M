@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93a7669f82c49674a83e15bee8a2ea59, type: 3}
-  m_Name: Arbre
+  m_Name: Rocher
   m_EditorClassIdentifier: 
-  _name: Arbre
-  _hpgain: 0
-  _prefabs: {fileID: 1167931486679891212, guid: 9e9695ae2eb814e46ac86aadd3ba7968,
+  _name: Rocher
+  _hpgain: -2
+  _prefabs: {fileID: 6272686219228450899, guid: dd69ca0333ec4984ebf268d70d48fa08,
     type: 3}

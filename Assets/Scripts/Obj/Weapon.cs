@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon")]
-public class Weapon : ScriptableObject, IPickable
+public class Weapon : ScriptableObject
 {
+    /* Dans le player mettre une reference au scrpt weapon et quand le player rammasse une arme update son arme en main
+     * 
+     */
+
+
     public enum ADDITIONALEFFECTS
     {
         NONE,
@@ -16,13 +22,12 @@ public class Weapon : ScriptableObject, IPickable
         SLEEP,
         STUN
     }
-
+    
     public enum TypeOfItem
     {
         MELEE,
         RANGE
     }
-
     public string _name;
     [SerializeField] int _damage;
     [SerializeField] int _atkSpeed;
@@ -31,6 +36,7 @@ public class Weapon : ScriptableObject, IPickable
     [SerializeField] ADDITIONALEFFECTS _effect;
     [SerializeField] float _knockBack;
     [SerializeField] TypeOfItem _weaponType;
+    [SerializeField] GameObject _prefabs;
 
 
     public string Name
@@ -67,10 +73,63 @@ public class Weapon : ScriptableObject, IPickable
     { 
         get { return _weaponType; }
     }
-
-    public void Pick()
+    public GameObject Prefabs
     {
-        Debug.Log("j'ai attraper une " + _name);
-        
+        get { return _prefabs; }
     }
+
+    public void RangeOfWeapon()
+    {
+        if (_weaponType == TypeOfItem.MELEE)
+        {
+            _range = 1;
+        }else
+        {
+
+        }
+    }
+
+    public void SpecialEffect()
+    {
+        if(_effect == ADDITIONALEFFECTS.POISON)
+        {
+            /* la target perd des hp toute les secondes
+             * target.DecreaseHP(target.MaxHp/8);
+             */
+        }
+
+        if (_effect == ADDITIONALEFFECTS.FREEZE)
+        {
+            /* la target est dans un bloc de glace et la prochaine atk fais obligatoirement des dégats perçants
+             * 
+             */
+        }
+        if (_effect == ADDITIONALEFFECTS.PARALYSE)
+        {
+            /* la target est plus lent 
+             * 
+             */
+        }
+        if (_effect == ADDITIONALEFFECTS.BURN)
+        {
+            /* la target est perd des dégats d'atk si il a une arme de mélée 
+             * 
+             */
+        }
+        if (_effect == ADDITIONALEFFECTS.SLEEP)
+        {
+            /* la target dort (elle fait rien jusqu'a quelle soit attaqué ou se reveil après un certain temps)
+             * 
+             */
+        }
+        if (_effect == ADDITIONALEFFECTS.STUN)
+        {
+            /* la target est au sol et joueur peut lui fait un coup critique a sa prochaine atk
+             * 
+             */
+        }
+
+
+    }
+        
 }

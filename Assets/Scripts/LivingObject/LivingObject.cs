@@ -14,8 +14,16 @@ public class LivingObject : MonoBehaviour , ILivingObject
     public int GetArmor()
     {
         return m_armor;
-
     }
+    public int GetMaxhp() 
+    {
+        return m_maxhp;    
+    }
+    public int GetHp()
+    {
+        return m_hp;
+    }
+
 
     public void Attack()
     {
