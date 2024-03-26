@@ -32,14 +32,13 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public void Hit()
     {
-       
+        
     }
 
     public void SetHp(int hp)
     {
         m_hp += hp; 
     }
-
 
 
   
