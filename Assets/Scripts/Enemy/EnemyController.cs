@@ -84,12 +84,13 @@ public class EnemyController : LivingObject
             }
             else
             {
-            SetHp(-1);
+            //SetHp(-1);
             }
 
         }
     }
 
+ 
     //DETECTION RADIUS
     private void OnDrawGizmos()
     {

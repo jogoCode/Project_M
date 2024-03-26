@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dba3d3343af21db4a80c499d589bb0e2, type: 3}
-  m_Name: ShotGun
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  _name: ShotGun
-  _damage: 20
-  _atkSpeed: 3
+  _name: Sword
+  _damage: 5
+  _atkSpeed: 2
   _armorBreak: 60
-  _range: 5
+  _range: 2.5
   _effect: 0
   _knockBack: 0
-  _weaponType: 1
+  _weaponType: 0
