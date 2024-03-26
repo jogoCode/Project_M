@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a7669f82c49674a83e15bee8a2ea59, type: 3}
+  m_Name: Pomme
+  m_EditorClassIdentifier: 
+  _name: Pomme
+  _hpgain: 2
+  _damage: 0
+  _prefabs: {fileID: 8920665612067094372, guid: c5ccfe66a45dfba4f9edf3c8e2317318,
+    type: 3}
