@@ -68,11 +68,56 @@ MonoBehaviour:
   m_hp: 0
   m_maxhp: 0
   m_armor: 0
-  m_actualSpeed: 0
+  m_actualSpeed: 5
   m_gravity: -9.81
   m_jumpForce: 1
-  m_sprintSpeed: 0
+  m_sprintSpeed: 10
   m_actualState: 0
+--- !u!1 &2651570989858000395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2846610807984429612}
+  - component: {fileID: 4382436353849574204}
+  m_Layer: 0
+  m_Name: HitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2846610807984429612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651570989858000395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2294384956608060474}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4382436353849574204
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651570989858000395}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.91773635}
+  m_Center: {x: 0, y: 0, z: 1.0365912}
 --- !u!1 &3102226959357091198
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +329,6 @@ GameObject:
   - component: {fileID: 7157780871664368627}
   - component: {fileID: 7334270537750760494}
   - component: {fileID: 5078922922587054626}
-  - component: {fileID: 219461820566916399}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -358,19 +402,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &219461820566916399
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915331809568111598}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6986280042619279066
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +437,7 @@ Transform:
   m_Children:
   - {fileID: 7993962327262280522}
   - {fileID: 8463117144668721194}
+  - {fileID: 2846610807984429612}
   m_Father: {fileID: 191339032423778621}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -532,7 +564,6 @@ GameObject:
   - component: {fileID: 761010694375529722}
   - component: {fileID: 6740233840899857363}
   - component: {fileID: 8801884635295244739}
-  - component: {fileID: 958486639557054844}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -605,19 +636,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &958486639557054844
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7633353271026946998}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7832474593363223571
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,7 +647,6 @@ GameObject:
   - component: {fileID: 8463117144668721194}
   - component: {fileID: 7233935675101148616}
   - component: {fileID: 1095046622341668053}
-  - component: {fileID: 3268336354636137807}
   - component: {fileID: 4333449030468267914}
   - component: {fileID: 8596033065447121500}
   m_Layer: 0
@@ -705,19 +722,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3268336354636137807
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7832474593363223571}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &4333449030468267914
 Animator:
   serializedVersion: 4

@@ -15,7 +15,7 @@ public class PlayerController : LivingObject
     [SerializeField] protected float m_sprintSpeed;
 
     float m_baseSpeed;
-
+    BoxCollider m_hitBox;
     [SerializeField] States m_actualState = States.IDLE;
  
     enum States
@@ -40,7 +40,8 @@ public class PlayerController : LivingObject
             m_cC = GetComponent<CharacterController>();
         }
         m_baseSpeed = m_actualSpeed;
-        AnimationEvent.isActive += AttackFeedBack;
+        AnimationEvent.isActive += ActiveHitBox;
+        m_hitBox = GetComponentInChildren<BoxCollider>();
     }
 
     void Update()
@@ -120,6 +121,11 @@ public class PlayerController : LivingObject
             }
             GetComponentInChildren<Animator>().SetTrigger("IsAtk");
         }
+    }
+
+    void ActiveHitBox()
+    {
+        m_hitBox.enabled = true;
     }
 
     void AttackFeedBack()
