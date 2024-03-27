@@ -18,8 +18,21 @@ public class EnemyShoot : EnemyController
     protected override void Start()
     {
         base.Start();
-        OnShoot += Shoot;
+        //OnShoot += Shoot;
     }
+
+    protected override void MoveTowardsPlayer()
+    {
+
+        if (_isShooting == true)
+        {
+            //Debug.Log("shoot");                 
+            //EnemyShoot.OnShoot();
+            Shoot();
+        }
+        base.MoveTowardsPlayer();
+    }
+
     void Shoot()
     {
 

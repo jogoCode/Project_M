@@ -19,4 +19,12 @@ public class Bullet : MonoBehaviour
         transform.Translate(transform.forward * _bulletSpeed * Time.deltaTime, Space.World);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<PlayerController>() != null) 
+        {
+            other.gameObject.GetComponent<PlayerController>().SetHp(-1);
+        }
+    }
+
 }
