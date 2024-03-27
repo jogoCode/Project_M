@@ -19,6 +19,7 @@ public class PlayerController : LivingObject
     BoxCollider m_hitBox;
     [SerializeField] States m_actualState = States.IDLE;
 
+    public Levelable m_LevelSystem;
     int m_buffer = 0;
 
     enum States
@@ -40,10 +41,14 @@ public class PlayerController : LivingObject
     void Start()
     {
         base.Start();
-        if (!m_cC)
-        {
+        if (!m_cC){
             m_cC = GetComponent<CharacterController>();
         }
+        if (!m_LevelSystem)
+        {
+            m_LevelSystem = GetComponent<Levelable>();
+        }
+
         m_baseSpeed = m_actualSpeed;
         m_hitBox = GetComponentInChildren<BoxCollider>();
         AnimationEvent.isActive += ActivateHitbox;
@@ -124,7 +129,8 @@ public class PlayerController : LivingObject
         }
     }
 
-    new void Attack() //TODO ENLEVER LES GETCOMPONENT ET FAIRE UNE FONCTION POUR CHANGER LE WEAPON 
+    //TODO ENLEVER LES GETCOMPONENT ET FAIRE UNE FONCTION POUR CHANGER LE WEAPON 
+    new void Attack() 
     {
 
         if (Input.GetButtonDown("Fire1"))

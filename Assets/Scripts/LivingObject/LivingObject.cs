@@ -16,11 +16,11 @@ public class LivingObject : MonoBehaviour , ILivingObject
     [SerializeField] protected ParticleSystem m_hitFx;
     [SerializeField] protected Weapon m_weapon;
 
-    public static Action IsHit;
+    public static Action<float,float> IsDying;
 
     public void Start()
     {
-        IsHit?.Invoke();
+        IsDying?.Invoke(0,0);
     }
 
     public int GetArmor()
@@ -42,35 +42,41 @@ public class LivingObject : MonoBehaviour , ILivingObject
        
     }
 
-    public void Die()
+    public void Die(LivingObject killer)
     {
-       if (m_hp <= 0)
+        if (killer.GetComponent<PlayerController>()) // TODO <-- A mettre dans la Class Enemy
         {
-            Destroy(gameObject);
+            var player = killer.GetComponent<PlayerController>();
+            player.m_LevelSystem.AddExp(5);
+            //IsDying(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
         }
+       if (m_hp <= 0)
+       {
+        Destroy(gameObject);
+       }
     }
 
     public void Hit()
     {
-        IsHit();
+      
     }
 
     public void SetHp(int hp)
     {
         m_hp += hp;
-        if (m_hp <= 0)
-        {
-            Die();
-        } 
     }
 
 
     virtual protected void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.layer == this.gameObject.layer) return; // Verifie le layer des deux entité
 
         SetHp(-other.GetComponentInParent<LivingObject>().m_weapon.Damage); // Change les HP en fonction des dégats de l'arme
-
+        if (m_hp <= 0)
+        {
+            Die(other.GetComponentInParent<PlayerController>());
+        }
         if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
         // CAMERA SHAKE ET FREEZE
         // TODO A METTRE DANS LE SCRIPTS ENEMY

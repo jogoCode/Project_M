@@ -32,7 +32,6 @@ public class EnemyController : LivingObject
     private void Update()
     {
         //LIFE
-        Die();
 
         //DETECT AND MOVE
         _agent.speed = _moveSpeed;

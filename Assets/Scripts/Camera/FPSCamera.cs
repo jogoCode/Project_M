@@ -39,5 +39,6 @@ public class FPSCamera : MonoBehaviour
         m_player.Rotate(Vector3.up * m_mouseInput.x);
     }
 
+    //TODO AJOUTER UN FOV
 
 }
