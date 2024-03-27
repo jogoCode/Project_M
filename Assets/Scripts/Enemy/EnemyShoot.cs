@@ -15,10 +15,6 @@ public class EnemyShoot : EnemyController
 
     public static Action OnShoot;
 
-    /*
-     * Enemy shoots 5 bullets
-     * Stop moving and shooting (3s)
-     */
     protected override void Start()
     {
         base.Start();

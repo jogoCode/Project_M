@@ -13,6 +13,7 @@ public class EnemyController : LivingObject
 
     [SerializeField] private NavMeshAgent _agent;
 
+
     //DETECT
     [SerializeField] private int _radiusR;
     [SerializeField] private Transform _sphereR;
@@ -31,6 +32,7 @@ public class EnemyController : LivingObject
 
     private void Update()
     {
+
         //LIFE
         Die();
 
@@ -40,6 +42,7 @@ public class EnemyController : LivingObject
 
     }
 
+    
     protected void MoveTowardsPlayer()
     {
         //DETECT PLAYER
