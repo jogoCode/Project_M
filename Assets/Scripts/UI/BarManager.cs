@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BarManager : MonoBehaviour
 {
-    [Header("Bar")]
+    [Header("TemplateBar")]
 
     [SerializeField] protected Slider _Slider = null;
     [SerializeField] protected Text _TextSlider = null;
@@ -16,12 +16,7 @@ public class BarManager : MonoBehaviour
 
     protected Camera _camera = null;
 
-
     [SerializeField] protected bool _isCamActivated;
-
-
-
-
     void Awake()
     {
         _camera = Camera.main;
@@ -36,15 +31,11 @@ public class BarManager : MonoBehaviour
         LivingObject.IsDying += UpdatesValues;
     }
 
-
-
-    protected void UpdatesValues(float newValue, float newMaxValue)
+    protected virtual void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
     {
         _Slider.value = newValue;
         _Slider.maxValue = newMaxValue;
     }
-
-
 }
 
 

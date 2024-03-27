@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Sword
   _damage: 5
-  _atkSpeed: 2
+  _atkSpeed: 4
   _armorBreak: 60
   _range: 2.5
   _effect: 0
   _knockBack: 0
   _weaponType: 0
+  _prefabs: {fileID: 3892098210841269773, guid: 84f318648c8a4dd4f81bfd516f37c745,
+    type: 3}

@@ -14,13 +14,21 @@ public class LivingObject : MonoBehaviour , ILivingObject
     [SerializeField] protected int m_armor;
 
     [SerializeField] protected ParticleSystem m_hitFx;
-    [SerializeField] protected Weapon m_weapon;
+    [SerializeField] protected WeaponManager m_weapon;
 
     public static Action<float,float> IsDying;
 
     public void Start()
     {
         IsDying?.Invoke(0,0);
+        if (!m_weapon)
+        {
+            m_weapon = GetComponent<WeaponManager>();
+            if (!m_weapon)
+            {
+                Debug.LogError("Il manque le script WeaponManager sur "+this.gameObject.name );
+            }
+        }
     }
 
     public int GetArmor()
@@ -48,11 +56,11 @@ public class LivingObject : MonoBehaviour , ILivingObject
         {
             var player = killer.GetComponent<PlayerController>();
             player.m_LevelSystem.AddExp(5);
-            //IsDying(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
+            IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
         }
        if (m_hp <= 0)
        {
-        Destroy(gameObject);
+            Destroy(gameObject);
        }
     }
 
@@ -72,7 +80,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
         if (other.gameObject.layer == this.gameObject.layer) return; // Verifie le layer des deux entité
 
-        SetHp(-other.GetComponentInParent<LivingObject>().m_weapon.Damage); // Change les HP en fonction des dégats de l'arme
+        SetHp((int)-other.GetComponentInParent<LivingObject>().m_weapon.GetDamage()); // Change les HP en fonction des dégats de l'arme
         if (m_hp <= 0)
         {
             Die(other.GetComponentInParent<PlayerController>());
@@ -80,12 +88,10 @@ public class LivingObject : MonoBehaviour , ILivingObject
         if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
         // CAMERA SHAKE ET FREEZE
         // TODO A METTRE DANS LE SCRIPTS ENEMY
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(4f, 0.5f,true,false));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.05f, 0.008f));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f,true,false));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f));
 
         // PARTICLE
-        Instantiate(m_hitFx, transform.position, quaternion.identity);
-        
-       
+        Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);    
     }
 }

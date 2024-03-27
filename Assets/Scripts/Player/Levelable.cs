@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Levelable : MonoBehaviour, ILevelable
 {
+    [Header("Levelable")]
     int m_lvl = 1;
     float m_exp = 0;
     float m_maxExp;
-    float m_expToAdd;
 
 
     private void Start()
@@ -15,7 +16,7 @@ public class Levelable : MonoBehaviour, ILevelable
         SetMaxExp();
     }
 
-    public void AddExp(float amount)
+    public void AddExp(float amount)  //Ajoute de l'exp
     {
         if (CanLvlUp(amount))
         {
@@ -28,7 +29,7 @@ public class Levelable : MonoBehaviour, ILevelable
         }
     }
 
-    public bool CanLvlUp(float amount)
+    public bool CanLvlUp(float amount) // verifie si on peut level up 
     {
         if (m_exp + amount > m_maxExp)
         {
@@ -40,39 +41,39 @@ public class Levelable : MonoBehaviour, ILevelable
         }
     }
 
-    public void SetMaxExp()
+    public void SetMaxExp() // Modifie la valeur d'exp maximale
     {
         m_maxExp = GetExpForLvl(m_lvl);
     }
 
-    public void AddLvl()
+    public void AddLvl() // Level Up
     {
         Debug.Log("LEVEL UP");
         m_lvl++;
         SetMaxExp();
     }
 
-    //----------------------------------- Get
+    //----------------------------------- GET-----------//
 
     public int GetLevel()
     {
         return m_lvl;
-    }
+    } // Recupère le Lvl
 
-    public float GetExpForLvl(int lvl)
+    public float GetExpForLvl(int lvl) //Recupère la valeur d'exp maximal pour un lvl
     {
-        return (5 * (lvl * lvl * lvl)) / 4;
+        return (5 * (lvl * lvl * lvl)) / 2;
         //return (6 / 5) * (lvl * lvl * lvl) - 15 * (lvl * lvl) + 100 * lvl - 140;
         //return lvl * lvl * lvl;
         //return 4 * (lvl * lvl * lvl) / 5; rapide
     }
 
-    public float GetExp()
+    public float GetExp() // Recupère la valeur d'exp
     {
         return m_exp;
-    }
+    } 
 
-    public float GetMaxExp()
+    public float GetMaxExp() // Recupère la valeur d'exp maximale
     {
         return m_maxExp;
     }

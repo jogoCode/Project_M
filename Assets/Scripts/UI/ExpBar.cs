@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ExpBar : BarManager
 {
+    [Header("ExpBar")]
     [SerializeField] Levelable _parentExpSys;
 
     private void Start()
@@ -13,15 +14,12 @@ public class ExpBar : BarManager
         {
             Debug.LogError("Il manque une reference ",this.gameObject);
         }
+        
     }
-
-    void Update()
+    protected override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider value et maxValue et aussi le text
     {
-        _valueHolder = _parentExpSys.GetExp();
-        _maxValueHolder = _parentExpSys.GetMaxExp();
+        base.UpdatesValues(newValue, newMaxValue);
         _TextSlider.text = _parentExpSys.GetLevel().ToString();
-        UpdatesValues(_valueHolder,_maxValueHolder);
-
     }
 
 

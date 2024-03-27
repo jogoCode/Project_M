@@ -70,7 +70,7 @@ public class PlayerController : LivingObject
                 break;
             case States.ATTACK:
                 Movement();
-                GetComponentInChildren<Animator>().speed = m_weapon.AtkSpeed / 2;
+                GetComponentInChildren<Animator>().speed = m_weapon.GetAtkSpeed()/4;
                 break;
             case States.HIT:
                 break;
@@ -84,7 +84,6 @@ public class PlayerController : LivingObject
             m_buffer++;
         }
         ApplyMovement();
-
     }
 
     void Movement() //Prend les inputs et les appliques à la variable m_vel
@@ -108,12 +107,12 @@ public class PlayerController : LivingObject
         m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime * 2);
     }
 
-    void ApplyMovement() //Applique les mouvements sur le Character Contrller
+    void ApplyMovement() //Applique les mouvements sur le Character Controller
     {
         ApplyGravity();
         var direction = (transform.right * m_vel.x + transform.forward * m_vel.z).normalized;
-        Vector3 finalVel = new Vector3(direction.x, m_vel.y, direction.z);
-        m_cC.Move(finalVel * m_actualSpeed * Time.deltaTime);
+        Vector3 finalVel = new Vector3(direction.x * m_actualSpeed, m_vel.y, direction.z * m_actualSpeed);
+        m_cC.Move(finalVel* Time.deltaTime);
     }
 
     void ApplyGravity()
@@ -121,7 +120,7 @@ public class PlayerController : LivingObject
         if (!m_cC.isGrounded)
         {
             m_vel.y += m_gravity * Time.deltaTime * m_ySpeed;
-            m_ySpeed += 1 * Time.deltaTime;
+            m_ySpeed += 4 * Time.deltaTime;
         }
         else
         {
@@ -137,7 +136,7 @@ public class PlayerController : LivingObject
         {
             m_buffer = Mathf.Clamp(m_buffer, 0, 3);
             m_actualState = States.ATTACK;
-            m_hitBox.size = new Vector3(1, 1, m_weapon.Range);
+            m_hitBox.size = new Vector3(1, 1, m_weapon.GetRange());
             GetComponentInChildren<Animator>().SetTrigger("IsAtk");
         }
         if (m_buffer > 1)
@@ -151,6 +150,7 @@ public class PlayerController : LivingObject
         if (m_hitBox)
         {
             m_hitBox.enabled = true;
+            //Debug.Log("oij");
         }
     }
 
@@ -188,7 +188,7 @@ public class PlayerController : LivingObject
         if (other.gameObject.layer == this.gameObject.layer) return;
         //FEEdBACK
         Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Shake(4f, 0.5f, true, true));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Freeze(0.08f, 0.008f));
         //PARTICLE
         Instantiate(m_hitFx, transform.position, Quaternion.identity);
     }

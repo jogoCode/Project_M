@@ -9,14 +9,17 @@ public class  CameraShake : MonoBehaviour
     [SerializeField][Range(0.0f, 900f)] float _spring;
     [SerializeField][Range(0.0f, 900f)] float _damp;
     static public CameraShake cameraShake;
+
+    Vector3 ogPos ;
     private void Start()
     {
         cameraShake = GetComponent<CameraShake>();
+        ogPos = transform.localPosition;
     }
 
     public IEnumerator Shake(float force , float time,bool x, bool y)
     {
-        Vector3 ogPos = transform.localPosition;
+        
         float elapsed = 0;
         _vel = force;
         while (elapsed < time)
