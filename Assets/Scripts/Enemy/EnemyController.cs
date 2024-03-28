@@ -16,8 +16,8 @@ public class EnemyController : LivingObject
     [SerializeField] private NavMeshAgent _agent;
 
     //DETECT
-    [SerializeField] private int _radius;
-    [SerializeField] private Transform _sphere;
+    [SerializeField] protected int _radius;
+    [SerializeField] protected Transform _sphere;
 
     //RANDOM MOVE
     [SerializeField] private Transform _fakeTarget;
@@ -27,18 +27,16 @@ public class EnemyController : LivingObject
     //SHOOT
     [SerializeField] protected bool _isShooting;
 
-    [SerializeField] private Transform _boxDetect;
-    [SerializeField] private Vector3 _radBox;
+    [SerializeField] private float _recoil;
+    [SerializeField] private Rigidbody _rb;
 
-    [SerializeField] private GameObject _enemies;
-    [SerializeField] private bool _canSpawn;
-
-
+ 
     protected override void Start()
     {
         base.Start();
 
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
+        _rb = GetComponent<Rigidbody>();
 
         //RANDOM MOVE
         Move();
@@ -48,11 +46,9 @@ public class EnemyController : LivingObject
             _agent = GetComponent<NavMeshAgent>();      
         }
 
-
-
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         //LIFE
         Die();
@@ -61,54 +57,19 @@ public class EnemyController : LivingObject
         _agent.speed = _moveSpeed;
         MoveTowardsPlayer();
 
-        //SHOOT
-        if (_boxDetect != null)
-        {
-        Distance();
-        }
-        else
-        {
-        return; 
-        }
-
-        if (_canSpawn == true)
-        {
-            if (m_hp <= m_maxhp / 4)
-            {
-                CallEnemies();
-                _canSpawn = false;
-            }
-        }
-
+       
     }
-
-
-    void CallEnemies()
+    public void Recoil()
     {
-        for (int i = 0; i < 2; i++)
+        StartCoroutine(recoilTime());
+        IEnumerator recoilTime()
         {
-            
-        if (_enemies != null)
-        {
-                Instantiate(_enemies, transform.position, transform.rotation);
-  
-        }         
-        }
-
-    }
-    //SHOOT AT LONG DISTANCE
-    void Distance()
-    {
-        Collider[] player = Physics.OverlapBox(_boxDetect.position, _radBox/2);
-        foreach (Collider detection in player)
-        {
-            if (detection.GetComponent<PlayerController>() != null)
-            {
-                _isShooting = true;
-
-            }
+            _rb.AddForce(-transform.forward * (m_weapon.KnockBack), ForceMode.Impulse);
+            yield return new WaitForSeconds(1f);
+            _rb.velocity = Vector3.zero;
         }
     }
+    
 
     //MOVE RANDOM
     private void Move()
@@ -123,7 +84,10 @@ public class EnemyController : LivingObject
        return; 
        }
 
+        if(_agent != null)
+        {
        StartCoroutine(randomTarget());
+        }
 
     } 
    Vector3 SetRandomPosition()
@@ -139,10 +103,13 @@ public class EnemyController : LivingObject
    {
    while (true)
    {
-   SetRandomPosition();
-   _fakeTarget.position = SetRandomPosition();
-   _agent.SetDestination(_fakeTarget.position);
-   yield return new WaitForSeconds(_delayChangePos);
+                SetRandomPosition();
+                _fakeTarget.position = SetRandomPosition();
+            if (_agent != null)
+            {
+                _agent.SetDestination(_fakeTarget.position);
+            }
+                yield return new WaitForSeconds(_delayChangePos);
    }
  
    }
@@ -155,12 +122,11 @@ public class EnemyController : LivingObject
         {
             if (detection.GetComponent<PlayerController>() != null)
             {
-                    //TAKE THE DIRECTION
+                if (_agent != null)
+                {
+        //TAKE THE DIRECTION
                     if (_target != null)
                     {
-
-                        //Debug.Log("shoot");                 
-                        //EnemyShoot.OnShoot();
                         _isShooting = true;
 
                         Vector3 targetPos = _target.position;
@@ -169,13 +135,14 @@ public class EnemyController : LivingObject
 
                         Vector3 dir = (targetPos - transform.position).normalized;
 
-                        //TURN SLOWLY
+        //TURN SLOWLY
                         Quaternion targetRot = Quaternion.LookRotation(dir);
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, _rotSpeed * Time.deltaTime);
 
-                        PlayerDetected();
-                         
+                        PlayerDetected();                    
+
                     }
+                }
             }
         }
     }
@@ -186,6 +153,7 @@ public class EnemyController : LivingObject
         //MOVE IF AGENTNAVMESHACTIV
         if (_agent.enabled == true)
         {
+            //_agent.SetDestination(-_target.position); EVITER LE PLAYER
             _agent.SetDestination(_target.position);
         }
         else
@@ -195,18 +163,30 @@ public class EnemyController : LivingObject
 
     }
     //MAKE DAMAGE IF DEFENSE
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.GetComponent<PlayerController>())
+            base.OnTriggerEnter(other);
+
+            Hit();
+            Debug.Log("ok");
+    }
+
+    IEnumerator Hitwait()
+    {
+        if(_agent != null)
         {
-
-            if (m_armor >= collision.gameObject.GetComponent<PlayerController>().GetArmor())
-            {
-            collision.gameObject.GetComponent<PlayerController>().SetHp(-5);
-                _canSpawn = true;
-            }
-
+        _agent.enabled = false;
+        yield return new WaitForSeconds(0.75f);
+        _agent.enabled = true;
         }
+    }
+
+    //TAKE DAMAGE
+    new public void Hit()
+    {
+        StartCoroutine(Hitwait());
+        Recoil();
+        Debug.Log("IsHit");
     }
 
     //PLAYER LEAVES THE SPHERE
@@ -215,28 +195,12 @@ public class EnemyController : LivingObject
         _isShooting = false;
     }
 
-    //TAKE DAMAGE
-    public void TakeDamage()
-    {
-        SetHp(-1);
-    }
 
- 
     //DETECTION RADIUS
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_sphere.position, _radius);
-
-        if (_boxDetect == null)
-        { 
-            return;
-        }
-        else
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(_boxDetect.position, _radBox);
-        }
     }
     
 }

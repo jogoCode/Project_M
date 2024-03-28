@@ -69,8 +69,18 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         if (other.gameObject.layer == this.gameObject.layer) return; // Verifie le layer des deux entité
 
-        SetHp(-other.GetComponentInParent<LivingObject>().m_weapon.Damage); // Change les HP en fonction des dégats de l'arme
-
+        
+        if (m_armor >= other.GetComponentInParent<LivingObject>().GetArmor())
+        {
+            SetHp(-other.GetComponentInParent<LivingObject>().m_weapon.Damage/4);
+            Debug.Log("Perd moins de dégât");
+        }
+        else
+        {
+            SetHp(-other.GetComponentInParent<LivingObject>().m_weapon.Damage); // Change les HP en fonction des dégats de l'arme
+            Debug.Log("Perd plus de dégât");
+        }
+     
         if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
         // CAMERA SHAKE ET FREEZE
         // TODO A METTRE DANS LE SCRIPTS ENEMY
@@ -79,7 +89,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
         // PARTICLE
         Instantiate(m_hitFx, transform.position, quaternion.identity);
-        
-       
+         
+
     }
 }
