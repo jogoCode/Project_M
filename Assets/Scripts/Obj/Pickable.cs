@@ -9,16 +9,15 @@ using UnityEngine;
 public abstract class Pickable : MonoBehaviour, IPickable
 {
     //protected float m_poids;
-    public void Pick()
-    {
-        
-    }
-    public static Action OnPickedUp;
+    public abstract void Pick();
+   
+ 
+    public static Action<Weapon> OnPickedUp;
 
 
     void Start()
     {
-        OnPickedUp?.Invoke();
+        OnPickedUp?.Invoke(null);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -26,8 +25,9 @@ public abstract class Pickable : MonoBehaviour, IPickable
         if (other.GetComponent<PlayerController>())
         {
             Debug.Log("j'ai attrapé quelque chose");
-            Destroy(gameObject);
             // ajouter l'item dans la main du joueur (inventaire)
+            Pick();
+            Destroy(gameObject);
         }
     }
 }

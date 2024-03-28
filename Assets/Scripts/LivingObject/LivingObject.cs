@@ -72,26 +72,32 @@ public class LivingObject : MonoBehaviour , ILivingObject
     public void SetHp(int hp)
     {
         m_hp += hp;
+        m_hp = Mathf.Clamp(m_hp,0,m_maxhp);
     }
 
 
     virtual protected void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.layer == this.gameObject.layer) return; // Verifie le layer des deux entité
-
-        SetHp((int)-other.GetComponentInParent<LivingObject>().m_weapon.GetDamage()); // Change les HP en fonction des dégats de l'arme
-        if (m_hp <= 0)
+        if (other.GetComponentInParent<LivingObject>())
         {
-            Die(other.GetComponentInParent<PlayerController>());
-        }
-        if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
-        // CAMERA SHAKE ET FREEZE
-        // TODO A METTRE DANS LE SCRIPTS ENEMY
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f,true,false));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f));
+            if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
+            int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
+            Debug.Log(other.GetComponentInParent<LivingObject>().name);
+            SetHp(damage); // Change les HP en fonction des dégats de l'arme
 
-        // PARTICLE
-        Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);    
+            // TODO A METTRE DANS LE SCRIPTS ENEMY  V
+            if (m_hp <= 0)
+            {
+                Die(other.GetComponentInParent<PlayerController>());
+            }
+            if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
+                                                           // CAMERA SHAKE ET FREEZE
+
+            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
+            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
+
+            // PARTICLE
+            Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);
+        }
     }
 }

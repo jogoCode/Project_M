@@ -9,9 +9,14 @@ public class FPSCamera : MonoBehaviour
     Vector2 m_mouseInput;
     [SerializeField] [Range(0.1f,100)]float m_mouseSensivity;
     [SerializeField] Transform m_player;
+
     Camera m_camera;
     CameraShake m_cameraShake;
-    float m_rand;
+    
+   
+    float m_Fov;
+
+
     private void Start()
     {
         if (!m_player)
@@ -22,6 +27,9 @@ public class FPSCamera : MonoBehaviour
         m_cameraShake = GetComponent<CameraShake>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        m_Fov = m_camera.fieldOfView;
+        PlayerController.IsSprinting += ChangeFov;
     }
 
     void Update()
@@ -39,6 +47,16 @@ public class FPSCamera : MonoBehaviour
         m_player.Rotate(Vector3.up * m_mouseInput.x);
     }
 
-    //TODO AJOUTER UN FOV
+    void ChangeFov(float newFov)
+    {
+        if (!this) return;
+        m_camera.fieldOfView = Mathf.Lerp(m_camera.fieldOfView,newFov,5*Time.deltaTime);
+    }
+
+    //---------GET-------------------------
+    public float GetFOV()
+    {
+        return m_Fov;
+    }
 
 }

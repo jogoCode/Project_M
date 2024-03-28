@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Stick
   _damage: 1
-  _atkSpeed: 6
+  _atkSpeed: 7
   _armorBreak: 0
-  _range: 2
+  _range: 1
   _effect: 0
   _knockBack: 0
   _weaponType: 0
-  _prefabs: {fileID: 5694215518520548521, guid: 6e7909cea436696419e3b0fb3254c58c,
-    type: 3}
+  _prefabs: {fileID: 919132149155446097, guid: cee7b14606afa7a41beea69da18ffa90, type: 3}
