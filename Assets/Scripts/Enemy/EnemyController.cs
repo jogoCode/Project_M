@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class EnemyController : LivingObject
 {
@@ -14,22 +16,39 @@ public class EnemyController : LivingObject
     [SerializeField] private NavMeshAgent _agent;
 
     //DETECT
-    [SerializeField] private int _radiusR;
-    [SerializeField] private Transform _sphereR;
+    [SerializeField] protected int _radius;
+    [SerializeField] protected Transform _sphere;
 
+    //RANDOM MOVE
+    [SerializeField] private Transform _fakeTarget;
+    [SerializeField] private float _rangeDistance;
+    [SerializeField] private float _delayChangePos;
 
-    protected virtual void Start()
+    //SHOOT
+    [SerializeField] protected bool _isShooting;
+
+    [SerializeField] private float _recoil;
+    [SerializeField] private Rigidbody _rb;
+
+ 
+    protected override void Start()
     {
+        base.Start();
+
+        _target = FindObjectOfType<PlayerController>().gameObject.transform;
+        _rb = GetComponent<Rigidbody>();
+
+        //RANDOM MOVE
+        Move();
 
         if (_agent == null)
         {
-            return;      
+            _agent = GetComponent<NavMeshAgent>();      
         }
-        
-        _target = FindObjectOfType<PlayerController>().gameObject.transform;
+
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         //LIFE
         Die();
@@ -38,23 +57,77 @@ public class EnemyController : LivingObject
         _agent.speed = _moveSpeed;
         MoveTowardsPlayer();
 
+       
     }
+    public void Recoil()
+    {
+        StartCoroutine(recoilTime());
+        IEnumerator recoilTime()
+        {
+            _rb.AddForce(-transform.forward * (m_weapon.KnockBack), ForceMode.Impulse);
+            yield return new WaitForSeconds(1f);
+            _rb.velocity = Vector3.zero;
+        }
+    }
+    
 
-    protected void MoveTowardsPlayer()
+    //MOVE RANDOM
+    private void Move()
+    {
+        if (_fakeTarget != null)
+        {
+        _agent.SetDestination(_fakeTarget.position);
+
+        }
+       else
+       { 
+       return; 
+       }
+
+        if(_agent != null)
+        {
+       StartCoroutine(randomTarget());
+        }
+
+    } 
+   Vector3 SetRandomPosition()
+   {
+   float randomPosX = Random.Range(-_rangeDistance, _rangeDistance);
+   float randomPosZ = Random.Range(-_rangeDistance, _rangeDistance);
+
+   Vector3 randomPosition = new Vector3(randomPosX+ transform.position.x, transform.position.y, randomPosZ+ transform.position.z);
+
+   return randomPosition;
+   }
+   IEnumerator randomTarget()
+   {
+   while (true)
+   {
+                SetRandomPosition();
+                _fakeTarget.position = SetRandomPosition();
+            if (_agent != null)
+            {
+                _agent.SetDestination(_fakeTarget.position);
+            }
+                yield return new WaitForSeconds(_delayChangePos);
+   }
+ 
+   }
+
+    protected virtual void MoveTowardsPlayer()
     {
         //DETECT PLAYER
-        Collider[] player = Physics.OverlapSphere(_sphereR.position, _radiusR);
+        Collider[] player = Physics.OverlapSphere(_sphere.position, _radius);
         foreach (Collider detection in player)
         {
-
             if (detection.GetComponent<PlayerController>() != null)
             {
-
+                if (_agent != null)
+                {
         //TAKE THE DIRECTION
                     if (_target != null)
                     {
-                        //Debug.Log("shoot");                 
-                        EnemyShoot.OnShoot();
+                        _isShooting = true;
 
                         Vector3 targetPos = _target.position;
                         targetPos.y = transform.position.y;
@@ -66,52 +139,68 @@ public class EnemyController : LivingObject
                         Quaternion targetRot = Quaternion.LookRotation(dir);
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, _rotSpeed * Time.deltaTime);
 
-        //MOVE IF AGENTNAVMESHACTIV
-                        if (_agent.enabled == true)
-                        {
-                            _agent.SetDestination(_target.position);
-                        }
-                        else
-                        {
-                            _agent.enabled = false;
-                        }
-                    }
+                        PlayerDetected();                    
 
+                    }
+                }
             }
         }
-   
     }
 
-
-    //MAKE DAMAGE IF DEFENSE
-    private void OnCollisionEnter(Collision collision)
+    //MOVETOPLAYER
+    public void PlayerDetected()
     {
-        if(collision.gameObject.GetComponent<PlayerController>())
+        //MOVE IF AGENTNAVMESHACTIV
+        if (_agent.enabled == true)
         {
-            if (m_armor >= collision.gameObject.GetComponent<PlayerController>().GetArmor())
-            {
-            collision.gameObject.GetComponent<PlayerController>().SetHp(-1);
-            }
-            else
-            {
-            SetHp(-1);
-            }
+            //_agent.SetDestination(-_target.position); EVITER LE PLAYER
+            _agent.SetDestination(_target.position);
+        }
+        else
+        {
+            _agent.enabled = false;
+        }
 
+    }
+    //MAKE DAMAGE IF DEFENSE
+    protected override void OnTriggerEnter(Collider other)
+    {
+            base.OnTriggerEnter(other);
+
+            Hit();
+            Debug.Log("ok");
+    }
+
+    IEnumerator Hitwait()
+    {
+        if(_agent != null)
+        {
+        _agent.enabled = false;
+        yield return new WaitForSeconds(0.75f);
+        _agent.enabled = true;
         }
     }
 
     //TAKE DAMAGE
-    public void TakeDamage()
+    new public void Hit()
     {
-        SetHp(-1);
+        StartCoroutine(Hitwait());
+        Recoil();
+        Debug.Log("IsHit");
     }
 
- 
+    //PLAYER LEAVES THE SPHERE
+    private void OnTriggerExit(Collider other)
+    {
+        _isShooting = false;
+    }
+
+
     //DETECTION RADIUS
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_sphereR.position, _radiusR);
+        Gizmos.DrawWireSphere(_sphere.position, _radius);
     }
     
 }

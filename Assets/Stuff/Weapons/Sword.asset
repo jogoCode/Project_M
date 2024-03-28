@@ -18,5 +18,6 @@ MonoBehaviour:
   _armorBreak: 60
   _range: 2.5
   _effect: 0
-  _knockBack: 0
+  _knockBack: 5
   _weaponType: 0
+  _prefabs: {fileID: 0}
