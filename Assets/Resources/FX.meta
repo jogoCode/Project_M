@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 <<<<<<<< HEAD:Assets/Resources/FX.meta
+<<<<<<< HEAD
 guid: 7d6bad6708691b44c947979b2bc81fb7
+=======
+guid: bfd8e17e30291fc47a239f8b497e3356
+>>>>>>> refs/remotes/origin/main
 ========
 guid: a5f5450ecd093e4499050e2498e6d2bc
 >>>>>>>> b733ad3b291f3b009495224b6ecfd26ab5056c89:Assets/Resources/Materials/textures.meta
