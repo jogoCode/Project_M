@@ -16,7 +16,7 @@ public class PlayerController : LivingObject
     [SerializeField] protected float m_gravity;
     [SerializeField] protected float m_jumpForce;
     [SerializeField] protected float m_sprintSpeed;
-    float m_baseSpeed;
+    [SerializeField] float m_baseSpeed;
 
     [SerializeField] States m_actualState = States.IDLE;
 
@@ -121,14 +121,14 @@ public class PlayerController : LivingObject
         if (Input.GetButton("Fire3") && m_cC.isGrounded && hVel != Vector2.zero) // SPRINT
         {
             SetSpeed(m_sprintSpeed);
-            IsSprinting(m_camera.GetFOV() + m_sprintSpeed);
+            IsSprinting(m_camera.GetFOV() + 10);
         }
         else // NORMAL
         {
             SetSpeed(m_baseSpeed);
-            IsSprinting(m_camera.GetFOV() - m_sprintSpeed);
+            IsSprinting(m_camera.GetFOV() - 10);
         }
-        m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime * 2);
+        m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime*2);
     }
 
     void ApplyMovement() //Applique les mouvements sur le Character Controller
@@ -196,7 +196,6 @@ public class PlayerController : LivingObject
             if (seeitem && Input.GetKeyDown(KeyCode.E))
             {
                 seeitem.Pick(this);
-                //seeitem.GetComponent<Canvas>().enabled = true;
             }
      
         }
