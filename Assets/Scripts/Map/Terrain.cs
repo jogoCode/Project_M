@@ -61,10 +61,10 @@ public class Terrain : MonoBehaviour
                         
                         float PropsChance = Random.Range(1, 100);
 
-                        if (PropsChance <= 70) { arbre.prototypeIndex = 0; }
-                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 3; }
-                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = 2; }
-                        else if (PropsChance >= 95) { arbre.prototypeIndex = 1; }
+                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0,6); }
+                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 6; }
+                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(7,11); }
+                        else if (PropsChance >= 95) { arbre.prototypeIndex = 11; }
 
                         arbre.color = Color.white;
                         arbre.widthScale = Random.Range(1f, 1.5f);
@@ -88,10 +88,10 @@ public class Terrain : MonoBehaviour
 
                         float PropsChance = Random.Range(1, 100);
 
-                        if (PropsChance <= 70) { arbre.prototypeIndex = 0; }
-                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 3; }
-                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = 2; }
-                        else if (PropsChance >= 95) { arbre.prototypeIndex = 1; }
+                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0, 2); }
+                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 2; }
+                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(3, 7); }
+                        else if (PropsChance >= 95) { arbre.prototypeIndex = 7; }
 
                         arbre.color = Color.white;
                         arbre.widthScale = Random.Range(1f, 1.5f);
@@ -107,7 +107,7 @@ public class Terrain : MonoBehaviour
                 if (hauteurTerrain >= _tauxHill )
                 { 
                     float PropsIntensity = Random.Range(1, 100);
-                    if (PropsIntensity <= 15)
+                    if (PropsIntensity <= 10)
                     {
                         int randomProps = Random.Range(0, _terrainProps.Length);
                         TreeInstance arbre = new TreeInstance();
@@ -115,10 +115,10 @@ public class Terrain : MonoBehaviour
                         
                         float PropsChance = Random.Range(1, 100);
 
-                        if (PropsChance <= 70) { arbre.prototypeIndex = 0; }
-                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 3; }
-                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = 2; }
-                        else if (PropsChance >= 95) { arbre.prototypeIndex = 1; }
+                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0, 2); }
+                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 2; }
+                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(3, 7); }
+                        else if (PropsChance >= 95) { arbre.prototypeIndex = 7; }
 
                         arbre.color = Color.white;
                         arbre.widthScale = Random.Range(1f, 1.5f);
