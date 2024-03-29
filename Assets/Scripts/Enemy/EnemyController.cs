@@ -171,8 +171,18 @@ public class EnemyController : LivingObject
     //MAKE DAMAGE IF DEFENSE
     protected override void OnTriggerEnter(Collider other)
     {
-            base.OnTriggerEnter(other);
+         base.OnTriggerEnter(other);
+        // TODO A METTRE DANS LE SCRIPTS ENEMY  V
+        if (m_hp <= 0)
+        {
+            Die(other.GetComponentInParent<PlayerController>());
 
+        }
+        if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
+                                                       // CAMERA SHAKE ET FREEZE
+
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
         //Debug.Log(other.GetComponentInParent<PlayerController>().name);
         //if (other.GetComponentInParent<PlayerController>())
         //{
@@ -219,12 +229,15 @@ public class EnemyController : LivingObject
         _isShooting = false;
     }
 
-    public void Die(LivingObject killer)
+    new public void Die(LivingObject killer)
     {
-        if (m_hp <= 0)
+        if (killer.GetComponent<PlayerController>()) // TODO <-- A mettre dans la Class Enemy
         {
-            Destroy(gameObject);
+            var player = killer.GetComponent<PlayerController>();
+            player.m_LevelSystem.AddExp(5);
+            IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
         }
+        Destroy(gameObject);
     }
 
     //DETECTION RADIUS

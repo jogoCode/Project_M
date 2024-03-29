@@ -55,13 +55,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public void Die(LivingObject killer)
     {
-        if (killer.GetComponent<PlayerController>()) // TODO <-- A mettre dans la Class Enemy
-        {
-            var player = killer.GetComponent<PlayerController>();
-            player.m_LevelSystem.AddExp(5);
-            IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
 
-        }
 
     }
 
@@ -89,18 +83,6 @@ public class LivingObject : MonoBehaviour , ILivingObject
             }
             int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
             SetHp(damage); // Change les HP en fonction des dégats de l'arme
-
-            // TODO A METTRE DANS LE SCRIPTS ENEMY  V
-            if (m_hp <= 0)
-            {
-                Die(other.GetComponentInParent<PlayerController>());
-                PlayerController.End();
-            }
-            if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
-                                                           // CAMERA SHAKE ET FREEZE
-
-            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
-            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
 
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);

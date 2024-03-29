@@ -35,7 +35,6 @@ public class PlayerController : LivingObject
 
     public static Action End;
 
-
     public enum States
     {
         IDLE,
@@ -136,9 +135,9 @@ public class PlayerController : LivingObject
 
     public void Die(LivingObject killer)
     {
-        IsDying(0, 0);
+        //Debug.Log(killer);
         End();
-
+        
     }
 
     void ApplyMovement() //Applique les mouvements sur le Character Controller
@@ -230,6 +229,11 @@ public class PlayerController : LivingObject
     override protected void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
+        if(m_hp <= 0)
+        {
+            Die((LivingObject)other.GetComponent<EnemyController>());
+           
+        }
         if (other.gameObject.layer == this.gameObject.layer) return;
         //FEEdBACK
         Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Shake(4f, 0.5f, true, true));

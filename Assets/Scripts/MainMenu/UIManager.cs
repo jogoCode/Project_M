@@ -12,30 +12,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private FPSCamera _camera;
 
     [SerializeField] private GameObject _endPanel;
-
   
 
     private void Start()
     {
-        if(_pause != null)
+        PlayerController.End += Ending;
+        _endPanel.SetActive(false);
+
+        if (_pause != null)
         {
             return;
         }
-        _endPanel.SetActive(false);
+        
         //PlayerController.IsDying += End; 
 
-        PlayerController.End += Ending;
+        
     }
 
 
     void Ending()
     {
         _endPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
-    //public void End(float ko, float jo)
-    //{
-    //    _endPanel.SetActive(true);
-    //}
 
     public void Update()
     {
@@ -44,11 +44,7 @@ public class UIManager : MonoBehaviour
         {
             PauseGame();
         }
-        
-        //if(Input.GetKeyDown(KeyCode.W))
-        //{
-        //    PlayerController.End();
-        //}
+
     }
 
     public void ChangeScene(int scene)
