@@ -16,7 +16,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     [SerializeField] protected ParticleSystem m_hitFx;
     [SerializeField] protected WeaponManager m_weapon;
 
-    public static Action<float,float> IsDying;
+    public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
 
     protected virtual void Start()
     {
@@ -43,7 +43,10 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         return m_hp;
     }
-
+    public WeaponManager GetWeapon()
+    {
+        return m_weapon;
+    }
 
     public void Attack()
     {
@@ -52,16 +55,8 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public void Die(LivingObject killer)
     {
-        if (killer.GetComponent<PlayerController>()) // TODO <-- A mettre dans la Class Enemy
-        {
-            var player = killer.GetComponent<PlayerController>();
-            player.m_LevelSystem.AddExp(5);
-            IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
-        }
-       if (m_hp <= 0)
-       {
-            Destroy(gameObject);
-       }
+
+
     }
 
     public void Hit()
@@ -81,19 +76,13 @@ public class LivingObject : MonoBehaviour , ILivingObject
         if (other.GetComponentInParent<LivingObject>())
         {
             if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
+            if (other.GetComponent<PlayerController>())
+            {
+                var player = other.GetComponent<PlayerController>();
+                if (player.GetActualState() != PlayerController.States.ATTACK) return;
+            }
             int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
             SetHp(damage); // Change les HP en fonction des dégats de l'arme
-
-            // TODO A METTRE DANS LE SCRIPTS ENEMY  V
-            if (m_hp <= 0)
-            {
-                Die(other.GetComponentInParent<PlayerController>());
-            }
-            if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
-                                                           // CAMERA SHAKE ET FREEZE
-
-            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
-            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
 
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);

@@ -16,7 +16,7 @@ public class PlayerController : LivingObject
     [SerializeField] protected float m_gravity;
     [SerializeField] protected float m_jumpForce;
     [SerializeField] protected float m_sprintSpeed;
-    float m_baseSpeed;
+    [SerializeField] float m_baseSpeed;
 
     [SerializeField] States m_actualState = States.IDLE;
 
@@ -25,6 +25,7 @@ public class PlayerController : LivingObject
 
     FPSCamera m_camera;
 
+
     public Levelable m_LevelSystem;
     int m_buffer = 0;
 
@@ -32,9 +33,9 @@ public class PlayerController : LivingObject
     //Actions
     public static Action<float> IsSprinting;
 
+    public static Action End;
 
-
-    enum States
+    public enum States
     {
         IDLE,
         MOVE,
@@ -71,6 +72,7 @@ public class PlayerController : LivingObject
         AnimationEvent.isNotActive += DeActivateHitBox;
 
         IsSprinting?.Invoke(0);
+
     }
 
     void Update()
@@ -121,14 +123,21 @@ public class PlayerController : LivingObject
         if (Input.GetButton("Fire3") && m_cC.isGrounded && hVel != Vector2.zero) // SPRINT
         {
             SetSpeed(m_sprintSpeed);
-            IsSprinting(m_camera.GetFOV() + m_sprintSpeed);
+            IsSprinting(m_camera.GetFOV() + 10);
         }
         else // NORMAL
         {
             SetSpeed(m_baseSpeed);
-            IsSprinting(m_camera.GetFOV() - m_sprintSpeed);
+            IsSprinting(m_camera.GetFOV() - 10);
         }
-        m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime * 2);
+        m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime*2);
+    }
+
+    public void Die(LivingObject killer)
+    {
+        //Debug.Log(killer);
+        End();
+        
     }
 
     void ApplyMovement() //Applique les mouvements sur le Character Controller
@@ -171,15 +180,38 @@ public class PlayerController : LivingObject
 
     void UseItem()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))  // Utilise l'item en main
         {
             if (m_weapon.GetItemData() != null)
             {
                 SetHp(m_weapon.GetItemData().Hpgain);
-                m_weapon.RemoveItem();
+                m_weapon.UseItem();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.A)) //Lacher Item
+        {
+            if (m_weapon.GetWeaponData() != null || m_weapon.GetItemData() != null)
+            {
+                m_weapon.DropObject(true);
+            }
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Attraper Item
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit,2))
+        {
+            Seeitem seeitem = hit.transform.gameObject.GetComponent<Seeitem>();
+            if (seeitem && Input.GetKeyDown(KeyCode.E))
+            {
+                seeitem.Pick(this);
+            }
+     
+        }
+        
     }
+
+ 
 
     void ActivateHitbox()
     {
@@ -220,12 +252,23 @@ public class PlayerController : LivingObject
     override protected void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
+        if(m_hp <= 0)
+        {
+            Die((LivingObject)other.GetComponent<EnemyController>());
+           
+        }
         if (other.gameObject.layer == this.gameObject.layer) return;
         //FEEdBACK
         Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Shake(4f, 0.5f, true, true));
         Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Freeze(0.08f, 0.008f,true));
         //PARTICLE
         Instantiate(m_hitFx, transform.position, Quaternion.identity);
+    }
+
+
+    public States GetActualState()
+    {
+        return m_actualState;
     }
 
 }

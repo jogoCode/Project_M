@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   _name: Stick
-  _damage: 1
+  _damage: 20
   _atkSpeed: 7
   _armorBreak: 0
-  _range: 1
+  _range: 50
   _effect: 0
   _knockBack: 0
   _weaponType: 0

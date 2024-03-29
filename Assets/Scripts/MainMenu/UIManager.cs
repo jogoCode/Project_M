@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,12 +11,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _pause;
     [SerializeField] private FPSCamera _camera;
 
+    [SerializeField] private GameObject _endPanel;
+  
+
     private void Start()
     {
-        if(_pause != null)
+        PlayerController.End += Ending;
+        _endPanel.SetActive(false);
+
+        if (_pause != null)
         {
             return;
         }
+        
+        //PlayerController.IsDying += End; 
+
+        
+    }
+
+
+    void Ending()
+    {
+        _endPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void Update()
@@ -24,7 +44,9 @@ public class UIManager : MonoBehaviour
         {
             PauseGame();
         }
+
     }
+
     public void ChangeScene(int scene)
     {
         Time.timeScale = 1f;
@@ -56,4 +78,6 @@ public class UIManager : MonoBehaviour
             Cursor.visible = false;
         }
     }
+
+
 }
