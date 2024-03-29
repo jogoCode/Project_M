@@ -62,6 +62,37 @@ Transform:
   m_Father: {fileID: 6222850175746721885}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1379712355133300809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535356554961478990}
+  m_Layer: 6
+  m_Name: Pin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1535356554961478990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379712355133300809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6222850175836101644}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6222850174594659167
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +235,7 @@ GameObject:
   - component: {fileID: 6222850175746721887}
   - component: {fileID: 6222850175746721873}
   - component: {fileID: 6222850175746721886}
+  - component: {fileID: 2065313512607766533}
   m_Layer: 6
   m_Name: Enemy Walk&Shoot
   m_TagString: Untagged
@@ -263,7 +295,7 @@ MonoBehaviour:
   m_maxhp: 50
   m_armor: 5
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
-  m_weapon: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
+  m_weapon: {fileID: 0}
   _moveSpeed: 1
   _target: {fileID: 0}
   _rotSpeed: 180
@@ -274,8 +306,6 @@ MonoBehaviour:
   _rangeDistance: 20
   _delayChangePos: 4
   _isShooting: 0
-  _boxDetect: {fileID: 6222850174594659166}
-  _radBox: {x: 0, y: 0, z: 0}
   _recoil: 50
   _rb: {fileID: 0}
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
@@ -283,6 +313,8 @@ MonoBehaviour:
   _bullets: {fileID: 4846154785775449997}
   _nextShootTime: 2
   _delay: 0.8
+  _boxDetect: {fileID: 6222850174594659166}
+  _radBox: {x: 0, y: 0, z: 0}
 --- !u!195 &6222850175746721886
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -305,6 +337,23 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2065313512607766533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222850175746721882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8af2d6c11f9f64b9b8876079341691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_weaponData: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
+  m_itemData: {fileID: 0}
+  m_visualParent: {fileID: 1379712355133300809}
+  m_pickable: {fileID: 0}
+  m_firstEquip: 1
 --- !u!1 &6222850175836101645
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +384,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.333, z: 0.313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1535356554961478990}
   m_Father: {fileID: 6222850175487490732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

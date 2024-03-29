@@ -1,5 +1,8 @@
 
+using UnityEditor.AI;
+using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Terrain : MonoBehaviour
 {
@@ -22,6 +25,7 @@ public class Terrain : MonoBehaviour
         _terrain.SetHeights(0, 0, _theWorldHeight);
         TerrainCollider col = _activeTerrain.gameObject.AddComponent<TerrainCollider>();
         col.terrainData = _terrain;
+        BakeTheCake();
     }
     
     public void init()
@@ -30,6 +34,7 @@ public class Terrain : MonoBehaviour
         _theWorldHeight = new float[_longueur, _largeur];
     }
     
+
     public void genererLaby()
     {
         float randx = Random.Range(-100000f, 100000f);
@@ -149,5 +154,11 @@ public class Terrain : MonoBehaviour
             }
         }
         _terrain.SetAlphamaps(0, 0, texture);
+    }
+
+    public void BakeTheCake()
+    {
+        NavMeshBuilder.ClearAllNavMeshes();
+        NavMeshBuilder.BuildNavMeshAsync();
     }
 }

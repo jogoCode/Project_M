@@ -178,9 +178,6 @@ public class EnemyController : LivingObject
             Die(other.GetComponentInParent<PlayerController>());
 
         }
-        if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
-                                                       // CAMERA SHAKE ET FREEZE
-
         Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
         Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
         //Debug.Log(other.GetComponentInParent<PlayerController>().name);
