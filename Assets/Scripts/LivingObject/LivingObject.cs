@@ -18,7 +18,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public static Action<float,float> IsDying;
 
-    public void Start()
+    protected virtual void Start()
     {
         IsDying?.Invoke(0,0);
         if (!m_weapon)

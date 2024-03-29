@@ -13,10 +13,18 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, _destroyedTime);
     }
 
-
     void Update()
     {
         transform.Translate(transform.forward * _bulletSpeed * Time.deltaTime, Space.World);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<PlayerController>() != null) 
+        {
+            other.gameObject.GetComponent<PlayerController>().SetHp(-1);
+            gameObject.GetComponentInParent<EnemyController>().Recoil();
+        }
     }
 
 }

@@ -6,10 +6,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject _pause;
     [SerializeField] private FPSCamera _camera;
-    [SerializeField] private GameObject _endPanel;
 
     private void Start()
     {
@@ -21,7 +19,7 @@ public class UIManager : MonoBehaviour
 
     public void Update()
     {
-
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
