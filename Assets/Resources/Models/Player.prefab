@@ -2246,6 +2246,9 @@ MonoBehaviour:
   m_weaponData: {fileID: 0}
   m_itemData: {fileID: 0}
   m_visualParent: {fileID: 2321837181315087140}
+  m_pickable: {fileID: 5791186835847817186, guid: 0fe170c7f2af59b48a4b2539d3186df6,
+    type: 3}
+  _canEquip: 0
 --- !u!1 &1317162775172383312
 GameObject:
   m_ObjectHideFlags: 0

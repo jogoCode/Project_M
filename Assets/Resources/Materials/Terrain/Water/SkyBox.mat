@@ -39,9 +39,9 @@ Material:
     - _AtmosphereThickness: 1
     - _Exposure: 1.5
     - _SunDisk: 2
-    - _SunSize: 0.02
+    - _SunSize: 0.025
     - _SunSizeConvergence: 1
     m_Colors:
     - _GroundColor: {r: 0.36899993, g: 0.34899995, b: 0.3409999, a: 1}
-    - _SkyTint: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    - _SkyTint: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   m_BuildTextureStacks: []

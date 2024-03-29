@@ -16,7 +16,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     [SerializeField] protected ParticleSystem m_hitFx;
     [SerializeField] protected WeaponManager m_weapon;
 
-    public static Action<float,float> IsDying;
+    public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
 
     protected virtual void Start()
     {

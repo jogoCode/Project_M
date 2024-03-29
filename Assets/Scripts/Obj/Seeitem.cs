@@ -29,9 +29,19 @@ public class Seeitem : Pickable
         
     }
 
-    override public void Pick()
+    override public void Pick(LivingObject owner)
     {
-        OnPickedUp(_weapon);
+        //OnPickedUp(_weapon);
+        WeaponManager weaponManager = owner.GetComponent<WeaponManager>();
+        if (_isWeapon)
+        {
+            weaponManager.EquipWeapon(_weapon);
+        }
+        else
+        {
+            weaponManager.EquipItem(_item);
+        }
+        Destroy(gameObject);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -39,20 +49,30 @@ public class Seeitem : Pickable
         if (other.GetComponent<LivingObject>())
         {
             Debug.Log("j'ai attrapé quelque chose");
-            WeaponManager weaponManager = other.GetComponent<WeaponManager>();
-            if (_isWeapon)
-            {
-                weaponManager.EquipWeapon(_weapon);
-            }
-            else
-            {
-                weaponManager.EquipItem(_item);
-            }
+            //WeaponManager weaponManager = other.GetComponent<WeaponManager>();
+            //if (_isWeapon)
+            //{
+            //    weaponManager.EquipWeapon(_weapon);
+            //}
+            //else
+            //{
+            //    weaponManager.EquipItem(_item);
+            //}
             
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
-    
+
+
+    public void SetWeapon(Weapon newWeapon)
+    {
+        _weapon = newWeapon ;
+    }
+
+    public void SetItem(Items newItem)
+    {
+        _item = newItem;
+    }
 
 
 }

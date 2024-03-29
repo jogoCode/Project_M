@@ -16,7 +16,7 @@ public class PlayerController : LivingObject
     [SerializeField] protected float m_gravity;
     [SerializeField] protected float m_jumpForce;
     [SerializeField] protected float m_sprintSpeed;
-    float m_baseSpeed;
+    [SerializeField] float m_baseSpeed;
 
     [SerializeField] States m_actualState = States.IDLE;
 
@@ -123,14 +123,14 @@ public class PlayerController : LivingObject
         if (Input.GetButton("Fire3") && m_cC.isGrounded && hVel != Vector2.zero) // SPRINT
         {
             SetSpeed(m_sprintSpeed);
-            IsSprinting(m_camera.GetFOV() + m_sprintSpeed);
+            IsSprinting(m_camera.GetFOV() + 10);
         }
         else // NORMAL
         {
             SetSpeed(m_baseSpeed);
-            IsSprinting(m_camera.GetFOV() - m_sprintSpeed);
+            IsSprinting(m_camera.GetFOV() - 10);
         }
-        m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime * 2);
+        m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime*2);
     }
 
     public void Die(LivingObject killer)
@@ -180,15 +180,38 @@ public class PlayerController : LivingObject
 
     void UseItem()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))  // Utilise l'item en main
         {
             if (m_weapon.GetItemData() != null)
             {
                 SetHp(m_weapon.GetItemData().Hpgain);
-                m_weapon.RemoveItem();
+                m_weapon.UseItem();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.A)) //Lacher Item
+        {
+            if (m_weapon.GetWeaponData() != null || m_weapon.GetItemData() != null)
+            {
+                m_weapon.DropObject(true);
+            }
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Attraper Item
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit,2))
+        {
+            Seeitem seeitem = hit.transform.gameObject.GetComponent<Seeitem>();
+            if (seeitem && Input.GetKeyDown(KeyCode.E))
+            {
+                seeitem.Pick(this);
+            }
+     
+        }
+        
     }
+
+ 
 
     void ActivateHitbox()
     {
