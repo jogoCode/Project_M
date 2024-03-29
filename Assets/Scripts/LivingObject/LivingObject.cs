@@ -82,7 +82,6 @@ public class LivingObject : MonoBehaviour , ILivingObject
         {
             if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
             int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
-            Debug.Log(other.GetComponentInParent<LivingObject>().name);
             SetHp(damage); // Change les HP en fonction des dégats de l'arme
 
             // TODO A METTRE DANS LE SCRIPTS ENEMY  V

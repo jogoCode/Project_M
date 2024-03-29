@@ -3702,7 +3702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 900000000
-  m_maxhp: 0
+  m_maxhp: 900000000
   m_armor: 0
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -5210,7 +5210,7 @@ GameObject:
   - component: {fileID: 2097076509}
   - component: {fileID: 2097076508}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: cylWepaon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

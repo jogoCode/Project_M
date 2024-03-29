@@ -20,4 +20,5 @@ MonoBehaviour:
   _effect: 0
   _knockBack: 0
   _weaponType: 0
-  _prefabs: {fileID: 919132149155446097, guid: cee7b14606afa7a41beea69da18ffa90, type: 3}
+  _prefabs: {fileID: 8886448880685438531, guid: 6e7909cea436696419e3b0fb3254c58c,
+    type: 3}
