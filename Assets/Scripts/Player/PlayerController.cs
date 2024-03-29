@@ -171,15 +171,39 @@ public class PlayerController : LivingObject
 
     void UseItem()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))  // Utilise l'item en main
         {
             if (m_weapon.GetItemData() != null)
             {
                 SetHp(m_weapon.GetItemData().Hpgain);
-                m_weapon.RemoveItem();
+                m_weapon.UseItem();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.A)) //Lacher Item
+        {
+            if (m_weapon.GetWeaponData() != null || m_weapon.GetItemData() != null)
+            {
+                m_weapon.DropObject(true);
+            }
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Attraper Item
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit,2))
+        {
+            Seeitem seeitem = hit.transform.gameObject.GetComponent<Seeitem>();
+            if (seeitem && Input.GetKeyDown(KeyCode.E))
+            {
+                seeitem.Pick(this);
+                //seeitem.GetComponent<Canvas>().enabled = true;
+            }
+     
+        }
+        
     }
+
+ 
 
     void ActivateHitbox()
     {

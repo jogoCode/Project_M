@@ -16,8 +16,8 @@ public class Pomme : Pickable
         Instantiate(_prefabs, transform.position, Quaternion.identity);
     }
 
-    public override void Pick()
+    public override void Pick(LivingObject owner)
     {
-        throw new System.NotImplementedException();
+       
     }
 }
