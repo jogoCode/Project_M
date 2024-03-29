@@ -50,8 +50,6 @@ public class EnemyController : LivingObject
 
     protected virtual void Update()
     {
-        //LIFE
-        Die();
 
         //DETECT AND MOVE
         _agent.speed = _moveSpeed;
@@ -64,15 +62,15 @@ public class EnemyController : LivingObject
         StartCoroutine(recoilTime());
         IEnumerator recoilTime()
         {
-            /*
+            _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
+            yield return new WaitForSeconds(1f);
             _rb.velocity = Vector3.zero;
             Vector3 up = transform.up;
             up.x = 0f;
             up.z = 0f;
             up.y = 4f;
-            */
             
-            _rb.AddForce(- transform.forward * m_weapon.KnockBack , ForceMode.Impulse);
+            _rb.AddForce(- transform.forward * m_weapon.GetWeaponData().KnockBack, ForceMode.Impulse);
             yield return new WaitForSeconds(2f);
             _rb.velocity = Vector3.zero;
         }
@@ -174,24 +172,26 @@ public class EnemyController : LivingObject
     protected override void OnTriggerEnter(Collider other)
     {
             base.OnTriggerEnter(other);
-        if (other.GetComponentInParent<PlayerController>())
-        {
-            if (m_armor >= other.GetComponentInParent<PlayerController>().GetArmor())
-            {
-                if (other.GetComponentInParent<PlayerController>())
-                {
-                    other.GetComponentInParent<PlayerController>().SetHp(-gameObject.GetComponentInParent<EnemyController>().GetWeapon().Damage);
-                }
-            }
-            else
-            {
-                other.GetComponentInParent<PlayerController>().SetHp(-gameObject.GetComponentInParent<EnemyController>().GetWeapon().Damage / 2);
-            }
-        }
-        else
-        { 
-            return; 
-        }
+
+        //Debug.Log(other.GetComponentInParent<PlayerController>().name);
+        //if (other.GetComponentInParent<PlayerController>())
+        //{
+        //    if (m_armor >= other.GetComponentInParent<PlayerController>().GetArmor())
+        //    {
+        //        if (other.GetComponentInParent<PlayerController>())
+        //        {
+        //            other.GetComponentInParent<PlayerController>().SetHp(-m_weapon.GetWeaponData().Damage);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        other.GetComponentInParent<PlayerController>().SetHp(-m_weapon.GetWeaponData().Damage / 2);
+        //    }
+        //}
+        //else
+        //{
+        //    return;
+        //}
 
     }
 
@@ -219,6 +219,13 @@ public class EnemyController : LivingObject
         _isShooting = false;
     }
 
+    public void Die(LivingObject killer)
+    {
+        if (m_hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     //DETECTION RADIUS
     private void OnDrawGizmos()

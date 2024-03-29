@@ -9,7 +9,7 @@ public interface ILivingObject
 
     void Hit();
 
-    void Die();
+    void Die(LivingObject killer);
 
     void SetHp(int hp);
 

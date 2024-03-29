@@ -9,14 +9,19 @@ public class  CameraShake : MonoBehaviour
     [SerializeField][Range(0.0f, 900f)] float _spring;
     [SerializeField][Range(0.0f, 900f)] float _damp;
     static public CameraShake cameraShake;
+
+
+    [SerializeField] SpriteRenderer m_hitScreen;
+    Vector3 ogPos ;
     private void Start()
     {
         cameraShake = GetComponent<CameraShake>();
+        ogPos = transform.localPosition;
     }
 
     public IEnumerator Shake(float force , float time,bool x, bool y)
     {
-        Vector3 ogPos = transform.localPosition;
+        
         float elapsed = 0;
         _vel = force;
         while (elapsed < time)
@@ -51,10 +56,12 @@ public class  CameraShake : MonoBehaviour
         
     }
 
-    public IEnumerator Freeze(float time,float duration)
+    public IEnumerator Freeze(float time,float duration,bool hitScreen)
     {
         Time.timeScale = time;
+        if(hitScreen) m_hitScreen.enabled = true;
         yield return new WaitForSeconds(duration);
         Time.timeScale = 1;
+        if (hitScreen) m_hitScreen.enabled = false;
     }
 }

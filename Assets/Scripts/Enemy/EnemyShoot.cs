@@ -70,7 +70,8 @@ public class EnemyShoot : EnemyController
             {
                 if (_pos != null)
                 {
-                    Instantiate(_bullet, _pos.position, _pos.rotation);
+                    GameObject bullet = Instantiate(_bullet, _pos.position, _pos.rotation);
+                    bullet.GetComponent<Bullet>().SetDammage(m_weapon.GetWeaponData().Damage);
                 }
                 _nextShootTime = Time.time + _delay;
             }

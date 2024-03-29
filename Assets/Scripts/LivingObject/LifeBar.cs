@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LifeBar : MonoBehaviour
+public class LifeBar : BarManager
 {
     [Header("LifeBar")]
 
@@ -13,9 +13,7 @@ public class LifeBar : MonoBehaviour
     [SerializeField] private float _hpHolder;
     [SerializeField] private int _maxHpHolder;
 
-    private Camera _camera = null;
 
-    [SerializeField] private bool _isCamActivated;
 
 
     void Awake()
@@ -46,7 +44,7 @@ public class LifeBar : MonoBehaviour
 
         if(_lifeText != null)
         {
-        _lifeText.text = _hpHolder.ToString();
+            _lifeText.text = _hpHolder.ToString();
             if(_hpHolder <= _maxHpHolder/2)
             { _lifeText.color = Color.red; }
             else
@@ -60,8 +58,8 @@ public class LifeBar : MonoBehaviour
     {
         if(_isCamActivated) 
         {
-        transform.LookAt(transform.position + _camera.transform.forward + _camera.transform.up); 
-        _lifeSlider.transform.rotation = Camera.main.transform.rotation;
+            transform.LookAt(transform.position + _camera.transform.forward + _camera.transform.up); 
+            _lifeSlider.transform.rotation = Camera.main.transform.rotation;
         }
     }
     
