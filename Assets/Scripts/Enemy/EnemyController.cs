@@ -51,7 +51,6 @@ public class EnemyController : LivingObject
     protected virtual void Update()
     {
         //LIFE
-        Die();
 
         //DETECT AND MOVE
         _agent.speed = _moveSpeed;
@@ -64,7 +63,7 @@ public class EnemyController : LivingObject
         StartCoroutine(recoilTime());
         IEnumerator recoilTime()
         {
-            _rb.AddForce(-transform.forward * (m_weapon.KnockBack), ForceMode.Impulse);
+            _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
             yield return new WaitForSeconds(1f);
             _rb.velocity = Vector3.zero;
         }
