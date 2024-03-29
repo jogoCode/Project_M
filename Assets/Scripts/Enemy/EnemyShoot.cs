@@ -70,7 +70,7 @@ public class EnemyShoot : EnemyController
             {
                 if (_pos != null)
                 {
-                    Instantiate(_bullet, _pos.position, _pos.rotation, _bullets);
+                    Instantiate(_bullet, _pos.position, _pos.rotation);
                 }
                 _nextShootTime = Time.time + _delay;
             }

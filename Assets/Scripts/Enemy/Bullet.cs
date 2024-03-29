@@ -22,8 +22,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.gameObject.GetComponent<PlayerController>() != null) 
         {
-            other.gameObject.GetComponent<PlayerController>().SetHp(-1);
-            gameObject.GetComponentInParent<EnemyController>().Recoil();
+            other.gameObject.GetComponent<PlayerController>().SetHp(-other.GetComponentInParent<PlayerController>().GetWeapon().Damage/2);
         }
     }
 

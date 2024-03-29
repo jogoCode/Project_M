@@ -57,15 +57,23 @@ public class EnemyController : LivingObject
         _agent.speed = _moveSpeed;
         MoveTowardsPlayer();
 
-       
+
     }
     public void Recoil()
     {
         StartCoroutine(recoilTime());
         IEnumerator recoilTime()
         {
-            _rb.AddForce(-transform.forward * (m_weapon.KnockBack), ForceMode.Impulse);
-            yield return new WaitForSeconds(1f);
+            /*
+            _rb.velocity = Vector3.zero;
+            Vector3 up = transform.up;
+            up.x = 0f;
+            up.z = 0f;
+            up.y = 4f;
+            */
+            
+            _rb.AddForce(- transform.forward * m_weapon.KnockBack , ForceMode.Impulse);
+            yield return new WaitForSeconds(2f);
             _rb.velocity = Vector3.zero;
         }
     }
@@ -166,9 +174,25 @@ public class EnemyController : LivingObject
     protected override void OnTriggerEnter(Collider other)
     {
             base.OnTriggerEnter(other);
+        if (other.GetComponentInParent<PlayerController>())
+        {
+            if (m_armor >= other.GetComponentInParent<PlayerController>().GetArmor())
+            {
+                if (other.GetComponentInParent<PlayerController>())
+                {
+                    other.GetComponentInParent<PlayerController>().SetHp(-gameObject.GetComponentInParent<EnemyController>().GetWeapon().Damage);
+                }
+            }
+            else
+            {
+                other.GetComponentInParent<PlayerController>().SetHp(-gameObject.GetComponentInParent<EnemyController>().GetWeapon().Damage / 2);
+            }
+        }
+        else
+        { 
+            return; 
+        }
 
-            Hit();
-            Debug.Log("ok");
     }
 
     IEnumerator Hitwait()
@@ -176,7 +200,7 @@ public class EnemyController : LivingObject
         if(_agent != null)
         {
         _agent.enabled = false;
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(1f);
         _agent.enabled = true;
         }
     }
