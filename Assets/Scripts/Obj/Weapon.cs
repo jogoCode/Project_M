@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,11 @@ public class Weapon : ScriptableObject
     [SerializeField] TypeOfItem _weaponType;
     [SerializeField] GameObject _prefabs;
 
+
+    // test //
+    private float enemyHealth = 100f; 
+    private float damageInterval = 3f; 
+    private float damageAmount = 0.125f; 
 
     public string Name
     {
@@ -96,6 +102,7 @@ public class Weapon : ScriptableObject
             /* la target perd des hp toute les secondes
              * target.DecreaseHP(target.MaxHp/8);
              */
+            //StartCoroutine(InflictDamage());
         }
 
         if (_effect == ADDITIONALEFFECTS.FREEZE)
@@ -103,12 +110,14 @@ public class Weapon : ScriptableObject
             /* la target est dans un bloc de glace et la prochaine atk fais obligatoirement des dégats perçants
              * 
              */
+            //StartCoroutine(StunEffect());
         }
         if (_effect == ADDITIONALEFFECTS.PARALYSE)
         {
             /* la target est plus lent 
              * 
              */
+            //StartCoroutine(StunEffect());
         }
         if (_effect == ADDITIONALEFFECTS.BURN)
         {
@@ -121,15 +130,63 @@ public class Weapon : ScriptableObject
             /* la target dort (elle fait rien jusqu'a quelle soit attaqué ou se reveil après un certain temps)
              * 
              */
+            //StartCoroutine(StunEffect());
         }
         if (_effect == ADDITIONALEFFECTS.STUN)
         {
             /* la target est au sol et joueur peut lui fait un coup critique a sa prochaine atk
              * 
              */
+            //StartCoroutine(StunEffect());
+
         }
 
 
     }
+
+    private IEnumerator InflictDamage()
+    {
+        if (_effect == ADDITIONALEFFECTS.POISON || _effect == ADDITIONALEFFECTS.BURN)
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(damageInterval);
+                ApplyDamage();
+            }
+        }
+    }
+    private IEnumerator StunEffect()
+    {
+        /*
+         * a une chance d'empecher de bouger
+         *  mettre la speed a 0 ?
+         *  enemy.speed = 0;
+        */
+        if (UnityEngine.Random.Range(0, 100) <= 30)
+        {
+            //enemySpeed = 0;
+            yield return new WaitForSeconds(2f);
+        }
+        //retour de la speed normal de l'enemy
         
+        
+    }
+    private void ApplyDamage()
+    {
+        // Calculer les dégâts en fonction de la fraction spécifiée
+        float damage = enemyHealth * damageAmount;
+
+        // Retirer les points de vie
+        enemyHealth -= damage;
+
+        // Vérifier si l'ennemi est toujours en vie
+        if (enemyHealth <= 0f)
+        {
+            EnemyDefeated();
+        }
+    }
+    private void EnemyDefeated()
+    {
+       Debug.Log("L'ennemi a été vaincu !");
+    }
 }
