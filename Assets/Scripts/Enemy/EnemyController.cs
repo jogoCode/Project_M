@@ -10,14 +10,13 @@ public class EnemyController : LivingObject
     [Header("EnemyController")]
     //MOVEMENT 
     [SerializeField] protected float _moveSpeed;
-    [SerializeField] protected Transform _target;
     [SerializeField] private float _rotSpeed;
+    protected Transform _target;
 
-    [SerializeField] private NavMeshAgent _agent;
+    protected NavMeshAgent _agent;
 
     //DETECT
-    [SerializeField] protected int _radius;
-    [SerializeField] protected Transform _sphere;
+    [SerializeField] protected float _radius;
 
     //RANDOM MOVE
     [SerializeField] private Transform _fakeTarget;
@@ -25,10 +24,11 @@ public class EnemyController : LivingObject
     [SerializeField] private float _delayChangePos;
 
     //SHOOT
-    [SerializeField] protected bool _isShooting;
+    protected bool _isShooting;
 
-    [SerializeField] private float _recoil;
-    [SerializeField] private Rigidbody _rb;
+    private Rigidbody _rb;
+
+    private bool _isMoreDistanced;
 
  
     protected override void Start()
@@ -37,6 +37,11 @@ public class EnemyController : LivingObject
 
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
         _rb = GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
+
+        _agent.speed = _moveSpeed;
+
+        _isMoreDistanced = false;
 
         //RANDOM MOVE
         Move();
@@ -52,9 +57,8 @@ public class EnemyController : LivingObject
     {
 
         //DETECT AND MOVE
-        _agent.speed = _moveSpeed;
-        MoveTowardsPlayer();
 
+        MoveTowardsPlayer();
 
     }
     public void Recoil()
@@ -64,14 +68,6 @@ public class EnemyController : LivingObject
         {
             _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
             yield return new WaitForSeconds(1f);
-            _rb.velocity = Vector3.zero;
-            Vector3 up = transform.up;
-            up.x = 0f;
-            up.z = 0f;
-            up.y = 4f;
-            
-            _rb.AddForce(- transform.forward * m_weapon.GetWeaponData().KnockBack, ForceMode.Impulse);
-            yield return new WaitForSeconds(2f);
             _rb.velocity = Vector3.zero;
         }
     }
@@ -85,7 +81,7 @@ public class EnemyController : LivingObject
         _agent.SetDestination(_fakeTarget.position);
 
         }
-       else
+        else
        { 
        return; 
        }
@@ -93,6 +89,7 @@ public class EnemyController : LivingObject
         if(_agent != null)
         {
        StartCoroutine(randomTarget());
+
         }
 
     } 
@@ -123,7 +120,7 @@ public class EnemyController : LivingObject
     protected virtual void MoveTowardsPlayer()
     {
         //DETECT PLAYER
-        Collider[] player = Physics.OverlapSphere(_sphere.position, _radius);
+        Collider[] player = Physics.OverlapSphere(transform.position, _radius);
         foreach (Collider detection in player)
         {
             if (detection.GetComponent<PlayerController>() != null)
@@ -159,8 +156,8 @@ public class EnemyController : LivingObject
         //MOVE IF AGENTNAVMESHACTIV
         if (_agent.enabled == true)
         {
-            //_agent.SetDestination(-_target.position); EVITER LE PLAYER
             _agent.SetDestination(_target.position);
+
         }
         else
         {
@@ -168,37 +165,35 @@ public class EnemyController : LivingObject
         }
 
     }
-    //MAKE DAMAGE IF DEFENSE
+    //MAKE DAMAGE 
     protected override void OnTriggerEnter(Collider other)
     {
          base.OnTriggerEnter(other);
-        // TODO A METTRE DANS LE SCRIPTS ENEMY  V
-        if (m_hp <= 0)
-        {
-            Die(other.GetComponentInParent<PlayerController>());
 
+        var player = other.GetComponentInParent<PlayerController>();
+        if (player != null)
+        {
+            if (player.GetActualState() == PlayerController.States.ATTACK)
+            {
+                Hit();
+                if (_isMoreDistanced == false)
+                {               
+                     _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
+                    _isMoreDistanced = true;
+                }
+            }
+
+            if (m_hp <= 0)
+            {
+                Die(player);             
+            }
+            if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
+                                                           // CAMERA SHAKE ET FREEZE
+
+            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
+            Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
         }
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
-        //Debug.Log(other.GetComponentInParent<PlayerController>().name);
-        //if (other.GetComponentInParent<PlayerController>())
-        //{
-        //    if (m_armor >= other.GetComponentInParent<PlayerController>().GetArmor())
-        //    {
-        //        if (other.GetComponentInParent<PlayerController>())
-        //        {
-        //            other.GetComponentInParent<PlayerController>().SetHp(-m_weapon.GetWeaponData().Damage);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        other.GetComponentInParent<PlayerController>().SetHp(-m_weapon.GetWeaponData().Damage / 2);
-        //    }
-        //}
-        //else
-        //{
-        //    return;
-        //}
+       
 
     }
 
@@ -216,6 +211,7 @@ public class EnemyController : LivingObject
     new public void Hit()
     {
         StartCoroutine(Hitwait());
+      
         Recoil();
         Debug.Log("IsHit");
     }
@@ -228,7 +224,7 @@ public class EnemyController : LivingObject
 
     new public void Die(LivingObject killer)
     {
-        if (killer.GetComponent<PlayerController>()) // TODO <-- A mettre dans la Class Enemy
+        if (killer.GetComponent<PlayerController>()) 
         {
             var player = killer.GetComponent<PlayerController>();
             player.m_LevelSystem.AddExp(5);
@@ -241,7 +237,7 @@ public class EnemyController : LivingObject
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_sphere.position, _radius);
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
     
 }

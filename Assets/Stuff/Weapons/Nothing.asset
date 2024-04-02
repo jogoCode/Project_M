@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dba3d3343af21db4a80c499d589bb0e2, type: 3}
-  m_Name: Sword
+  m_Name: Nothing
   m_EditorClassIdentifier: 
-  _name: Sword
-  _damage: 5
-  _atkSpeed: 4
-  _armorBreak: 60
-  _range: 5
+  _name: 
+  _damage: 0
+  _atkSpeed: 0
+  _armorBreak: 0
+  _range: 0
   _effect: 0
-  _knockBack: 5
+  _knockBack: 0
   _weaponType: 0
-  _prefabs: {fileID: 4078284589814144167, guid: 84f318648c8a4dd4f81bfd516f37c745,
-    type: 3}
+  _prefabs: {fileID: 0}

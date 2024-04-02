@@ -18,6 +18,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
 
+
     protected virtual void Start()
     {
         IsDying?.Invoke(0,0);
@@ -75,14 +76,34 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         if (other.GetComponentInParent<LivingObject>())
         {
-            if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
+            if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entités
             if (other.GetComponent<PlayerController>())
             {
                 var player = other.GetComponent<PlayerController>();
                 if (player.GetActualState() != PlayerController.States.ATTACK) return;
             }
             int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
-            SetHp(damage); // Change les HP en fonction des dégats de l'arme
+
+            //DAMAGES BY ARMOR
+            var playerinparent = other.GetComponentInParent<PlayerController>();
+            if (playerinparent)
+            {
+                if (m_armor >= playerinparent.GetArmor())
+                {
+                    if (playerinparent)
+                    {
+                        SetHp(damage); // Change les HP en fonction des dégats de l'arme
+                    }
+                }
+                else
+                {
+                    SetHp(damage / 2);
+                }
+            }
+            else
+            {
+            SetHp(damage);
+            }
 
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);

@@ -2930,7 +2930,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pause: {fileID: 0}
   _camera: {fileID: 72530772}
+<<<<<<< HEAD
+=======
   _endPanel: {fileID: 0}
+>>>>>>> refs/remotes/origin/main
 --- !u!4 &2048276697
 Transform:
   m_ObjectHideFlags: 0
