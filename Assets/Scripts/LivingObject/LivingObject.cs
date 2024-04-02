@@ -17,10 +17,12 @@ public class LivingObject : MonoBehaviour , ILivingObject
     [SerializeField] protected WeaponManager m_weapon;
 
     public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
+    public Action<float, float> LifeChanged;
 
     protected virtual void Start()
     {
-        IsDying?.Invoke(0,0);
+        IsDying?.Invoke(0,1);
+        LifeChanged?.Invoke(m_hp,m_maxhp);
         if (!m_weapon)
         {
             m_weapon = GetComponent<WeaponManager>();
@@ -59,9 +61,11 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     }
 
-    public void Hit()
+    public virtual void Hit()
     {
-      
+        LifeChanged?.Invoke(m_hp,m_maxhp);
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f, false));
     }
 
     public void SetHp(int hp)
@@ -76,14 +80,9 @@ public class LivingObject : MonoBehaviour , ILivingObject
         if (other.GetComponentInParent<LivingObject>())
         {
             if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
-            if (other.GetComponent<PlayerController>())
-            {
-                var player = other.GetComponent<PlayerController>();
-                if (player.GetActualState() != PlayerController.States.ATTACK) return;
-            }
             int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
             SetHp(damage); // Change les HP en fonction des dégats de l'arme
-
+            Hit();
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);
         }

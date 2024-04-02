@@ -16,7 +16,9 @@ public class BarManager : MonoBehaviour
 
     protected Camera _camera = null;
 
-    [SerializeField] protected bool _isCamActivated;
+    [SerializeField] protected bool _textIsActive = true;
+
+
     void Awake()
     {
         _camera = Camera.main;
@@ -24,11 +26,15 @@ public class BarManager : MonoBehaviour
         {
             _Slider = GetComponent<Slider>();
         }
-        if (_TextSlider == null)
+        if (!_TextSlider && _textIsActive)
         {
             _TextSlider = GetComponentInChildren<Text>();
+            if (!_TextSlider)
+            {
+                _textIsActive = false;
+            }
         }
-        LivingObject.IsDying += UpdatesValues;
+        
     }
 
     protected virtual void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"

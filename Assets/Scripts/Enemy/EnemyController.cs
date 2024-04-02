@@ -63,7 +63,7 @@ public class EnemyController : LivingObject
         IEnumerator recoilTime()
         {
             _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             _rb.velocity = Vector3.zero;
             Vector3 up = transform.up;
             up.x = 0f;
@@ -71,14 +71,14 @@ public class EnemyController : LivingObject
             up.y = 4f;
             
             _rb.AddForce(- transform.forward * m_weapon.GetWeaponData().KnockBack, ForceMode.Impulse);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             _rb.velocity = Vector3.zero;
         }
     }
     
 
     //MOVE RANDOM
-    private void Move()
+   private void Move()
     {
         if (_fakeTarget != null)
         {
@@ -171,15 +171,21 @@ public class EnemyController : LivingObject
     //MAKE DAMAGE IF DEFENSE
     protected override void OnTriggerEnter(Collider other)
     {
-         base.OnTriggerEnter(other);
+        base.OnTriggerEnter(other);
+       
         // TODO A METTRE DANS LE SCRIPTS ENEMY  V
         if (m_hp <= 0)
         {
             Die(other.GetComponentInParent<PlayerController>());
-
         }
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
+        if (other.GetComponent<PlayerController>())
+        {
+            var playerState = other.GetComponent<StateManagable>();
+            
+            if (playerState.GetState() != StateManagable.States.ATTACK) return;
+        }
+        //Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
+        //Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.1f, 0.008f, false));
         //Debug.Log(other.GetComponentInParent<PlayerController>().name);
         //if (other.GetComponentInParent<PlayerController>())
         //{
@@ -206,16 +212,19 @@ public class EnemyController : LivingObject
     {
         if(_agent != null)
         {
-        _agent.enabled = false;
-        yield return new WaitForSeconds(1f);
-        _agent.enabled = true;
+            _agent.enabled = false;  
+            yield return new WaitForSeconds(0.5f);
+            _rb.velocity = Vector3.Lerp(_rb.velocity,Vector3.zero,1f);
+            _agent.enabled = true;
         }
     }
 
     //TAKE DAMAGE
-    new public void Hit()
+    public override void Hit()
     {
+        base.Hit();
         StartCoroutine(Hitwait());
+        //_rb.AddForce(-transform.forward, ForceMode.Impulse);
         Recoil();
         Debug.Log("IsHit");
     }
@@ -233,8 +242,13 @@ public class EnemyController : LivingObject
             var player = killer.GetComponent<PlayerController>();
             player.m_LevelSystem.AddExp(5);
             IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     //DETECTION RADIUS
@@ -243,5 +257,8 @@ public class EnemyController : LivingObject
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_sphere.position, _radius);
     }
+
+
+   
     
 }

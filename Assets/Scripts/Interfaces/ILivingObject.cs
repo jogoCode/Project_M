@@ -7,7 +7,7 @@ public interface ILivingObject
 
     void Attack();
 
-    void Hit();
+    public void Hit();
 
     void Die(LivingObject killer);
 

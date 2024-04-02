@@ -19,7 +19,8 @@ public class Seeitem : Pickable
             _isWeapon = false;
         }else if (_weapon != null)
         {
-            Instantiate(_weapon.Prefabs, transform.position, Quaternion.identity, this.transform);
+            GameObject visual = Instantiate(_weapon.Prefabs, transform.position, Quaternion.identity, this.transform);
+            GetComponent<BoxCollider>().size = transform.localScale;
             _isWeapon = true;
         }
         else

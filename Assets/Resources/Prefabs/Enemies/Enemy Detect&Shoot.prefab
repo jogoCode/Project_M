@@ -262,7 +262,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &6837466111227918856
 MonoBehaviour:
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 6716546326751526437}
   m_pickable: {fileID: 0}
   m_firstEquip: 1
+  m_hideWeapon: 1
 --- !u!1 &6837466111327252052
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6837466111590540542}
   - component: {fileID: 6837466111590540543}
-  - component: {fileID: 8960261676723116381}
+  - component: {fileID: 3425177519018818357}
   m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
@@ -604,7 +605,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8960261676723116381
+--- !u!114 &3425177519018818357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -613,18 +614,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6837466111590540541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 223504ffbeeec1f43a9b54f68bf09ad9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a01ac618d7b53f47ab941cb49529f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Slider: {fileID: 0}
   _TextSlider: {fileID: 0}
   _valueHolder: 0
   _maxValueHolder: 0
-  _isCamActivated: 1
-  _lifeSlider: {fileID: 0}
-  _lifeText: {fileID: 0}
-  _hpHolder: 0
-  _maxHpHolder: 0
+  _textIsActive: 0
+  m_parentLife: {fileID: 6837466111227918856}
+  _isInWorld: 1
 --- !u!1 &6837466111933846082
 GameObject:
   m_ObjectHideFlags: 0
