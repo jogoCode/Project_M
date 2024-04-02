@@ -44,24 +44,24 @@ public class Seeitem : Pickable
         Destroy(gameObject);
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<LivingObject>())
-        {
-            Debug.Log("j'ai attrapé quelque chose");
-            //WeaponManager weaponManager = other.GetComponent<WeaponManager>();
-            //if (_isWeapon)
-            //{
-            //    weaponManager.EquipWeapon(_weapon);
-            //}
-            //else
-            //{
-            //    weaponManager.EquipItem(_item);
-            //}
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.GetComponent<LivingObject>())
+    //    {
+    //        Debug.Log("j'ai attrapé quelque chose");
+    //        //WeaponManager weaponManager = other.GetComponent<WeaponManager>();
+    //        //if (_isWeapon)
+    //        //{
+    //        //    weaponManager.EquipWeapon(_weapon);
+    //        //}
+    //        //else
+    //        //{
+    //        //    weaponManager.EquipItem(_item);
+    //        //}
             
-            //Destroy(gameObject);
-        }
-    }
+    //        //Destroy(gameObject);
+    //    }
+    //}
 
 
     public void SetWeapon(Weapon newWeapon)

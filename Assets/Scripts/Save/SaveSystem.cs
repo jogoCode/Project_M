@@ -19,9 +19,10 @@ public class SaveSystem : MonoBehaviour
 
      void SaveData()
     {
-        SavedData savedData = new SavedData
+        SavedData savedData = new()
         {
             playerPositions = _playerTransforms.position,
+            playerRotations = _playerTransforms.rotation,
         };
 
         string jsonData = JsonUtility.ToJson(savedData);
@@ -37,6 +38,7 @@ public class SaveSystem : MonoBehaviour
 
         SavedData savedData = JsonUtility.FromJson<SavedData>(jsonData);
         _playerTransforms.position = savedData.playerPositions;
+        _playerTransforms.rotation = savedData.playerRotations;
         Debug.Log("chargement effectuée");
     }
 }
@@ -44,4 +46,5 @@ public class SaveSystem : MonoBehaviour
 public class SavedData
 {
     public Vector3 playerPositions;
+    public Quaternion playerRotations;
 }
