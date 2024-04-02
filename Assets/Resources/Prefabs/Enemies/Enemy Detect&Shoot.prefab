@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3343967877297926806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2626428447729476256}
+  m_Layer: 6
+  m_Name: Pin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2626428447729476256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343967877297926806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6837466111327252053}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6837466110745557278
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +221,7 @@ GameObject:
   - component: {fileID: 6837466111227918854}
   - component: {fileID: 6837466111227918856}
   - component: {fileID: 6837466111227918855}
+  - component: {fileID: 1036273444}
   m_Layer: 6
   m_Name: Enemy Detect&Shoot
   m_TagString: Untagged
@@ -248,26 +280,26 @@ MonoBehaviour:
   m_maxhp: 50
   m_armor: 5
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
-  m_weapon: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
+  m_weapon: {fileID: 0}
   _moveSpeed: 1
   _target: {fileID: 0}
   _rotSpeed: 180
   _agent: {fileID: 6837466111227918855}
   _radius: 5
-  _sphere: {fileID: 6837466111327252053}
+  _sphere: {fileID: 6837466111227918852}
   _fakeTarget: {fileID: 0}
   _rangeDistance: 20
   _delayChangePos: 0
   _isShooting: 0
-  _boxDetect: {fileID: 6837466112367493383}
-  _radBox: {x: 0, y: 0, z: 0}
   _recoil: 50
   _rb: {fileID: 0}
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
-  _pos: {fileID: 6837466111327252053}
+  _pos: {fileID: 6837466111227918852}
   _bullets: {fileID: 7714149157329289283}
   _nextShootTime: 2
   _delay: 0.8
+  _boxDetect: {fileID: 6837466112367493383}
+  _radBox: {x: 0, y: 0, z: 0}
 --- !u!195 &6837466111227918855
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -290,6 +322,23 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1036273444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837466111227918851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8af2d6c11f9f64b9b8876079341691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_weaponData: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
+  m_itemData: {fileID: 0}
+  m_visualParent: {fileID: 3343967877297926806}
+  m_pickable: {fileID: 0}
+  m_firstEquip: 0
 --- !u!1 &6837466111327252052
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +369,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.333, z: 0.313}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2626428447729476256}
   m_Father: {fileID: 6837466112179177717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -566,11 +616,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223504ffbeeec1f43a9b54f68bf09ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Slider: {fileID: 0}
+  _TextSlider: {fileID: 0}
+  _valueHolder: 0
+  _maxValueHolder: 0
+  _isCamActivated: 1
   _lifeSlider: {fileID: 0}
   _lifeText: {fileID: 0}
   _hpHolder: 0
   _maxHpHolder: 0
-  _isCamActivated: 1
 --- !u!1 &6837466111933846082
 GameObject:
   m_ObjectHideFlags: 0
