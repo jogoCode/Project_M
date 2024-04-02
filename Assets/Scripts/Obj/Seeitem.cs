@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -45,7 +44,7 @@ public class Seeitem : Pickable
         Destroy(gameObject);
     }
 
-    public void OnTriggerEnter(Collider other)
+    new public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<LivingObject>())
         {

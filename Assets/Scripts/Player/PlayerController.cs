@@ -39,7 +39,7 @@ public class PlayerController : LivingObject
 
     public static Action End;
 
-    void Start()
+    new void Start()
     {
         //----------------------REFERENCES-----------------
         base.Start();
@@ -118,7 +118,7 @@ public class PlayerController : LivingObject
         m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime*2);
     }
 
-    public void Die(LivingObject killer)
+    new public void Die(LivingObject killer)
     {
         m_stateManager.SetState(StateManagable.States.DIE);
         transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,0,75),50*Time.deltaTime);

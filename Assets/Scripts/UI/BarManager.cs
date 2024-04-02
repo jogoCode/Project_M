@@ -26,13 +26,13 @@ public class BarManager : MonoBehaviour
         {
             _Slider = GetComponent<Slider>();
         }
-        if (!_TextSlider && _textIsActive)
+        if (!_TextSlider)
         {
             _TextSlider = GetComponentInChildren<Text>();
-            if (!_TextSlider)
-            {
-                _textIsActive = false;
-            }
+        }
+        else
+        {
+            _textIsActive = false;
         }
         
     }

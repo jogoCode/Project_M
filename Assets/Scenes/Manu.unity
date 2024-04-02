@@ -304,7 +304,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _weapon
       value: 
-      objectReference: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570,
+      objectReference: {fileID: 11400000, guid: 7c92020aa794f5040ac3f8347c34717d,
         type: 2}
     - target: {fileID: 5791186835847817191, guid: 0fe170c7f2af59b48a4b2539d3186df6,
         type: 3}
@@ -870,10 +870,11 @@ PrefabInstance:
       propertyPath: m_parentLife
       value: 
       objectReference: {fileID: 1695930764}
-    - target: {fileID: 1625861411, guid: 94490aaf46e375c4687da33100131114, type: 3}
-      propertyPath: _parentExpSys
-      value: 
-      objectReference: {fileID: 1695930761}
+    - target: {fileID: 2747124882348261227, guid: 94490aaf46e375c4687da33100131114,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2747124882348261227, guid: 94490aaf46e375c4687da33100131114,
         type: 3}
       propertyPath: _parentExpSys
@@ -888,6 +889,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214604176847604857, guid: 94490aaf46e375c4687da33100131114,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00012207031
+      objectReference: {fileID: 0}
+    - target: {fileID: 4214604176847604857, guid: 94490aaf46e375c4687da33100131114,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 4866857675890553341, guid: 94490aaf46e375c4687da33100131114,
         type: 3}

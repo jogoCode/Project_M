@@ -21,7 +21,7 @@ public class ExpBar : BarManager
     {
         base.UpdatesValues(newValue, newMaxValue);
         _TextSlider.text = _parentExpSys.GetLevel().ToString();
-    }
+      }
 
 
 
