@@ -10,13 +10,13 @@ public class EnemyController : LivingObject
     [Header("EnemyController")]
     //MOVEMENT 
     [SerializeField] protected float _moveSpeed;
-    protected Transform _target;
     [SerializeField] private float _rotSpeed;
+    protected Transform _target;
 
     protected NavMeshAgent _agent;
 
     //DETECT
-    [SerializeField] protected int _radius;
+    [SerializeField] protected float _radius;
 
     //RANDOM MOVE
     [SerializeField] private Transform _fakeTarget;
@@ -26,8 +26,9 @@ public class EnemyController : LivingObject
     //SHOOT
     protected bool _isShooting;
 
-    [SerializeField] private float _recoil;
     private Rigidbody _rb;
+
+    private bool _isMoreDistanced;
 
  
     protected override void Start()
@@ -37,6 +38,10 @@ public class EnemyController : LivingObject
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
+
+        _agent.speed = _moveSpeed;
+
+        _isMoreDistanced = false;
 
         //RANDOM MOVE
         Move();
@@ -52,9 +57,8 @@ public class EnemyController : LivingObject
     {
 
         //DETECT AND MOVE
-        _agent.speed = _moveSpeed;
-        MoveTowardsPlayer();
 
+        MoveTowardsPlayer();
 
     }
     public void Recoil()
@@ -64,16 +68,6 @@ public class EnemyController : LivingObject
         {
             _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
             yield return new WaitForSeconds(1f);
-            _rb.velocity = Vector3.zero;
-            /*
-            Vector3 up = transform.up;
-            up.x = 0f;
-            up.z = 0f;
-            up.y = 4f;
-            */
-            
-            _rb.AddForce(- transform.forward * m_weapon.GetWeaponData().KnockBack * 0.5f, ForceMode.Impulse);
-            yield return new WaitForSeconds(2f);
             _rb.velocity = Vector3.zero;
         }
     }
@@ -87,7 +81,7 @@ public class EnemyController : LivingObject
         _agent.SetDestination(_fakeTarget.position);
 
         }
-       else
+        else
        { 
        return; 
        }
@@ -95,6 +89,7 @@ public class EnemyController : LivingObject
         if(_agent != null)
         {
        StartCoroutine(randomTarget());
+
         }
 
     } 
@@ -156,12 +151,13 @@ public class EnemyController : LivingObject
     }
 
     //MOVETOPLAYER
-    protected virtual void PlayerDetected()
+    public void PlayerDetected()
     {
         //MOVE IF AGENTNAVMESHACTIV
         if (_agent.enabled == true)
         {
             _agent.SetDestination(_target.position);
+
         }
         else
         {
@@ -180,12 +176,16 @@ public class EnemyController : LivingObject
             if (player.GetActualState() == PlayerController.States.ATTACK)
             {
                 Hit();
+                if (_isMoreDistanced == false)
+                {               
+                     _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
+                    _isMoreDistanced = true;
+                }
             }
 
             if (m_hp <= 0)
             {
-                Die(player);
-
+                Die(player);             
             }
             if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
                                                            // CAMERA SHAKE ET FREEZE
@@ -202,9 +202,8 @@ public class EnemyController : LivingObject
         if(_agent != null)
         {
         _agent.enabled = false;
-        _agent.enabled = true;
-            PlayerDetected();
         yield return new WaitForSeconds(1f);
+        _agent.enabled = true;
         }
     }
 
@@ -212,6 +211,7 @@ public class EnemyController : LivingObject
     new public void Hit()
     {
         StartCoroutine(Hitwait());
+      
         Recoil();
         Debug.Log("IsHit");
     }

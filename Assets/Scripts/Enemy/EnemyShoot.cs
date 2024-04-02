@@ -20,7 +20,6 @@ public class EnemyShoot : EnemyController
     protected override void Start()
     {
         base.Start();
-        //OnShoot += Shoot;
     }
     protected override void Update()
     {
@@ -36,22 +35,8 @@ public class EnemyShoot : EnemyController
         }
 
     }
-
-    //AVOID AND SHOOT PLAYER
-    protected override void PlayerDetected()
-    {
-        //MOVE IF AGENTNAVMESHACTIV
-        if (_agent.enabled == true)
-        {
-            _agent.SetDestination(-_target.position);
-        }
-        else
-        {
-            _agent.enabled = false;
-        }
-
-    }
-    //DETECT AND SHOOT AT LONG DISTANCE
+    
+    //SHOOT WITH BOX DISTANCE
     void Distance()
     {
         Collider[] player = Physics.OverlapBox(_boxDetect.position, _radBox / 2);
@@ -64,6 +49,8 @@ public class EnemyShoot : EnemyController
             }
         }
     }
+
+    //SHOOT WITH RADIUS
     protected override void MoveTowardsPlayer()
     {
 
@@ -83,7 +70,7 @@ public class EnemyShoot : EnemyController
                 if (_pos != null)
                 {
                     GameObject bullet = Instantiate(_bullet, _pos.position, _pos.rotation);
-                    bullet.GetComponent<Bullet>().SetDammage(m_weapon.GetWeaponData().Damage);
+                    bullet.GetComponent<Bullet>().SetDamage(m_weapon.GetWeaponData().Damage);
                 }
                 _nextShootTime = Time.time + _delay;
             }

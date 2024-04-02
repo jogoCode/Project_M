@@ -1,5 +1,8 @@
 
+using UnityEditor.AI;
+using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Terrain : MonoBehaviour
 {
@@ -22,6 +25,7 @@ public class Terrain : MonoBehaviour
         _terrain.SetHeights(0, 0, _theWorldHeight);
         TerrainCollider col = _activeTerrain.gameObject.AddComponent<TerrainCollider>();
         col.terrainData = _terrain;
+        BakeTheCake();
     }
     
     public void init()
@@ -30,6 +34,7 @@ public class Terrain : MonoBehaviour
         _theWorldHeight = new float[_longueur, _largeur];
     }
     
+
     public void genererLaby()
     {
         float randx = Random.Range(-100000f, 100000f);
@@ -64,11 +69,11 @@ public class Terrain : MonoBehaviour
                         if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0,6); }
                         else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 6; }
                         else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(7,11); }
-                        else if (PropsChance >= 95) { arbre.prototypeIndex = 11; }
+                        else if (PropsChance >= 95) { arbre.prototypeIndex = Random.Range(11,14); }
 
                         arbre.color = Color.white;
-                        arbre.widthScale = Random.Range(1f, 1.5f);
-                        arbre.heightScale = Random.Range(1f, 1.5f);
+                        arbre.widthScale = Random.Range(1f, 1f);
+                        arbre.heightScale = Random.Range(1f, 1f);
                         arbre.lightmapColor = Color.white;
 
                         _activeTerrain.AddTreeInstance(arbre);
@@ -88,14 +93,14 @@ public class Terrain : MonoBehaviour
 
                         float PropsChance = Random.Range(1, 100);
 
-                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0, 2); }
-                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 2; }
-                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(3, 7); }
-                        else if (PropsChance >= 95) { arbre.prototypeIndex = 7; }
+                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0, 6); }
+                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 6; }
+                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(7, 11); }
+                        else if (PropsChance >= 95) { arbre.prototypeIndex = Random.Range(11, 14); }
 
                         arbre.color = Color.white;
-                        arbre.widthScale = Random.Range(1f, 1.5f);
-                        arbre.heightScale = Random.Range(1f, 1.5f);
+                        arbre.widthScale = Random.Range(1f, 1f);
+                        arbre.heightScale = Random.Range(1f, 1f);
                         arbre.lightmapColor = Color.white;
 
                         _activeTerrain.AddTreeInstance(arbre);
@@ -115,14 +120,14 @@ public class Terrain : MonoBehaviour
                         
                         float PropsChance = Random.Range(1, 100);
 
-                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0, 2); }
-                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 2; }
-                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(3, 7); }
-                        else if (PropsChance >= 95) { arbre.prototypeIndex = 7; }
+                        if (PropsChance <= 70) { arbre.prototypeIndex = Random.Range(0, 6); }
+                        else if (PropsChance > 70 && PropsChance < 90) { arbre.prototypeIndex = 6; }
+                        else if (PropsChance >= 90 && PropsChance < 95) { arbre.prototypeIndex = Random.Range(7, 11); }
+                        else if (PropsChance >= 95) { arbre.prototypeIndex = Random.Range(11, 14); }
 
                         arbre.color = Color.white;
-                        arbre.widthScale = Random.Range(1f, 1.5f);
-                        arbre.heightScale = Random.Range(1f, 1.5f);
+                        arbre.widthScale = Random.Range(1f, 1f);
+                        arbre.heightScale = Random.Range(1f, 1f);
                         arbre.lightmapColor = Color.white;
 
                         _activeTerrain.AddTreeInstance(arbre);
@@ -149,5 +154,11 @@ public class Terrain : MonoBehaviour
             }
         }
         _terrain.SetAlphamaps(0, 0, texture);
+    }
+
+    public void BakeTheCake()
+    {
+        NavMeshBuilder.ClearAllNavMeshes();
+        NavMeshBuilder.BuildNavMeshAsync();
     }
 }

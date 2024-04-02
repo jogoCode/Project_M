@@ -24,9 +24,6 @@ public class UIManager : MonoBehaviour
             return;
         }
         
-        //PlayerController.IsDying += End; 
-
-        
     }
 
 

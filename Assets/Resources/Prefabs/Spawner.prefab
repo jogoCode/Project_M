@@ -48,5 +48,5 @@ MonoBehaviour:
   - {fileID: 6837466111227918851, guid: ef914708235754c4abcacd5b2417e8c1, type: 3}
   - {fileID: 5615991228224828313, guid: d7b8006b36f038349b48f3ca7c5a1ea2, type: 3}
   - {fileID: 6222850175746721882, guid: 2951e27957f323748b5438e6a8159a25, type: 3}
-  _rangeDistance: 0
+  _rangeDistance: 15
   _max: 5
