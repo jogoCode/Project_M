@@ -18,6 +18,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
 
+
     protected virtual void Start()
     {
         IsDying?.Invoke(0,0);

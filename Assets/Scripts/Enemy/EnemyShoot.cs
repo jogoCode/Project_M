@@ -17,8 +17,6 @@ public class EnemyShoot : EnemyController
     [SerializeField] private Transform _boxDetect;
     [SerializeField] private Vector3 _radBox;
 
-    public static Action OnShoot;
-
     protected override void Start()
     {
         base.Start();
@@ -38,7 +36,22 @@ public class EnemyShoot : EnemyController
         }
 
     }
-    //SHOOT AT LONG DISTANCE
+
+    //AVOID AND SHOOT PLAYER
+    protected override void PlayerDetected()
+    {
+        //MOVE IF AGENTNAVMESHACTIV
+        if (_agent.enabled == true)
+        {
+            _agent.SetDestination(-_target.position);
+        }
+        else
+        {
+            _agent.enabled = false;
+        }
+
+    }
+    //DETECT AND SHOOT AT LONG DISTANCE
     void Distance()
     {
         Collider[] player = Physics.OverlapBox(_boxDetect.position, _radBox / 2);
@@ -57,7 +70,6 @@ public class EnemyShoot : EnemyController
         if (_isShooting == true)
         {
             //Debug.Log("shoot");                 
-            //EnemyShoot.OnShoot();
             Shoot();
         }
         base.MoveTowardsPlayer();
@@ -91,7 +103,7 @@ public class EnemyShoot : EnemyController
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_sphere.position, _radius);
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
 
 

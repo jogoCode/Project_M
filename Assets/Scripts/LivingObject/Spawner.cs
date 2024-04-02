@@ -6,12 +6,13 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] _enemiesPrefabs;
     [SerializeField] private int _rangeDistance;
-    public float _max;
+    [SerializeField] float _max;
     private void Start()
     {
         Spawn();
     }
 
+    //SPAWN RANDOM ENEMIES RANDOM POSITION
     void Spawn()
     {
 
