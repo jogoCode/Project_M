@@ -82,21 +82,14 @@ public class PlayerController : LivingObject
             case States.IDLE:
                 GetComponentInChildren<Animator>().speed = 1;
                 Movement();
-                //Attack();
+                
                 break;
             case States.MOVE:
                 Movement();
-                //Attack();
                 break;
             case States.ATTACK:
                 Movement();
                 GetComponentInChildren<Animator>().speed = m_weapon.GetAtkSpeed()/4;
-                break;
-            case States.HIT:
-                break;
-            case States.DIE:
-                break;
-            default:
                 break;
         }
         if (Input.GetButtonDown("Fire1"))
@@ -270,5 +263,8 @@ public class PlayerController : LivingObject
     {
         return m_actualState;
     }
+
+    //TODO REGLER PROBLEME CAMERA FIBRATION
+    //
 
 }
