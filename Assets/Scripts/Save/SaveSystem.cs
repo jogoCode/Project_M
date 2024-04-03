@@ -67,6 +67,7 @@ public class SaveSystem : MonoBehaviour
         playerWeapon = savedData._weaponInhand;
         playerItem = savedData._itemInhand;
         visualParent = savedData._visual;
+    
         Debug.Log("chargement effectuée");
     }
 }
