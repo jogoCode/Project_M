@@ -97,7 +97,10 @@ public class WeaponManager : MonoBehaviour
     {
         return m_weaponData;
     }
-
+    public GameObject GetVisualData()
+    {
+        return m_visualParent;
+    }
     public Items GetItemData()
     {
         return m_itemData;
