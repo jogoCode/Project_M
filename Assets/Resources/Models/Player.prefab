@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6304184563751065651}
   - component: {fileID: 6678650981155281491}
   - component: {fileID: 5197120350453807926}
+  - component: {fileID: 1695930769}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 50
-  m_maxhp: 50
+  m_maxHp: 50
   m_armor: 0
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -119,12 +120,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_weaponData: {fileID: 0}
-  m_itemData: {fileID: 0}
+  m_itemData: {fileID: 11400000, guid: 5d288f525f315274f99355cea63d6132, type: 2}
   m_visualParent: {fileID: 2321837181315087140}
   m_pickable: {fileID: 5791186835847817186, guid: 0fe170c7f2af59b48a4b2539d3186df6,
     type: 3}
   m_firstEquip: 1
   m_hideWeapon: 0
+--- !u!114 &1695930769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191339032423778620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97086e454147db4188632f37133ed9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1317162775172383312
 GameObject:
   m_ObjectHideFlags: 0
