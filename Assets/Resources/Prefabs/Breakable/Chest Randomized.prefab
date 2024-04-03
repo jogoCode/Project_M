@@ -709,7 +709,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5616271908631190118}
-  m_LocalRotation: {x: -0, y: -0.7328092, z: -0, w: 0.6804342}
+  m_LocalRotation: {x: 0, y: -0.73281014, z: 0, w: 0.6804332}
   m_LocalPosition: {x: -3.8834574, y: 0.49, z: -16.693731}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -755,9 +755,13 @@ MonoBehaviour:
   m_armor: 0
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
-  _weapons:
+  _items:
   - {fileID: 6632970821850245552, guid: 0842df6b08714d14087236092363a6a8, type: 3}
   - {fileID: 4271113320309268052, guid: b753b36d03c10924f85aaedb87b69c85, type: 3}
+  - {fileID: 6070811752348228296, guid: 58bb7104fe2d07b4bbd01f6f13d5015e, type: 3}
+  _isHurt: 0
+  _fx: {fileID: 8352779182620018762, guid: 86746e8f8cf4976428b2d889f4c8fe1d, type: 3}
+  _canBeHurt: 1
 --- !u!114 &4697369150479663332
 MonoBehaviour:
   m_ObjectHideFlags: 0

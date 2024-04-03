@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   _name: Sword
-  _damage: 5
+  _damage: 10
   _atkSpeed: 4
   _armorBreak: 60
-  _range: 5
+  _range: 100
   _effect: 0
   _knockBack: 1
   _weaponType: 0

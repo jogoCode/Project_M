@@ -6,16 +6,22 @@ public class PlayerBuffable : Buffable
 {
 
     [Header("Player Buffable")]
-    new PlayerController m_buffTarget;
+    [SerializeField] PlayerController m_player;
+
+    void Start()
+    {
+        m_player = GetComponent<PlayerController>();
+        AddJump(15);
+    }
 
     void AddJump(float newJSpeed)
     {
-        m_buffTarget.SetJumpSpeed(newJSpeed);
+        m_player.SetJumpSpeed(newJSpeed);
     }
 
     void AddSpeed(float newSpeed)
     {
-        m_buffTarget.SetBaseSpeed(newSpeed);
+        m_player.SetBaseSpeed(newSpeed);
     }
 
 }

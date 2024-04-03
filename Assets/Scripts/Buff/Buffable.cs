@@ -16,7 +16,7 @@ public class Buffable : MonoBehaviour
         ARMOR,
         DASH
     }
-    protected LivingObject m_buffTarget;
+    [SerializeField] protected LivingObject m_buffTarget;
     void Start()
     {
         m_buffTarget = GetComponent<PlayerController>();
@@ -26,16 +26,16 @@ public class Buffable : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-
+            AddHp(40);
         }
     }
 
-    void AddAtk()
+    public void AddAtk(int dmg)
     {
-        
+        m_buffTarget.SetDmgBuff(dmg);
     }
 
-    void AddHp(int hp)
+    public void AddHp(int hp)
     {
         m_buffTarget.SetMaxHp(hp);
     }
