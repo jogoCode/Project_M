@@ -231,7 +231,7 @@ public class EnemyController : LivingObject
         {
             var player = killer.GetComponent<PlayerController>();
             player.m_LevelSystem.AddExp(5);
-            IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
+            IsDying?.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
             Destroy(gameObject);
         }
         else

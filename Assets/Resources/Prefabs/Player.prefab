@@ -1315,6 +1315,7 @@ GameObject:
   - component: {fileID: 6011885272676872628}
   - component: {fileID: 5480202160927675057}
   - component: {fileID: 5891134967725494684}
+  - component: {fileID: 1917534977}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1405,8 +1406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8af2d6c11f9f64b9b8876079341691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_weaponData: {fileID: 11400000, guid: 7c92020aa794f5040ac3f8347c34717d, type: 2}
-  m_itemData: {fileID: 0}
+  m_weaponData: {fileID: 0}
+  m_itemData: {fileID: 11400000, guid: 5d288f525f315274f99355cea63d6132, type: 2}
   m_visualParent: {fileID: 2606076914031973027}
   m_pickable: {fileID: 5791186835847817186, guid: 0fe170c7f2af59b48a4b2539d3186df6,
     type: 3}
@@ -1427,6 +1428,20 @@ MonoBehaviour:
   m_owner: {fileID: 0}
   m_actualState: 0
   m_lastState: 0
+--- !u!114 &1917534977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483488721600372923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8f7db8a08e3ba46bcb51c750e8cef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_buffTarget: {fileID: 0}
+  m_player: {fileID: 0}
 --- !u!1 &1609464195460901847
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,10 +19,10 @@ public class LivingObject : MonoBehaviour , ILivingObject
     public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
     public Action<float, float> LifeChanged;
 
-    float m_dmgBuff = 0;
+    int m_dmgBuff = 0;
     protected virtual void Start()
     {
-        IsDying?.Invoke(1,1);
+        IsDying?.Invoke(0,1);
         LifeChanged?.Invoke(m_hp,m_maxHp);
         if (!m_weapon)
         {
@@ -48,6 +48,11 @@ public class LivingObject : MonoBehaviour , ILivingObject
     public WeaponManager GetWeapon()
     {
         return m_weapon;
+    }
+
+    public int GetBuffDamage()
+    {
+        return m_dmgBuff;
     }
     public void Attack()
     {
@@ -89,6 +94,10 @@ public class LivingObject : MonoBehaviour , ILivingObject
         LifeChanged?.Invoke(m_hp, m_maxHp);
     }
 
+    public void SetDmgBuff(int dmg){
+        m_dmgBuff += dmg;
+    }
+
 
     virtual protected void OnTriggerEnter(Collider other)
     {
@@ -96,7 +105,26 @@ public class LivingObject : MonoBehaviour , ILivingObject
         {
             if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
             int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
-            SetHp(damage); // Change les HP en fonction des dégats de l'arme
+            //DAMAGES BY ARMOR
+            var playerinparent = other.GetComponentInParent<PlayerController>();
+            if (playerinparent)
+            {
+                if (m_armor >= playerinparent.GetArmor())
+                {
+                    if (playerinparent)
+                    {
+                        SetHp(damage); // Change les HP en fonction des dégats de l'arme
+                    }
+                }
+                else
+                {
+                    SetHp(damage / 2);
+                }
+            }
+            else
+            {
+                SetHp(damage);   // Change les HP en fonction des dégats de l'arme
+            }
             Hit();
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);

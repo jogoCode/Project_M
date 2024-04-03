@@ -20,6 +20,7 @@ public class ExpBar : BarManager
     public override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider value et maxValue et aussi le text
     {
         base.UpdatesValues(newValue, newMaxValue);
+        if (!_TextSlider) return;
         _TextSlider.text = _parentExpSys.GetLevel().ToString();
       }
 

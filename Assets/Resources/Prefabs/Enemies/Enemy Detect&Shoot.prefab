@@ -256,7 +256,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 7540432350737129887}
   m_pickable: {fileID: 0}
   m_firstEquip: 0
-  m_hideWeapon: 0
+  m_hideWeapon: 1
 --- !u!1 &7540432350433685902
 GameObject:
   m_ObjectHideFlags: 0
