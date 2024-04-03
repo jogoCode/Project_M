@@ -1,5 +1,7 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
+=======
 --- !u!1 &179146700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,6 +2378,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+>>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
 --- !u!1 &191339032423778620
 GameObject:
   m_ObjectHideFlags: 0
@@ -2388,8 +2391,13 @@ GameObject:
   - component: {fileID: 191339032423778623}
   - component: {fileID: 191339032423778622}
   - component: {fileID: 6304184563751065651}
+  - component: {fileID: 6678650981155281491}
   - component: {fileID: 5197120350453807926}
+<<<<<<< HEAD
+  - component: {fileID: 1695930769}
+=======
   - component: {fileID: 716454956}
+>>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -2411,7 +2419,6 @@ Transform:
   m_Children:
   - {fileID: 3098636653696384549}
   - {fileID: 2294384956608060474}
-  - {fileID: 610353441}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2446,16 +2453,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 50
-  m_maxhp: 50
+  m_maxHp: 50
   m_armor: 0
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
   m_actualSpeed: 5
   m_gravity: -9.81
-  m_jumpForce: 5
+  m_jumpForce: 8
   m_sprintSpeed: 10
-  m_baseSpeed: 0
-  m_actualState: 0
+  m_baseSpeed: 30
   m_LevelSystem: {fileID: 0}
 --- !u!114 &6304184563751065651
 MonoBehaviour:
@@ -2469,6 +2475,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043d2367a8b5ae643a569c7f02bca73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6678650981155281491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191339032423778620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7497ec4690a3e934fa315b1b092b57ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_owner: {fileID: 0}
+  m_actualState: 0
+  m_lastState: 0
 --- !u!114 &5197120350453807926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,19 +2502,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8af2d6c11f9f64b9b8876079341691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  m_weaponData: {fileID: 0}
+  m_itemData: {fileID: 11400000, guid: 5d288f525f315274f99355cea63d6132, type: 2}
+=======
   m_weaponData: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
   m_itemData: {fileID: 0}
+>>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
   m_visualParent: {fileID: 2321837181315087140}
   m_pickable: {fileID: 5791186835847817186, guid: 0fe170c7f2af59b48a4b2539d3186df6,
     type: 3}
   m_firstEquip: 1
+<<<<<<< HEAD
+  m_hideWeapon: 0
+--- !u!114 &1695930769
+MonoBehaviour:
+=======
 --- !u!136 &716454956
 CapsuleCollider:
+>>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191339032423778620}
+<<<<<<< HEAD
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97086e454147db4188632f37133ed9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+=======
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -2501,6 +2540,7 @@ CapsuleCollider:
   m_Height: 2.1870382
   m_Direction: 1
   m_Center: {x: 0.07851344, y: 1.1170665, z: 0}
+>>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
 --- !u!1 &1317162775172383312
 GameObject:
   m_ObjectHideFlags: 0
@@ -3167,6 +3207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mouseSensivity: 1
   m_player: {fileID: 0}
+  m_fovFactor: 10
 --- !u!114 &4653173631311829086
 MonoBehaviour:
   m_ObjectHideFlags: 0

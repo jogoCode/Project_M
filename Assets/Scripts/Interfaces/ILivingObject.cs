@@ -7,10 +7,18 @@ public interface ILivingObject
 
     void Attack();
 
-    void Hit();
+    public void Hit();
 
     void Die(LivingObject killer);
 
     void SetHp(int hp);
+
+    public int GetArmor();
+
+    public int GetMaxhp();
+
+    public int GetHp();
+
+    public WeaponManager GetWeapon();
 
 }
