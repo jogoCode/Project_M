@@ -10,7 +10,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     [Header("LivingObject")]
     //Life
     [SerializeField] protected int m_hp;
-    [SerializeField] protected int m_maxhp;
+    [SerializeField] protected int m_maxHp;
     [SerializeField] protected int m_armor;
 
     [SerializeField] protected ParticleSystem m_hitFx;
@@ -19,10 +19,11 @@ public class LivingObject : MonoBehaviour , ILivingObject
     public static Action<float,float> IsDying; //TODO METTRE DANS LE ENNEMY
     public Action<float, float> LifeChanged;
 
+    float m_dmgBuff = 0;
     protected virtual void Start()
     {
         IsDying?.Invoke(0,1);
-        LifeChanged?.Invoke(m_hp,m_maxhp);
+        LifeChanged?.Invoke(m_hp,m_maxHp);
         if (!m_weapon)
         {
             m_weapon = GetComponent<WeaponManager>();
@@ -32,14 +33,13 @@ public class LivingObject : MonoBehaviour , ILivingObject
             }
         }
     }
-
     public int GetArmor()
     {
         return m_armor;
     }
     public int GetMaxhp() 
     {
-        return m_maxhp;    
+        return m_maxHp;    
     }
     public int GetHp()
     {
@@ -49,7 +49,6 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         return m_weapon;
     }
-
     public void Attack()
     {
        
@@ -63,7 +62,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
 
     public virtual void Hit()
     {
-        LifeChanged?.Invoke(m_hp,m_maxhp);
+        LifeChanged?.Invoke(m_hp,m_maxHp);
         Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
         Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f, false));
     }
@@ -71,7 +70,23 @@ public class LivingObject : MonoBehaviour , ILivingObject
     public void SetHp(int hp)
     {
         m_hp += hp;
-        m_hp = Mathf.Clamp(m_hp,0,m_maxhp);
+        m_hp = Mathf.Clamp(m_hp,0,m_maxHp);
+        LifeChanged?.Invoke(m_hp, m_maxHp);
+    }
+
+    public void SetMaxHp(int newMhp)
+    {
+       
+        if(m_hp == m_maxHp)
+        {
+            m_maxHp += newMhp;
+            m_hp = m_maxHp;
+        }
+        else
+        {
+            m_maxHp += newMhp;
+        }
+        LifeChanged?.Invoke(m_hp, m_maxHp);
     }
 
 

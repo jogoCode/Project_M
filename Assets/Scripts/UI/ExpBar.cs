@@ -17,7 +17,7 @@ public class ExpBar : BarManager
         LivingObject.IsDying += UpdatesValues;
 
     }
-    protected override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider value et maxValue et aussi le text
+    public override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider value et maxValue et aussi le text
     {
         base.UpdatesValues(newValue, newMaxValue);
         _TextSlider.text = _parentExpSys.GetLevel().ToString();

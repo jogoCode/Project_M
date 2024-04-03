@@ -13,4 +13,12 @@ public interface ILivingObject
 
     void SetHp(int hp);
 
+    public int GetArmor();
+
+    public int GetMaxhp();
+
+    public int GetHp();
+
+    public WeaponManager GetWeapon();
+
 }

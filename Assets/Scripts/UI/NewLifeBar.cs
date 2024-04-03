@@ -18,7 +18,7 @@ public class NewLifeBar : BarManager
         UpdatesValues(m_parentLife.GetHp(),m_parentLife.GetMaxhp());
     }
 
-    protected override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
+    public override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
     {
         base.UpdatesValues(newValue, newMaxValue);
         if (!_textIsActive) return;

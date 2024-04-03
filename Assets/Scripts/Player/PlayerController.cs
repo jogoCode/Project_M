@@ -29,8 +29,6 @@ public class PlayerController : LivingObject
     public Levelable m_LevelSystem;
     int m_buffer = 0;
 
-    
- 
 
     float m_ySpeed;
     bool m_canFeedBack;
@@ -170,7 +168,7 @@ public class PlayerController : LivingObject
             if (m_weapon.GetItemData() != null)
             {
                 SetHp(m_weapon.GetItemData().Hpgain);
-                LifeChanged.Invoke(m_hp, m_maxhp);
+                LifeChanged.Invoke(m_hp, m_maxHp);
                 m_weapon.UseItem();
             }
         }
@@ -221,11 +219,6 @@ public class PlayerController : LivingObject
         m_vel.y = jumpForce;
     }
 
-    void SetSpeed(float newSpeed)
-    {
-        m_actualSpeed = Mathf.Lerp(m_actualSpeed,newSpeed,(m_actualSpeed/2)*Time.deltaTime);
-    }
-
     private IEnumerator ResetBuffer()
     {
         yield return new WaitForSeconds(0.1f);
@@ -249,4 +242,23 @@ public class PlayerController : LivingObject
         if (other.gameObject.layer == this.gameObject.layer) return;
         Hit();
     }
+
+
+    //-----------------------SET-----------------------------------
+    public void SetSpeed(float newSpeed)
+    {
+        m_actualSpeed = Mathf.Lerp(m_actualSpeed, newSpeed, (m_actualSpeed / 2) * Time.deltaTime);
+    }
+
+    public void SetJumpSpeed(float newJSpeed)
+    {
+        m_jumpForce = newJSpeed;
+    }
+
+    public void SetBaseSpeed(float newBSpeed)
+    {
+        m_baseSpeed += newBSpeed;
+        m_sprintSpeed = m_baseSpeed + m_baseSpeed;
+    }
+
 }

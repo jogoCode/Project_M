@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 50
-  m_maxhp: 50
+  m_maxHp: 50
   m_armor: 2
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -749,6 +749,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 7378408135521497975}
   m_pickable: {fileID: 0}
   m_firstEquip: 1
+  m_hideWeapon: 0
 --- !u!1 &5615991228403166567
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +857,7 @@ MonoBehaviour:
   _TextSlider: {fileID: 0}
   _valueHolder: 0
   _maxValueHolder: 0
-  _isCamActivated: 1
+  _textIsActive: 1
   _lifeSlider: {fileID: 0}
   _lifeText: {fileID: 0}
   _hpHolder: 0

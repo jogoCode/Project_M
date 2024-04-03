@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarManager : MonoBehaviour
+public class BarManager : MonoBehaviour , IBarManagable
 {
     [Header("TemplateBar")]
 
@@ -29,19 +29,20 @@ public class BarManager : MonoBehaviour
         if (!_TextSlider)
         {
             _TextSlider = GetComponentInChildren<Text>();
-        }
-        else
-        {
-            _textIsActive = false;
-        }
-        
+            if (!_TextSlider)
+            {
+                _textIsActive = false;
+            }
+        }        
     }
 
-    protected virtual void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
+    public virtual void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
     {
-        _Slider.value = newValue;
         _Slider.maxValue = newMaxValue;
+        _Slider.value = newValue;
     }
+
+
 }
 
 

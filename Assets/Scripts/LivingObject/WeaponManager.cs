@@ -19,7 +19,14 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         m_firstEquip = true;
-        EquipWeapon(m_weaponData);
+        if (!m_itemData)
+        {
+            EquipWeapon(m_weaponData);
+        }
+        else if (!m_weaponData)
+        {
+            EquipItem(m_itemData);
+        }
         Pickable.OnPickedUp += EquipWeapon;
         if (m_hideWeapon)
         {
