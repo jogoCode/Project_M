@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private float _destroyedTime;
     
-    int _dammage;
+    int _damage;
     void Start()
     {
         Destroy(gameObject, _destroyedTime);
@@ -23,13 +23,13 @@ public class Bullet : MonoBehaviour
     {
         if(other.gameObject.GetComponent<PlayerController>() != null) 
         {
-            other.gameObject.GetComponent<PlayerController>().SetHp(-_dammage);
+            other.gameObject.GetComponent<PlayerController>().SetHp(-_damage);
         }
     }
 
-    public void SetDammage(int dmgValue)
+    public void SetDamage(int dmgValue)
     {
-        _dammage = dmgValue;
+        _damage = dmgValue;
     }
 
 }
