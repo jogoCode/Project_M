@@ -7,22 +7,9 @@ public class SaveSystem : MonoBehaviour
 
     [SerializeField] Transform _playerTransforms;
     [SerializeField] WeaponManager _weaponManager;
-
-
     Weapon playerWeapon;
 
-    GameObject visualParent ;
-
     Items playerItem ;
-    private void Start()
-    {
-
-        Weapon playerWeapon = _weaponManager.GetWeaponData();
-
-        GameObject visualParent = _weaponManager.GetVisualData();
-
-        Items playerItem = _weaponManager.GetItemData();
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F5))
@@ -37,6 +24,11 @@ public class SaveSystem : MonoBehaviour
 
      void SaveData()
     {
+        Weapon playerWeapon = _weaponManager.GetWeaponData();
+
+        GameObject visualParent = _weaponManager.GetVisualData();
+
+        Items playerItem = _weaponManager.GetItemData();
 
         SavedData savedData = new()
         {
@@ -44,7 +36,6 @@ public class SaveSystem : MonoBehaviour
             _playerRotations = _playerTransforms.rotation,
             _weaponInhand = playerWeapon,
             _itemInhand = playerItem,
-            _visual = visualParent,
 
         };
 
@@ -66,8 +57,10 @@ public class SaveSystem : MonoBehaviour
 
         playerWeapon = savedData._weaponInhand;
         playerItem = savedData._itemInhand;
-        visualParent = savedData._visual;
-    
+
+        _weaponManager.EquipItem(playerItem);
+        _weaponManager.EquipWeapon(playerWeapon);
+
         Debug.Log("chargement effectuée");
     }
 }
@@ -78,9 +71,8 @@ public class SavedData
     public Quaternion _playerRotations;
     public Weapon _weaponInhand;
     public Items _itemInhand;
-    public GameObject _visual;
 
-    
-
-   
+    public float currentHealth;
+    public float currentShield;
+    public float currentExp;
 }
