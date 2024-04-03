@@ -26,7 +26,7 @@ public class Buffable : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-
+            AddHp(40);
         }
     }
 

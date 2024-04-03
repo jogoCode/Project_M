@@ -8,10 +8,10 @@ public class PlayerBuffable : Buffable
     [Header("Player Buffable")]
     [SerializeField] PlayerController m_player;
 
-    IEnumerator Start()
+    void Start()
     {
-        yield return new WaitForSeconds(1);
-        AddAtk(5);
+        m_player = GetComponent<PlayerController>();
+        AddJump(15);
     }
 
     void AddJump(float newJSpeed)

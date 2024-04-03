@@ -110,7 +110,10 @@ public class EnemyController : LivingObject
                 _fakeTarget.position = SetRandomPosition();
             if (_agent != null)
             {
-                _agent.SetDestination(_fakeTarget.position);
+                if (_agent.enabled == true)
+                {
+                    _agent.SetDestination(_fakeTarget.position);
+                }
             }
                 yield return new WaitForSeconds(_delayChangePos);
    }

@@ -104,7 +104,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
         if (other.GetComponentInParent<LivingObject>())
         {
             if (other.gameObject.layer == this.gameObject.layer || other.GetComponentInParent<WeaponManager>().GetWeaponData() == null) return; // Verifie le layer des deux entité
-            int damage = -other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage;
+            int damage = -(other.GetComponentInParent<WeaponManager>().GetWeaponData().Damage + other.GetComponentInParent<LivingObject>().GetBuffDamage());
             //DAMAGES BY ARMOR
             var playerinparent = other.GetComponentInParent<PlayerController>();
             if (playerinparent)

@@ -120,6 +120,7 @@ public class PlayerController : LivingObject
     {
         m_stateManager.SetState(StateManagable.States.DIE);
         transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,0,75),50*Time.deltaTime);
+        m_weapon.HideWeapon();
         End();        
     }
 
