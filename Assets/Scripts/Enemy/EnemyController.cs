@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -43,8 +44,8 @@ public class EnemyController : LivingObject
 
         _isMoreDistanced = false;
 
-        //RANDOM MOVE
-        Move();
+            //RANDOM MOVE
+            Move();
 
         if (_agent == null)
         {
@@ -117,6 +118,7 @@ public class EnemyController : LivingObject
  
    }
 
+    //MOVE TOWARDS PLAYER
     protected virtual void MoveTowardsPlayer()
     {
         //DETECT PLAYER
@@ -157,7 +159,6 @@ public class EnemyController : LivingObject
         if (_agent.enabled == true)
         {
             _agent.SetDestination(_target.position);
-
         }
         else
         {
@@ -165,6 +166,7 @@ public class EnemyController : LivingObject
         }
 
     }
+
     //MAKE DAMAGE 
     protected override void OnTriggerEnter(Collider other)
     {
