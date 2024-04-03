@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StateManagable : MonoBehaviour
 {
+
+    [SerializeField] LivingObject m_owner;
     public enum States
     {
         IDLE,
@@ -15,7 +17,10 @@ public class StateManagable : MonoBehaviour
 
     [SerializeField] States m_actualState;
     [SerializeField] States m_lastState;
-     
+    private void Start()
+    {
+        m_owner = GetComponent<LivingObject>();
+    }
 
     public States GetState()
     {
@@ -27,7 +32,4 @@ public class StateManagable : MonoBehaviour
         m_lastState = m_actualState;
         m_actualState = newState;
     }
-
-
-
 }

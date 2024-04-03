@@ -6,23 +6,23 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(StateManagable))]
 public class PlayerController : LivingObject
 {
 
 
     [Header("PlayerController")]
     //Movement
+    CharacterController m_cC;
+    Vector3 m_vel;
     [SerializeField] protected float m_actualSpeed;
     [SerializeField] protected float m_gravity;
     [SerializeField] protected float m_jumpForce;
     [SerializeField] protected float m_sprintSpeed;
     [SerializeField] float m_baseSpeed;
 
-    [SerializeField] States m_actualState = States.IDLE;
-
-
+    StateManagable m_stateManager;
     BoxCollider m_hitBox;
-
     FPSCamera m_camera;
 
 
@@ -30,28 +30,14 @@ public class PlayerController : LivingObject
     int m_buffer = 0;
 
 
+    float m_ySpeed;
+    bool m_canFeedBack;
     //Actions
     public static Action<float> IsSprinting;
 
     public static Action End;
 
-    public enum States
-    {
-        IDLE,
-        MOVE,
-        ATTACK,
-        HIT,
-        DIE
-    }
-
-
-    Vector3 m_vel;
-    CharacterController m_cC;
-
-    float m_ySpeed;
-    bool m_canFeedBack;
-
-    void Start()
+    new void Start()
     {
         //----------------------REFERENCES-----------------
         base.Start();
@@ -63,7 +49,14 @@ public class PlayerController : LivingObject
             m_LevelSystem = GetComponent<Levelable>();
         }
         m_hitBox = GetComponentInChildren<BoxCollider>();
+
+        if (!m_stateManager)
+        {
+            m_stateManager = GetComponent<StateManagable>();
+        }
         m_camera = Camera.main.GetComponent<FPSCamera>();
+
+
         //-------------------------------------------------
         m_baseSpeed = m_actualSpeed;
 
@@ -72,26 +65,23 @@ public class PlayerController : LivingObject
         AnimationEvent.isNotActive += DeActivateHitBox;
 
         IsSprinting?.Invoke(0);
-
+        End?.Invoke();
     }
 
     void Update()
     {
-        switch (m_actualState)
+        switch (m_stateManager.GetState())
         {
-            case States.IDLE:
+            case StateManagable.States.IDLE:
                 GetComponentInChildren<Animator>().speed = 1;
-                Movement();
-                
+                Movement();           
                 break;
-            case States.MOVE:
-                Movement();
-                break;
-            case States.ATTACK:
+            case StateManagable.States.ATTACK:
                 Movement();
                 GetComponentInChildren<Animator>().speed = m_weapon.GetAtkSpeed()/4;
                 break;
         }
+        if (m_stateManager.GetState() == StateManagable.States.DIE) return;
         if (Input.GetButtonDown("Fire1"))
         {
             if (!m_weapon.GetWeaponData()) return;
@@ -113,24 +103,24 @@ public class PlayerController : LivingObject
             Jump(m_jumpForce);
         }
 
-        if (Input.GetButton("Fire3") && m_cC.isGrounded && hVel != Vector2.zero) // SPRINT
+        if (Input.GetButton("Fire3") && hVel != Vector2.zero) // SPRINT
         {
             SetSpeed(m_sprintSpeed);
-            IsSprinting(m_camera.GetFOV() + 10);
+            IsSprinting(m_camera.GetFOV() + m_camera.FovFactor); //change le fov de la camera
         }
         else // NORMAL
         {
             SetSpeed(m_baseSpeed);
-            IsSprinting(m_camera.GetFOV() - 10);
+            IsSprinting(m_camera.GetFOV() - m_camera.FovFactor);
         }
         m_actualSpeed = Mathf.Lerp(m_actualSpeed, m_actualSpeed, Time.deltaTime*2);
     }
 
-    public void Die(LivingObject killer)
+    new public void Die(LivingObject killer)
     {
-        //Debug.Log(killer);
-        End();
-        
+        m_stateManager.SetState(StateManagable.States.DIE);
+        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(0,0,75),50*Time.deltaTime);
+        End();        
     }
 
     void ApplyMovement() //Applique les mouvements sur le Character Controller
@@ -161,7 +151,7 @@ public class PlayerController : LivingObject
         if (Input.GetButtonDown("Fire1"))
         {
             m_buffer = Mathf.Clamp(m_buffer, 0, 3);
-            m_actualState = States.ATTACK;
+            m_stateManager.SetState(StateManagable.States.ATTACK); //change l'état en ATTACK
             m_hitBox.size = new Vector3(1, 1, m_weapon.GetRange());
             GetComponentInChildren<Animator>().SetTrigger("IsAtk");
         }
@@ -178,6 +168,7 @@ public class PlayerController : LivingObject
             if (m_weapon.GetItemData() != null)
             {
                 SetHp(m_weapon.GetItemData().Hpgain);
+                LifeChanged.Invoke(m_hp, m_maxHp);
                 m_weapon.UseItem();
             }
         }
@@ -198,13 +189,9 @@ public class PlayerController : LivingObject
             if (seeitem && Input.GetKeyDown(KeyCode.E))
             {
                 seeitem.Pick(this);
-            }
-     
-        }
-        
+            }   
+        }      
     }
-
- 
 
     void ActivateHitbox()
     {
@@ -219,21 +206,17 @@ public class PlayerController : LivingObject
         if (m_hitBox)
         {
             m_hitBox.enabled = false;
-            m_actualState = States.IDLE;
+            m_stateManager.SetState(StateManagable.States.IDLE); //change l'état IDLE
             if (!this) return;
             StartCoroutine(ResetBuffer());
         }
     }
 
+
     void Jump(float jumpForce)
     {
         if (!m_cC.isGrounded) return;
         m_vel.y = jumpForce;
-    }
-
-    void SetSpeed(float newSpeed)
-    {
-        m_actualSpeed = Mathf.Lerp(m_actualSpeed,newSpeed,(m_actualSpeed/2)*Time.deltaTime);
     }
 
     private IEnumerator ResetBuffer()
@@ -242,29 +225,40 @@ public class PlayerController : LivingObject
         m_buffer = 0;
     }
 
+    public override void Hit()
+    {
+        base.Hit();
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Shake(4f, 0.5f, true, true));
+        Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Freeze(0.08f, 0.008f, true));
+    }
+
     override protected void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
         if(m_hp <= 0)
         {
-            Die((LivingObject)other.GetComponent<EnemyController>());
-           
+            Die((LivingObject)other.GetComponent<EnemyController>());   
         }
         if (other.gameObject.layer == this.gameObject.layer) return;
-        //FEEdBACK
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Shake(4f, 0.5f, true, true));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(CameraShake.cameraShake.Freeze(0.08f, 0.008f,true));
-        //PARTICLE
-        Instantiate(m_hitFx, transform.position, Quaternion.identity);
+        Hit();
     }
 
 
-    public States GetActualState()
+    //-----------------------SET-----------------------------------
+    public void SetSpeed(float newSpeed)
     {
-        return m_actualState;
+        m_actualSpeed = Mathf.Lerp(m_actualSpeed, newSpeed, (m_actualSpeed / 2) * Time.deltaTime);
     }
 
-    //TODO REGLER PROBLEME CAMERA FIBRATION
-    //
+    public void SetJumpSpeed(float newJSpeed)
+    {
+        m_jumpForce = newJSpeed;
+    }
+
+    public void SetBaseSpeed(float newBSpeed)
+    {
+        m_baseSpeed += newBSpeed;
+        m_sprintSpeed = m_baseSpeed + m_baseSpeed;
+    }
 
 }

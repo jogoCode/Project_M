@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 50
-  m_maxhp: 50
+  m_maxHp: 0
   m_armor: 10
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -546,7 +546,6 @@ MonoBehaviour:
   _fakeTarget: {fileID: 2753912128524759228}
   _rangeDistance: 20
   _delayChangePos: 5
-  _recoil: 5
 --- !u!54 &2753912128065474807
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -602,6 +601,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 2753912128029311965}
   m_pickable: {fileID: 0}
   m_firstEquip: 0
+  m_hideWeapon: 0
 --- !u!1 &2753912128238373906
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +786,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2753912128496035516}
   - component: {fileID: 2753912128496035518}
-  - component: {fileID: 2753912128496035517}
+  - component: {fileID: 7517430715594989634}
   m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
@@ -867,7 +867,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2753912128496035517
+--- !u!114 &7517430715594989634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -876,18 +876,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2753912128496035491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 223504ffbeeec1f43a9b54f68bf09ad9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a01ac618d7b53f47ab941cb49529f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Slider: {fileID: 0}
   _TextSlider: {fileID: 0}
   _valueHolder: 0
   _maxValueHolder: 0
-  _isCamActivated: 1
-  _lifeSlider: {fileID: 0}
-  _lifeText: {fileID: 0}
-  _hpHolder: 0
-  _maxHpHolder: 0
+  _textIsActive: 1
+  m_parentLife: {fileID: 2753912128065474800}
+  _isInWorld: 1
 --- !u!1 &2753912128524759203
 GameObject:
   m_ObjectHideFlags: 0

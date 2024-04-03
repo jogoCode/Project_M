@@ -626,7 +626,7 @@ MonoBehaviour:
   _TextSlider: {fileID: 0}
   _valueHolder: 0
   _maxValueHolder: 0
-  _isCamActivated: 0
+  _textIsActive: 1
   _lifeSlider: {fileID: 293428558491808635}
   _lifeText: {fileID: 293428560014864030}
   _hpHolder: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
   _TextSlider: {fileID: 0}
   _valueHolder: 0
   _maxValueHolder: 0
-  _isCamActivated: 0
+  _textIsActive: 1
   _parentExpSys: {fileID: 6011885272676872628}
 --- !u!114 &293428558832316522
 MonoBehaviour:
@@ -1314,6 +1314,7 @@ GameObject:
   - component: {fileID: 483488721600372921}
   - component: {fileID: 6011885272676872628}
   - component: {fileID: 5480202160927675057}
+  - component: {fileID: 5891134967725494684}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1370,7 +1371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 50
-  m_maxhp: 50
+  m_maxHp: 50
   m_armor: 0
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -1379,7 +1380,6 @@ MonoBehaviour:
   m_jumpForce: 5
   m_sprintSpeed: 10
   m_baseSpeed: 0
-  m_actualState: 0
   m_LevelSystem: {fileID: 0}
 --- !u!114 &6011885272676872628
 MonoBehaviour:
@@ -1411,6 +1411,22 @@ MonoBehaviour:
   m_pickable: {fileID: 5791186835847817186, guid: 0fe170c7f2af59b48a4b2539d3186df6,
     type: 3}
   m_firstEquip: 1
+  m_hideWeapon: 0
+--- !u!114 &5891134967725494684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483488721600372923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7497ec4690a3e934fa315b1b092b57ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_owner: {fileID: 0}
+  m_actualState: 0
+  m_lastState: 0
 --- !u!1 &1609464195460901847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,6 +2093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mouseSensivity: 1
   m_player: {fileID: 0}
+  m_fovFactor: 10
 --- !u!114 &4936248088531759577
 MonoBehaviour:
   m_ObjectHideFlags: 0

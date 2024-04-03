@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,19 +18,19 @@ public class Seeitem : Pickable
             _isWeapon = false;
         }else if (_weapon != null)
         {
-            Instantiate(_weapon.Prefabs, transform.position, Quaternion.identity, this.transform);
+            GameObject visual = Instantiate(_weapon.Prefabs, transform.position, Quaternion.identity, this.transform);
+            GetComponent<BoxCollider>().size = transform.localScale;
             _isWeapon = true;
         }
         else
         {
             return;
         }
-        
+      
     }
 
     override public void Pick(LivingObject owner)
     {
-        //OnPickedUp(_weapon);
         WeaponManager weaponManager = owner.GetComponent<WeaponManager>();
         if (_isWeapon)
         {
@@ -43,26 +42,6 @@ public class Seeitem : Pickable
         }
         Destroy(gameObject);
     }
-
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.GetComponent<LivingObject>())
-    //    {
-    //        Debug.Log("j'ai attrapé quelque chose");
-    //        //WeaponManager weaponManager = other.GetComponent<WeaponManager>();
-    //        //if (_isWeapon)
-    //        //{
-    //        //    weaponManager.EquipWeapon(_weapon);
-    //        //}
-    //        //else
-    //        //{
-    //        //    weaponManager.EquipItem(_item);
-    //        //}
-            
-    //        //Destroy(gameObject);
-    //    }
-    //}
-
 
     public void SetWeapon(Weapon newWeapon)
     {

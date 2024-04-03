@@ -13,20 +13,29 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] bool m_firstEquip = true;
 
+    [SerializeField] bool m_hideWeapon;
+
+
     private void Start()
     {
         m_firstEquip = true;
-        EquipWeapon(m_weaponData);
+        if(!m_itemData)
+        {
+            EquipWeapon(m_weaponData);
+        }
+        else if(!m_weaponData)
+        {
+            EquipItem(m_itemData);
+        }
+       
         Pickable.OnPickedUp += EquipWeapon;
+        if (m_hideWeapon)
+        {
+            HideWeapon();
+        }
     }
 
-
-    private void Update()
-    {
-
-    }
-
-    public void EquipWeapon(Weapon newData)
+    public void EquipWeapon(Weapon newData) // EQUIPE UNE ARME
     {
         DropObject(false);
         m_weaponData = newData;
@@ -35,7 +44,7 @@ public class WeaponManager : MonoBehaviour
         
     }
 
-    public void EquipItem(Items newData)
+    public void EquipItem(Items newData) // EQUIPE UN OBJET
     {
         DropObject(false);
         m_weaponData = null;
@@ -44,7 +53,7 @@ public class WeaponManager : MonoBehaviour
         ChangeVisual(m_itemData.Prefabs);
     }
 
-    void ChangeVisual(GameObject newVisual)
+    void ChangeVisual(GameObject newVisual) // CHANGE LE VISUEL DE L'OBJET EN MAIN
     {
         m_firstEquip = false;
         int child = m_visualParent.transform.childCount;
@@ -85,15 +94,20 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
+    } // LACHE L'OBJET EN MAIN AU SOL
+
+    public void HideWeapon() // CACHE L'ARME EN MAIN
+    {
+        m_visualParent.SetActive(false);
     }
 
-    public void UseItem()
+    public void UseItem() //UTILISE L'ITEM EN MAIN
     {
         m_itemData = null;
         Destroy(m_visualParent.transform.GetChild(0).gameObject);
     }
     //-----------------------------------GET---------------------
-    public Weapon GetWeaponData()
+    public Weapon GetWeaponData() 
     {
         return m_weaponData;
     }

@@ -67,14 +67,14 @@ public class EnemyController : LivingObject
         IEnumerator recoilTime()
         {
             _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             _rb.velocity = Vector3.zero;
         }
     }
     
 
     //MOVE RANDOM
-    private void Move()
+   private void Move()
     {
         if (_fakeTarget != null)
         {
@@ -173,7 +173,8 @@ public class EnemyController : LivingObject
         var player = other.GetComponentInParent<PlayerController>();
         if (player != null)
         {
-            if (player.GetActualState() == PlayerController.States.ATTACK)
+            var playerState = other.GetComponentInParent<StateManagable>();
+            if (playerState.GetState() == StateManagable.States.ATTACK)
             {
                 Hit();
                 if (_isMoreDistanced == false)
@@ -201,15 +202,17 @@ public class EnemyController : LivingObject
     {
         if(_agent != null)
         {
-        _agent.enabled = false;
-        yield return new WaitForSeconds(1f);
-        _agent.enabled = true;
+            _agent.enabled = false;  
+            yield return new WaitForSeconds(0.5f);
+            _rb.velocity = Vector3.Lerp(_rb.velocity,Vector3.zero,1f);
+            _agent.enabled = true;
         }
     }
 
     //TAKE DAMAGE
-    new public void Hit()
+    public override void Hit()
     {
+        base.Hit();
         StartCoroutine(Hitwait());
       
         Recoil();
@@ -229,8 +232,13 @@ public class EnemyController : LivingObject
             var player = killer.GetComponent<PlayerController>();
             player.m_LevelSystem.AddExp(5);
             IsDying.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     //DETECTION RADIUS
@@ -239,5 +247,8 @@ public class EnemyController : LivingObject
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _radius);
     }
+
+
+   
     
 }
