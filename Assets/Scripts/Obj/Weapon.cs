@@ -13,7 +13,7 @@ public class Weapon : ScriptableObject
      * 
      */
 
-
+    //-----------------------------------ENUM---------------------
     public enum ADDITIONALEFFECTS
     {
         NONE,
@@ -30,6 +30,7 @@ public class Weapon : ScriptableObject
         MELEE,
         RANGE
     }
+    
     public string _name;
     [SerializeField] int _damage;
     [SerializeField] int _atkSpeed;
@@ -44,8 +45,9 @@ public class Weapon : ScriptableObject
     // test //
     private float enemyHealth = 100f; 
     private float damageInterval = 3f; 
-    private float damageAmount = 0.125f; 
-   
+    private float damageAmount = 0.125f;
+
+    //-----------------------------------GET---------------------
     public string Name
     {
         get { return _name; }
@@ -85,6 +87,7 @@ public class Weapon : ScriptableObject
         get { return _prefabs; }
     }
 
+ //-----------------------------------FONCTIONS---------------------
     public void RangeOfWeapon()
     {
         if (_weaponType == TypeOfItem.MELEE)
@@ -150,6 +153,27 @@ public class Weapon : ScriptableObject
 
     }
 
+    private void ApplyDamage()
+    {
+        // Calculer les dégâts en fonction de la fraction spécifiée
+        float damage = enemyHealth * damageAmount;
+
+        // Retirer les points de vie
+        enemyHealth -= damage;
+
+        // Vérifier si l'ennemi est toujours en vie
+        if (enemyHealth <= 0f)
+        {
+            EnemyDefeated();
+        }
+    }
+    private void EnemyDefeated()
+    {
+        Debug.Log("L'ennemi a été vaincu !");
+        //anim de mort
+    }
+
+    //-----------------------------------ENUMERATOR---------------------
     private IEnumerator InflictDamage()
     {  
             while (true)
@@ -176,23 +200,5 @@ public class Weapon : ScriptableObject
         
         
     }
-    private void ApplyDamage()
-    {
-        // Calculer les dégâts en fonction de la fraction spécifiée
-        float damage = enemyHealth * damageAmount;
 
-        // Retirer les points de vie
-        enemyHealth -= damage;
-
-        // Vérifier si l'ennemi est toujours en vie
-        if (enemyHealth <= 0f)
-        {
-            EnemyDefeated();
-        }
-    }
-    private void EnemyDefeated()
-    {
-       Debug.Log("L'ennemi a été vaincu !");
-        //anim de mort
-    }
 }
