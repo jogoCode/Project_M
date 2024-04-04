@@ -11,23 +11,20 @@ public class EnemyShoot : EnemyController
     [SerializeField] private Transform _pos;
     [SerializeField] private Transform _bullets;
 
-    [SerializeField] private float _nextShootTime;
+    private float _nextShootTime;
     [SerializeField] private float _delay;
 
-    [SerializeField] private Transform _boxDetect;
-    [SerializeField] private Vector3 _radBox;
+    //[SerializeField] private Transform _boxDetect;
+    //[SerializeField] private Vector3 _radBox;
 
-    public static Action OnShoot;
-
+        /*/SHOOT
     protected override void Start()
     {
         base.Start();
-        //OnShoot += Shoot;
     }
     protected override void Update()
     {
         base.Update();
-        //SHOOT
         if (_boxDetect != null)
         {
             Distance();
@@ -36,9 +33,11 @@ public class EnemyShoot : EnemyController
         {
             return;
         }
+        
 
     }
-    //SHOOT AT LONG DISTANCE
+    
+    /*SHOOT WITH BOX DISTANCE
     void Distance()
     {
         Collider[] player = Physics.OverlapBox(_boxDetect.position, _radBox / 2);
@@ -51,13 +50,15 @@ public class EnemyShoot : EnemyController
             }
         }
     }
+    */
+
+    //SHOOT WITH RADIUS
     protected override void MoveTowardsPlayer()
     {
 
         if (_isShooting == true)
         {
             //Debug.Log("shoot");                 
-            //EnemyShoot.OnShoot();
             Shoot();
         }
         base.MoveTowardsPlayer();
@@ -71,7 +72,7 @@ public class EnemyShoot : EnemyController
                 if (_pos != null)
                 {
                     GameObject bullet = Instantiate(_bullet, _pos.position, _pos.rotation);
-                    bullet.GetComponent<Bullet>().SetDammage(m_weapon.GetWeaponData().Damage);
+                    bullet.GetComponent<Bullet>().SetDamage(m_weapon.GetWeaponData().Damage);
                 }
                 _nextShootTime = Time.time + _delay;
             }
@@ -80,7 +81,7 @@ public class EnemyShoot : EnemyController
     //DETECTION RADIUS
     private void OnDrawGizmos()
     {
-        if (_boxDetect == null)
+        /*if (_boxDetect == null)
         {
             return;
         }
@@ -88,10 +89,10 @@ public class EnemyShoot : EnemyController
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(_boxDetect.position, _radBox);
-        }
+        }*/
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_sphere.position, _radius);
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
 
 

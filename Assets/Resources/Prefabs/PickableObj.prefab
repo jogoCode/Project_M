@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 5791186835847817184}
   - component: {fileID: 5791186835847817187}
   - component: {fileID: 2778738899225506803}
+  - component: {fileID: 2257251885379258693}
   m_Layer: 7
   m_Name: PickableObj
   m_TagString: Untagged
@@ -261,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _item: {fileID: 0}
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
 --- !u!136 &2778738899225506803
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -276,3 +277,16 @@ CapsuleCollider:
   m_Height: 2.5124464
   m_Direction: 1
   m_Center: {x: 0, y: 0.24545717, z: 0}
+--- !u!65 &2257251885379258693
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5791186835847817186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -11,12 +11,14 @@ GameObject:
   - component: {fileID: 522410313843315407}
   - component: {fileID: 1900225052922147439}
   - component: {fileID: 3129881740799595211}
+  - component: {fileID: 2120071756632719242}
+  - component: {fileID: 4169697215269236108}
   m_Layer: 0
   m_Name: Rock1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &522410313843315407
 Transform:
@@ -56,7 +58,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8976202981019317044}
-  - screenRelativeHeight: 0.005
+  - screenRelativeHeight: 0.01
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8976202981019317044}
@@ -74,6 +76,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.56065387, y: 0.5678881, z: 0.53719366}
   m_Center: {x: 0.0021327436, y: 0.2031655, z: -0.009597361}
+--- !u!208 &2120071756632719242
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83653193247168930}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.25, z: 0.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.18, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &4169697215269236108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83653193247168930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9414d2c24bf546a4d817b1b9d68e777e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7462778482751886049
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +120,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7843807998809639003
 Transform:

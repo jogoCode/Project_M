@@ -1,7 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/MainMenu 1.unity.meta
 guid: 102a565578db00a44a07d5bcc6cbba63
 DefaultImporter:
   externalObjects: {}
+========
+guid: 57512f538675c9b4b9be9a188339379f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+>>>>>>>> 8f7526effc5bb178fc2daa2907ab32b140829b2b:Assets/Stuff/Weapons/Nothing.asset.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

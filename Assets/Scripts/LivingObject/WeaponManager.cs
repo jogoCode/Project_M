@@ -13,20 +13,29 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] bool m_firstEquip = true;
 
+    [SerializeField] bool m_hideWeapon;
+
+
     private void Start()
     {
         m_firstEquip = true;
-        EquipWeapon(m_weaponData);
+        if(!m_itemData)
+        {
+            EquipWeapon(m_weaponData);
+        }
+        else if(!m_weaponData)
+        {
+            EquipItem(m_itemData);
+        }
+       
         Pickable.OnPickedUp += EquipWeapon;
+        if (m_hideWeapon)
+        {
+            HideWeapon();
+        }
     }
 
-
-    private void Update()
-    {
-
-    }
-
-    public void EquipWeapon(Weapon newData)
+    public void EquipWeapon(Weapon newData) // EQUIPE UNE ARME
     {
         DropObject(false);
         m_weaponData = newData;
@@ -35,7 +44,7 @@ public class WeaponManager : MonoBehaviour
         
     }
 
-    public void EquipItem(Items newData)
+    public void EquipItem(Items newData) // EQUIPE UN OBJET
     {
         DropObject(false);
         m_weaponData = null;
@@ -44,7 +53,7 @@ public class WeaponManager : MonoBehaviour
         ChangeVisual(m_itemData.Prefabs);
     }
 
-    void ChangeVisual(GameObject newVisual)
+    void ChangeVisual(GameObject newVisual) // CHANGE LE VISUEL DE L'OBJET EN MAIN
     {
         m_firstEquip = false;
         int child = m_visualParent.transform.childCount;
@@ -62,9 +71,10 @@ public class WeaponManager : MonoBehaviour
     {
         if (m_firstEquip) return;
 
+        Vector3 dropPos = new Vector3(CastARay().x, 1+CastARay().y, CastARay().z);
         if (m_weaponData!= null)
         {
-            var lastItemPref = Instantiate(m_pickable, transform.position+transform.forward*2, Quaternion.identity);
+            var lastItemPref = Instantiate(m_pickable);
             lastItemPref.GetComponent<Seeitem>().SetWeapon(m_weaponData);
             m_weaponData = null;
             if (isDrop)
@@ -75,7 +85,7 @@ public class WeaponManager : MonoBehaviour
         }
         if (m_itemData != null)
         {
-            var lastItemPref = Instantiate(m_pickable, transform.position + transform.forward * 2, Quaternion.identity);
+            var lastItemPref = Instantiate(m_pickable, dropPos, Quaternion.identity);
             lastItemPref.GetComponent<Seeitem>().SetItem(m_itemData);
             m_itemData = null;
             if (isDrop)
@@ -85,19 +95,38 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
+    } // LACHE L'OBJET EN MAIN AU SOL
+
+    public Vector3 CastARay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit; 
+        if(Physics.Raycast(ray,out hit,2))
+        {
+            return hit.point;
+        }
+        return transform.position+transform.forward;
     }
 
-    public void UseItem()
+    public void HideWeapon() // CACHE L'ARME EN MAIN
+    {
+        m_visualParent.SetActive(false);
+    }
+
+    public void UseItem() //UTILISE L'ITEM EN MAIN
     {
         m_itemData = null;
         Destroy(m_visualParent.transform.GetChild(0).gameObject);
     }
     //-----------------------------------GET---------------------
-    public Weapon GetWeaponData()
+    public Weapon GetWeaponData() 
     {
         return m_weaponData;
     }
-
+    public GameObject GetVisualData()
+    {
+        return m_visualParent;
+    }
     public Items GetItemData()
     {
         return m_itemData;
