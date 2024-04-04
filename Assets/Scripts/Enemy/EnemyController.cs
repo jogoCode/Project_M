@@ -37,6 +37,7 @@ public class EnemyController : LivingObject
  
     protected override void Start()
     {
+        _agent = GetComponent<NavMeshAgent>();
         base.Start();
 
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
@@ -56,7 +57,6 @@ public class EnemyController : LivingObject
         }
 
 
-        _agent = GetComponent<NavMeshAgent>();
 
         _agent.speed = _moveSpeed;
 
@@ -238,7 +238,7 @@ public class EnemyController : LivingObject
         StartCoroutine(Hitwait());
       
         Recoil();
-        Debug.Log("IsHit");
+        //Debug.Log("IsHit");
     }
 
     //PLAYER LEAVES THE SPHERE

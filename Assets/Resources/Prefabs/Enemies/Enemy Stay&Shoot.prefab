@@ -461,6 +461,7 @@ MonoBehaviour:
   _fakeTarget: {fileID: 0}
   _rangeDistance: 20
   _delayChangePos: 0
+  _position: {x: 0, y: 0, z: 0}
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
   _pos: {fileID: 4250460155116305391}
   _bullets: {fileID: 4250460155445316886}
@@ -507,7 +508,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 0}
   m_pickable: {fileID: 0}
   m_firstEquip: 0
-  m_hideWeapon: 0
+  m_hideWeapon: 1
 --- !u!1 &4250460155153991476
 GameObject:
   m_ObjectHideFlags: 0
