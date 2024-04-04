@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   _name: Sword
-  _damage: 1
+  _damage: 5
   _atkSpeed: 4
   _armorBreak: 60
   _range: 100
   _effect: 0
-  _knockBack: 1
+  _knockBack: 5
   _weaponType: 0
   _prefabs: {fileID: 4078284589814144167, guid: 84f318648c8a4dd4f81bfd516f37c745,
     type: 3}
