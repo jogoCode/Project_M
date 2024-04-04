@@ -9,6 +9,8 @@ public class CursorControl : MonoBehaviour
     private void Start()
     {
         PlayerController.End += DisableLock;
+        Levelable.isLevelUp += DisableLock;
+        BuffButton.isClicked += EnableLock;
     }
 
     private void Update()
@@ -28,5 +30,10 @@ public class CursorControl : MonoBehaviour
     public void DisableLock()
     {
         m_isLock = false;
+    }
+
+    public void EnableLock()
+    {
+        m_isLock = true;
     }
 }
