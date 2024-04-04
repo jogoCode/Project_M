@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1562697454164908888}
   - component: {fileID: 8457727344106888753}
+  - component: {fileID: -5945769053803687426}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1562697454164908888
 Transform:
@@ -55,11 +56,23 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8655111743438374138}
-  - screenRelativeHeight: 0.005
+  - screenRelativeHeight: 0.01
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8655111743438374138}
   m_Enabled: 1
+--- !u!114 &-5945769053803687426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875634566645677439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9414d2c24bf546a4d817b1b9d68e777e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7142108908266153263
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +89,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7518212685531135893
 Transform:

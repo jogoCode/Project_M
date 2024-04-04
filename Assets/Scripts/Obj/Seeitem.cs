@@ -44,7 +44,7 @@ public class Seeitem : Pickable
         Destroy(gameObject);
     }
 
-    public void OnTriggerEnter(Collider other)
+    /*public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<LivingObject>())
         {
@@ -61,7 +61,7 @@ public class Seeitem : Pickable
             
             //Destroy(gameObject);
         }
-    }
+    }*/
 
 
     public void SetWeapon(Weapon newWeapon)

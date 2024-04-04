@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _item: {fileID: 0}
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 11400000, guid: 49d5efeb707504342baf7613d772d570, type: 2}
 --- !u!136 &2778738899225506803
 CapsuleCollider:
   m_ObjectHideFlags: 0
