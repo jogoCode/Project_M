@@ -71,13 +71,14 @@ public class EnemyController : LivingObject
         }
     }
 
-    protected virtual void Update()
-    {
 
+
+    protected virtual void Update()
+    {       
         //DETECT AND MOVE
 
         MoveTowardsPlayer();
-
+        
     }
     public void Recoil()
     {
@@ -90,7 +91,7 @@ public class EnemyController : LivingObject
         }
     }
     
-
+    
     //MOVE RANDOM
    private void Move()
     {
