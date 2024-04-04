@@ -24,14 +24,12 @@ public class UIManager : MonoBehaviour
             return;
         }
         
-        //PlayerController.IsDying += End; 
-
-        
     }
 
 
     void Ending()
     {
+        if (!_endPanel) return;
         _endPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

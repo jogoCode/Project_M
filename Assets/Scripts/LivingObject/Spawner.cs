@@ -35,13 +35,15 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(1);
         
     }
+
+    //SPAWN RANDOM ENEMIES RANDOM POSITION
     void Spawn()
     {
 
         for (int i = 0; i < _max; i++)
         {
 
-            int randomEnemy = Random.Range(0, _enemiesPrefabs.Length);
+         int randomEnemy = Random.Range(0, _enemiesPrefabs.Length);
 
             Instantiate(_enemiesPrefabs[randomEnemy], SetRandomPosition(), transform.rotation);
         }
@@ -60,5 +62,5 @@ public class Spawner : MonoBehaviour
         return randomPosition;
     }
 
-
+ 
 }

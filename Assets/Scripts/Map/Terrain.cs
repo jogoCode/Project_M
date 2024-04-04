@@ -4,6 +4,7 @@ using UnityEditor.AI;
 using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.AI; 
 
 public class Terrain : MonoBehaviour
 {
