@@ -4,13 +4,12 @@ using UnityEngine;
 
 public interface ILivingObject
 {
-    void Movement();
 
     void Attack();
 
     void Hit();
 
-    void Die();
+    void Die(LivingObject killer);
 
     void SetHp(int hp);
 

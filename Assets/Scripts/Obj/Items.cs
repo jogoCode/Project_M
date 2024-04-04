@@ -15,7 +15,6 @@ public class Items : ScriptableObject
 
     public string _name;
     [SerializeField] int _hpgain;
-    [SerializeField] int _damage;
     [SerializeField] GameObject _prefabs;
 
     public string Name
@@ -27,10 +26,6 @@ public class Items : ScriptableObject
         get { return _hpgain; }
     }
 
-    public int Damage
-    {
-        get { return _damage; }
-    }
     public GameObject Prefabs
     {
         get { return _prefabs; }

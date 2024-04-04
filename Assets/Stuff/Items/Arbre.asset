@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a7669f82c49674a83e15bee8a2ea59, type: 3}
   m_Name: Arbre
   m_EditorClassIdentifier: 
-  _name: 
+  _name: Arbre
   _hpgain: 0
-  _damage: 0
-  _prefabs: {fileID: 0}
+  _prefabs: {fileID: 1167931486679891212, guid: 9e9695ae2eb814e46ac86aadd3ba7968,
+    type: 3}

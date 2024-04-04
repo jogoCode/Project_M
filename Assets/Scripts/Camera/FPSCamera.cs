@@ -12,19 +12,10 @@ public class FPSCamera : MonoBehaviour
 
     Camera m_camera;
     CameraShake m_cameraShake;
+    
+   
+    float m_Fov;
 
-    float m_rand;
-   CameraStates m_actualState = CameraStates.IDLE;
-    enum CameraStates
-    {
-        IDLE,
-        SHAKE
-    }
-
-    float _vel;
-    float _displacement;
-    float _spring = 900;
-    float _damp = 10;
 
     private void Start()
     {
@@ -36,15 +27,13 @@ public class FPSCamera : MonoBehaviour
         m_cameraShake = GetComponent<CameraShake>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        m_Fov = m_camera.fieldOfView;
+        PlayerController.IsSprinting += ChangeFov;
     }
 
     void Update()
     {
-        var force = -_spring * _displacement - _damp * _vel;
-        _vel += force * Time.deltaTime;
-        _displacement += _vel * Time.deltaTime;
-        var direction = transform.right + transform.forward;
-        transform.position = new Vector3(transform.parent.position.x + -_displacement, transform.position.y, transform.parent.position.z);
         RotateCamera();
     }
 
@@ -53,19 +42,21 @@ public class FPSCamera : MonoBehaviour
         m_mouseInput.x = Input.GetAxis("Mouse X") * m_mouseSensivity;
         m_mouseInput.y += Input.GetAxis("Mouse Y") * m_mouseSensivity;
         var camVRotation = m_mouseInput.y;
-        m_mouseInput.y = Mathf.Clamp(m_mouseInput.y, -70, 70);
+        m_mouseInput.y = Mathf.Clamp(m_mouseInput.y, -90, 90);
         transform.localEulerAngles = Vector3.right * -camVRotation;
-        Debug.Log(camVRotation);
         m_player.Rotate(Vector3.up * m_mouseInput.x);
     }
 
-    void ChangeState(CameraStates newState)
+    void ChangeFov(float newFov)
     {
-        m_actualState = newState;
+        if (!this) return;
+        m_camera.fieldOfView = Mathf.Lerp(m_camera.fieldOfView,newFov,5*Time.deltaTime);
     }
 
-
-    //TODO Changer le fov de la camera quant on sprint
-    //TODO Finir le camera shake;
+    //---------GET-------------------------
+    public float GetFOV()
+    {
+        return m_Fov;
+    }
 
 }

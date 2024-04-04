@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraShake : MonoBehaviour
+public class  CameraShake : MonoBehaviour
 {
     float _vel;
     float _displacement;
-    [SerializeField][Range(0.0f, 900f)] float _spring = 300020;
-    [SerializeField][Range(0.0f, 900f)] float _damp = 20;
-    public IEnumerator Shake(float force , float time)
+    [SerializeField][Range(0.0f, 900f)] float _spring;
+    [SerializeField][Range(0.0f, 900f)] float _damp;
+    static public CameraShake cameraShake;
+
+
+    [SerializeField] SpriteRenderer m_hitScreen;
+    Vector3 ogPos ;
+    private void Start()
     {
-        Vector3 ogPos = transform.localPosition;
+        cameraShake = GetComponent<CameraShake>();
+        ogPos = transform.localPosition;
+    }
+
+    public IEnumerator Shake(float force , float time,bool x, bool y)
+    {
+        
         float elapsed = 0;
         _vel = force;
         while (elapsed < time)
@@ -19,7 +30,23 @@ public class CameraShake : MonoBehaviour
             var _force = -_spring * _displacement - _damp * _vel;
             _vel += _force * Time.deltaTime;
             _displacement += _vel * Time.deltaTime;
-            transform.localPosition = new Vector3(ogPos.x+_displacement, ogPos.y+-_displacement, ogPos.z);
+
+
+            var h = ogPos.x;
+            var v = ogPos.y;
+            if (x && y) {
+                h = ogPos.x + _displacement;
+                v = ogPos.y + _displacement;
+            }
+            if (x && !y)
+            {
+                h = ogPos.x + _displacement;
+            }
+            if (!x && y)
+            {
+                v = ogPos.y + _displacement;
+            }
+            transform.localPosition = new Vector3(h, v, ogPos.z);
          
 
             elapsed += Time.deltaTime;
@@ -29,10 +56,12 @@ public class CameraShake : MonoBehaviour
         
     }
 
-    public IEnumerator Freeze(float time,float duration)
+    public IEnumerator Freeze(float time,float duration,bool hitScreen)
     {
         Time.timeScale = time;
+        if(hitScreen) m_hitScreen.enabled = true;
         yield return new WaitForSeconds(duration);
         Time.timeScale = 1;
+        if (hitScreen) m_hitScreen.enabled = false;
     }
 }
