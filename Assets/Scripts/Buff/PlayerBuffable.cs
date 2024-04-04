@@ -14,12 +14,12 @@ public class PlayerBuffable : Buffable
         m_player = GetComponent<PlayerController>();
     }
 
-    void AddJump(float newJSpeed)
+    public void AddJump(float newJSpeed)
     {
         m_player.SetJumpSpeed(newJSpeed);
     }
 
-    void AddSpeed(float newSpeed)
+    public void AddSpeed(float newSpeed)
     {
         m_player.SetBaseSpeed(newSpeed);
     }

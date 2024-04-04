@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ChooseABuff : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class ChooseABuff : MonoBehaviour
     [SerializeField] float m_displayOffset;
     [SerializeField] GameObject m_buffsParent;
 
+
     Buffs m_buffType;
-    enum Buffs
+    public enum Buffs
     {
         ATK,
         HP,
@@ -30,32 +32,40 @@ public class ChooseABuff : MonoBehaviour
             Debug.LogError("Il manque le préfabs du buffButton "+this.gameObject);
         }
         UpdateBuff();
+        BuffButton.isClicked += RemoveBuffs;
+        Levelable.isLevelUp += UpdateBuff;
     }
 
     public void UpdateBuff()
     {
         for (int i = 0; i< 3; i++)
         {
-            Instantiate(m_buffButton,new Vector3(m_displayPos.x+i* m_displayOffset, m_displayPos.y, m_displayPos.z), Quaternion.identity,m_buffsParent.transform);
+            var buffPrefab = Instantiate(m_buffButton,new Vector3(m_displayPos.x+i* m_displayOffset, m_displayPos.y, m_displayPos.z), Quaternion.identity,m_buffsParent.transform);
+            var buff = buffPrefab.GetComponent<BuffButton>();
+            buff.SetBuffType(RandBuff());
         }
     }
 
 
-    public void RandBuff()
+    public void RemoveBuffs()
     {
-        var rand = Random.Range(0,5);
-        switch (rand){
-            case 0: 
-                m_buffType = Buffs.ATK; 
-            break;
-            case 1:
-                m_buffType = Buffs.HP;
-            break;
-            case 2:
-                m_buffType = Buffs.JUMP;
-            break;
-
-
+        foreach (Transform child in m_buffsParent.transform)
+        {
+            Destroy(child.gameObject);
         }
+    }
+
+    public Buffs RandBuff()
+    {
+        var rand = Random.Range(0,3);
+        switch(rand){ 
+            case 0:
+                return Buffs.ATK;
+            case 1:
+                return Buffs.HP;
+            case 2: 
+                return Buffs.JUMP; 
+        }
+        return Buffs.ATK;
     }
 }
