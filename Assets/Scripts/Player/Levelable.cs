@@ -52,7 +52,7 @@ public class Levelable : MonoBehaviour, ILevelable
 
     public void AddLvl() // Level Up
     {
-        Debug.Log("LEVEL UP");
+        //Debug.Log("LEVEL UP");
         isLevelUp();
         m_lvl++;
         SetMaxExp();

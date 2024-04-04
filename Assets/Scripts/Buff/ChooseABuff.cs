@@ -31,7 +31,7 @@ public class ChooseABuff : MonoBehaviour
         {
             Debug.LogError("Il manque le préfabs du buffButton "+this.gameObject);
         }
-        UpdateBuff();
+        //UpdateBuff();
         BuffButton.isClicked += RemoveBuffs;
         Levelable.isLevelUp += UpdateBuff;
     }

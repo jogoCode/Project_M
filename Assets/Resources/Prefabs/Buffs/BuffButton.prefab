@@ -296,3 +296,8 @@ MonoBehaviour:
   - ATK
   - HP
   - JUMP
+  m_ImgArray:
+  - {fileID: 21300000, guid: e4b7dac79d5bc3943b8a364314283ce5, type: 3}
+  - {fileID: 21300000, guid: ee53a280755f528449fbc385f2b16a38, type: 3}
+  - {fileID: 21300000, guid: 823baa3912aa7314c99b2317923ff277, type: 3}
+  m_buffImage: {fileID: 8811306919959848858}

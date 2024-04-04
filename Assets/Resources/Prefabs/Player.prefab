@@ -78,7 +78,7 @@ MonoBehaviour:
   m_gravity: -9.81
   m_jumpForce: 5
   m_sprintSpeed: 10
-  m_baseSpeed: 0
+  m_baseSpeed: 10
   m_LevelSystem: {fileID: 0}
 --- !u!114 &6011885272676872628
 MonoBehaviour:
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7270559221384855389}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e0888efec948bc4cbbb5dcd0682b0c9, type: 3}
   m_Name: 

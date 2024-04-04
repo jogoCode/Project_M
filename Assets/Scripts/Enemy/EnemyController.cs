@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -29,6 +30,8 @@ public class EnemyController : LivingObject
 
     private Rigidbody _rb;
 
+    [SerializeField] private Vector3 _position;
+
     private bool _isMoreDistanced;
 
  
@@ -38,6 +41,21 @@ public class EnemyController : LivingObject
 
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
         _rb = GetComponent<Rigidbody>();
+        
+        //Faire un rayon vers le bas qui est capable de voir le terrain
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, Vector3.down);
+        
+        //Si le rayon touche on recupere les coordonnees, ca devient le transform position de notre agent
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 100))
+        {
+            if (hit.collider != null)
+            {
+                _agent.Warp(hit.point); // tp l'agent
+            }
+        }
+
+
         _agent = GetComponent<NavMeshAgent>();
 
         _agent.speed = _moveSpeed;
@@ -51,7 +69,6 @@ public class EnemyController : LivingObject
         {
             _agent = GetComponent<NavMeshAgent>();      
         }
-
     }
 
 
@@ -100,7 +117,7 @@ public class EnemyController : LivingObject
    float randomPosX = Random.Range(-_rangeDistance, _rangeDistance);
    float randomPosZ = Random.Range(-_rangeDistance, _rangeDistance);
 
-   Vector3 randomPosition = new Vector3(randomPosX+ transform.position.x, transform.position.y, randomPosZ+ transform.position.z);
+   Vector3 randomPosition = new Vector3(randomPosX+ transform.position.x, _position.y, randomPosZ+ transform.position.z);
 
    return randomPosition;
    }

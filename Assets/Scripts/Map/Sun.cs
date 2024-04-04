@@ -2,22 +2,34 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
-    private const float MAX_ROTATION = 360f;
-
-    [SerializeField] private DayCycleManager m_dayCycleManager;
-    [SerializeField] private Transform m_sunLight;
-
-    private Vector3 _sunStartRotation;
-    private float _currentRotation;
-
-    private void Start()
-    {
-        _sunStartRotation = m_sunLight.localEulerAngles;
-    }
+    [SerializeField] private DayCycleManager dayCycleManager;
+    [SerializeField] private Light sunLight;
 
     private void Update()
     {
-        _currentRotation = Mathf.Lerp(0, MAX_ROTATION, m_dayCycleManager.IngameTime / 24f);
-        m_sunLight.localRotation = Quaternion.Euler(_sunStartRotation + Vector3.right * _currentRotation);
+        RotateSun();
+    }
+
+    private void RotateSun()
+    {
+        // Calculate rotation angle based on time of the day
+        float angle = CalculateSunRotationAngle();
+
+        // Apply rotation to the sun
+        sunLight.transform.rotation = Quaternion.Euler(angle, -90f, 0);
+    }
+
+    private float CalculateSunRotationAngle()
+    {
+        // Calculate the time passed since the start of the day
+        float timePassedSinceStart = dayCycleManager.IngameTime - dayCycleManager.DayStart;
+
+        // Wrap the time passed between 0 and 24 hours
+        timePassedSinceStart = (timePassedSinceStart + 24) % 24;
+
+        // Convert the time passed to rotation angle (0 to 360 degrees)
+        float angle = Mathf.Lerp(0f, 360f, timePassedSinceStart / 24f);
+
+        return angle;
     }
 }
