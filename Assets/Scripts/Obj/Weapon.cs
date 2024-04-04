@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 
@@ -12,7 +13,7 @@ public class Weapon : ScriptableObject
      * 
      */
 
-
+    //-----------------------------------ENUM---------------------
     public enum ADDITIONALEFFECTS
     {
         NONE,
@@ -29,6 +30,7 @@ public class Weapon : ScriptableObject
         MELEE,
         RANGE
     }
+    
     public string _name;
     [SerializeField] int _damage;
     [SerializeField] int _atkSpeed;
@@ -43,8 +45,9 @@ public class Weapon : ScriptableObject
     // test //
     private float enemyHealth = 100f; 
     private float damageInterval = 3f; 
-    private float damageAmount = 0.125f; 
+    private float damageAmount = 0.125f;
 
+    //-----------------------------------GET---------------------
     public string Name
     {
         get { return _name; }
@@ -84,6 +87,7 @@ public class Weapon : ScriptableObject
         get { return _prefabs; }
     }
 
+ //-----------------------------------FONCTIONS---------------------
     public void RangeOfWeapon()
     {
         if (_weaponType == TypeOfItem.MELEE)
@@ -97,6 +101,9 @@ public class Weapon : ScriptableObject
 
     public void SpecialEffect()
     {
+        if(_effect == ADDITIONALEFFECTS.NONE)
+        {
+        }
         if(_effect == ADDITIONALEFFECTS.POISON)
         {
             /* la target perd des hp toute les secondes
@@ -122,7 +129,9 @@ public class Weapon : ScriptableObject
         if (_effect == ADDITIONALEFFECTS.BURN)
         {
             /* la target est perd des dégats d'atk si il a une arme de mélée 
-             * 
+             * effet de flamme
+             * damageAmount = 0.25;
+             * StartCoroutine(InflictDamage());
              */
         }
         if (_effect == ADDITIONALEFFECTS.SLEEP)
@@ -144,33 +153,6 @@ public class Weapon : ScriptableObject
 
     }
 
-    private IEnumerator InflictDamage()
-    {
-        if (_effect == ADDITIONALEFFECTS.POISON || _effect == ADDITIONALEFFECTS.BURN)
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(damageInterval);
-                ApplyDamage();
-            }
-        }
-    }
-    private IEnumerator StunEffect()
-    {
-        /*
-         * a une chance d'empecher de bouger
-         *  mettre la speed a 0 ?
-         *  enemy.speed = 0;
-        */
-        if (UnityEngine.Random.Range(0, 100) <= 30)
-        {
-            //enemySpeed = 0;
-            yield return new WaitForSeconds(2f);
-        }
-        //retour de la speed normal de l'enemy
-        
-        
-    }
     private void ApplyDamage()
     {
         // Calculer les dégâts en fonction de la fraction spécifiée
@@ -187,6 +169,36 @@ public class Weapon : ScriptableObject
     }
     private void EnemyDefeated()
     {
-       Debug.Log("L'ennemi a été vaincu !");
+        Debug.Log("L'ennemi a été vaincu !");
+        //anim de mort
     }
+
+    //-----------------------------------ENUMERATOR---------------------
+    private IEnumerator InflictDamage()
+    {  
+            while (true)
+            {
+                yield return new WaitForSeconds(damageInterval);
+                ApplyDamage();
+            }
+    }
+    private IEnumerator StunEffect()
+    {
+        int stunchance = 30;
+        int random = UnityEngine.Random.Range(0, 100);
+        /*
+         * a une chance d'empecher de bouger
+         *  mettre la speed a 0 ?
+         *  enemy.speed = 0;
+        */
+        if (random <= stunchance)
+        {
+            //enemySpeed = 0;
+            yield return new WaitForSeconds(2f);
+        }
+        //retour de la speed normal de l'enemy
+        
+        
+    }
+
 }

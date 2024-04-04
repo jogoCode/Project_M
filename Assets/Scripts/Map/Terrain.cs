@@ -1,8 +1,9 @@
 
-using UnityEditor.AI;
-using UnityEditor.Rendering.Universal.ShaderGUI;
+//using UnityEditor.Rendering.Universal.ShaderGUI;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.AI; 
 
 public class Terrain : MonoBehaviour
 {

@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Materials/Transparent.mat.meta
 guid: 8a7d9b7c42b36cf4c8c2cb455d1a2230
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
+========
+guid: 29f98d10e1fb5e842846f458f53dac2a
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+>>>>>>>> refs/remotes/origin/main:Assets/Resources/Prefabs/Pickup.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

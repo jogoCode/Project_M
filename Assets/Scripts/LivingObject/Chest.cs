@@ -42,15 +42,19 @@ public class Chest : LivingObject
                 //DAMAGES (10%)
                 if (die <= 10)
                 {
-                    if (_canBeHurt)
-                    {
-                        _isHurt = true;
-                        Instantiate(_fx, transform.position, transform.rotation);
-                    }
-                    else 
-                    {
+                if (_canBeHurt)
+                {
+                    _isHurt = true;
+                    Instantiate(_fx, transform.position, transform.rotation);
+                }
+                else // EPEE (10%)
+                {
+                    //for (int i = 0; i < 5; i++)
+                    //{
+
                         Instantiate(_items[1], transform.position, transform.rotation);
-                    }
+                    //}
+                }
                 }
                 //APPLE (20%)
                 if (die >= 10 && die <= 30)
@@ -62,11 +66,15 @@ public class Chest : LivingObject
                 {
                     Instantiate(_items[1], transform.position, transform.rotation);
                 }
-                //STICK (40%)
-                if (die >= 60)
-                {
+            //STICK (40%)
+            if (die >= 60)
+            {
+                //for (int i = 0; i < 5; i++)
+                //{
+
                     Instantiate(_items[0], transform.position, transform.rotation);
-                }         
+                //}
+            }
 
             /*/ RANDOM DROP
             int randomWeapon = Random.Range(0, _items.Length);

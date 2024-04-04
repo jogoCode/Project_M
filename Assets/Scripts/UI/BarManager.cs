@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarManager : MonoBehaviour
+public class BarManager : MonoBehaviour , IBarManagable
 {
     [Header("TemplateBar")]
 
@@ -16,7 +16,9 @@ public class BarManager : MonoBehaviour
 
     protected Camera _camera = null;
 
-    [SerializeField] protected bool _isCamActivated;
+    [SerializeField] protected bool _textIsActive = true;
+
+
     void Awake()
     {
         _camera = Camera.main;
@@ -24,18 +26,23 @@ public class BarManager : MonoBehaviour
         {
             _Slider = GetComponent<Slider>();
         }
-        if (_TextSlider == null)
+        if (!_TextSlider)
         {
             _TextSlider = GetComponentInChildren<Text>();
-        }
-        LivingObject.IsDying += UpdatesValues;
+            if (!_TextSlider)
+            {
+                _textIsActive = false;
+            }
+        }        
     }
 
-    protected virtual void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
+    public virtual void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
     {
-        _Slider.value = newValue;
         _Slider.maxValue = newMaxValue;
+        _Slider.value = newValue;
     }
+
+
 }
 
 

@@ -54,14 +54,14 @@ public class LifeBar : BarManager
 
     //CAMERA POSITION
     
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
         if(_isCamActivated) 
         {
             transform.LookAt(transform.position + _camera.transform.forward + _camera.transform.up); 
             _lifeSlider.transform.rotation = Camera.main.transform.rotation;
         }
-    }
+    }*/
     
 
     //SLIDER VALUE

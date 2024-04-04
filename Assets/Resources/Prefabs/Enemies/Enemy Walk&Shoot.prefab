@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 50
-  m_maxhp: 50
+  m_maxHp: 50
   m_armor: 5
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -79,7 +79,6 @@ MonoBehaviour:
   _fakeTarget: {fileID: 905052831426832123}
   _rangeDistance: 20
   _delayChangePos: 4
-  _recoil: 50
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
   _pos: {fileID: 905052832027542871}
   _bullets: {fileID: 905052830842325531}
@@ -126,6 +125,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 905052831056187232}
   m_pickable: {fileID: 0}
   m_firstEquip: 0
+  m_hideWeapon: 0
 --- !u!1 &905052830734427668
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 905052830734427659}
   - component: {fileID: 905052830734427657}
-  - component: {fileID: 905052830734427658}
+  - component: {fileID: 7402622579817398182}
   m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &905052830734427658
+--- !u!114 &7402622579817398182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,18 +226,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 905052830734427668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 223504ffbeeec1f43a9b54f68bf09ad9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a01ac618d7b53f47ab941cb49529f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Slider: {fileID: 0}
   _TextSlider: {fileID: 0}
   _valueHolder: 0
   _maxValueHolder: 0
-  _isCamActivated: 1
-  _lifeSlider: {fileID: 0}
-  _lifeText: {fileID: 0}
-  _hpHolder: 0
-  _maxHpHolder: 0
+  _textIsActive: 1
+  m_parentLife: {fileID: 905052830292754866}
+  _isInWorld: 1
 --- !u!1 &905052830842325732
 GameObject:
   m_ObjectHideFlags: 0
