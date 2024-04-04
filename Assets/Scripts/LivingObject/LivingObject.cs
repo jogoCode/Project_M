@@ -123,8 +123,8 @@ public class LivingObject : MonoBehaviour , ILivingObject
             }
             else
             {
-                SetHp(damage);   // Change les HP en fonction des dégats de l'arme
             }
+                SetHp(damage);   // Change les HP en fonction des dégats de l'arme
             Hit();
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);
