@@ -10,8 +10,10 @@ public class BuffButton : MonoBehaviour
 
 
     [SerializeField] string[] m_textsArray;
+    [SerializeField] Sprite[] m_ImgArray;
+
     Text m_buffText;
-    Image m_buffImage;
+    [SerializeField] Image m_buffImage;
     ChooseABuff.Buffs m_buffType;
 
     Button m_button;
@@ -20,9 +22,9 @@ public class BuffButton : MonoBehaviour
 
     void Start()
     {
-        m_buffText = GetComponentInChildren<Text>();
-        m_buffImage = GetComponentInChildren<Image>();
         m_button = GetComponent<Button>();
+        m_buffText = GetComponentInChildren<Text>();
+        //m_buffImage = GetComponentInChildren<Image>();   
         m_button.onClick.AddListener(delegate { ButtonClicked(FindObjectOfType<PlayerController>().GetComponent<PlayerBuffable>());});
         InitButton();
     }
@@ -35,10 +37,12 @@ public class BuffButton : MonoBehaviour
 
     void InitButton()
     {
-        switch (m_buffType)
+        m_buffText.text = m_textsArray[(int)m_buffType];
+        m_buffImage.sprite = m_ImgArray[(int)m_buffType];
+        /*switch (m_buffType)
         {
             case ChooseABuff.Buffs.ATK:
-                m_buffText.text = "+ ATK";
+                m_buffText.text = m_textsArray[(int)ChooseABuff.Buffs.ATK];
                 break;
             case ChooseABuff.Buffs.HP:
                 m_buffText.text = "+ HP";
@@ -46,7 +50,7 @@ public class BuffButton : MonoBehaviour
             case ChooseABuff.Buffs.JUMP:
                 m_buffText.text = "+ JUMP";
                 break;
-        }
+        }*/
     }
 
     void ButtonClicked(PlayerBuffable buff)
