@@ -5,21 +5,11 @@ using UnityEngine;
 public class Buffable : MonoBehaviour
 {
     [Header("Buffable")]
-    Buffs m_selectedBuff;
-    enum Buffs
-    {
-        ATK,
-        HP,
-        JUMP,
-        SPEED,
-        XPBOOST,
-        ARMOR,
-        DASH
-    }
-    [SerializeField] protected LivingObject m_buffTarget;
+
+    [SerializeField] protected LivingObject m_buffParent;
     void Start()
     {
-        m_buffTarget = GetComponent<PlayerController>();
+        m_buffParent = GetComponent<LivingObject>();
     }
 
     void Update()
@@ -32,11 +22,11 @@ public class Buffable : MonoBehaviour
 
     public void AddAtk(int dmg)
     {
-        m_buffTarget.SetDmgBuff(dmg);
+        m_buffParent.SetDmgBuff(dmg);
     }
 
     public void AddHp(int hp)
     {
-        m_buffTarget.SetMaxHp(hp);
+        m_buffParent.SetMaxHp(hp);
     }
 }

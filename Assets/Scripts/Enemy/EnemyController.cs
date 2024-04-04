@@ -173,21 +173,21 @@ public class EnemyController : LivingObject
     //MAKE DAMAGE 
     protected override void OnTriggerEnter(Collider other)
     {
-         base.OnTriggerEnter(other);
+        var playerState = other.GetComponentInParent<StateManagable>();
+        if (!playerState) return;// Verife si le joueur 
+        if (playerState.GetState() != StateManagable.States.ATTACK) return;
+        playerState.GetComponent<PlayerController>().DeActivateHitBox();
+        base.OnTriggerEnter(other);
 
         var player = other.GetComponentInParent<PlayerController>();
         if (player != null)
         {
-            var playerState = other.GetComponentInParent<StateManagable>();
-            if (playerState.GetState() == StateManagable.States.ATTACK)
-            {
                 Hit();
                 if (_isMoreDistanced == false)
                 {               
                      _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
                     _isMoreDistanced = true;
                 }
-            }
 
             if (m_hp <= 0)
             {
