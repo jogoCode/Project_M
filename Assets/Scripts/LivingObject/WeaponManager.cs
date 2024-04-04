@@ -71,9 +71,10 @@ public class WeaponManager : MonoBehaviour
     {
         if (m_firstEquip) return;
 
+        Vector3 dropPos = new Vector3(transform.position.x, 10, transform.position.z);
         if (m_weaponData!= null)
         {
-            var lastItemPref = Instantiate(m_pickable, transform.position+transform.forward*2, Quaternion.identity);
+            var lastItemPref = Instantiate(m_pickable, dropPos, Quaternion.identity);
             lastItemPref.GetComponent<Seeitem>().SetWeapon(m_weaponData);
             m_weaponData = null;
             if (isDrop)
@@ -84,7 +85,7 @@ public class WeaponManager : MonoBehaviour
         }
         if (m_itemData != null)
         {
-            var lastItemPref = Instantiate(m_pickable, transform.position + transform.forward * 2, Quaternion.identity);
+            var lastItemPref = Instantiate(m_pickable, dropPos, Quaternion.identity);
             lastItemPref.GetComponent<Seeitem>().SetItem(m_itemData);
             m_itemData = null;
             if (isDrop)

@@ -15,7 +15,8 @@ public class ExpBar : BarManager
             Debug.LogError("Il manque une reference pour le level system ",this.gameObject);
         }
         LivingObject.IsDying += UpdatesValues;
-
+        UpdatesValues(_parentExpSys.GetExp(), _parentExpSys.GetMaxExp());
+;
     }
     public override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider value et maxValue et aussi le text
     {
