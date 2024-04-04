@@ -65,7 +65,7 @@ public class PlayerController : LivingObject
         AnimationEvent.isNotActive += DeActivateHitBox;
 
         IsSprinting?.Invoke(0);
-        End?.Invoke();
+        //End?.Invoke();
     }
 
     void Update()
