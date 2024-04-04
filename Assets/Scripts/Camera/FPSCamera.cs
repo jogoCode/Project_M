@@ -34,8 +34,8 @@ public class FPSCamera : MonoBehaviour
         m_Fov = m_camera.fieldOfView;
         PlayerController.IsSprinting += ChangeFov;
         PlayerController.End += StopCamera;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
 
     }
 

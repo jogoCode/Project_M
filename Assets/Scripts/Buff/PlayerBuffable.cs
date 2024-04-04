@@ -10,8 +10,8 @@ public class PlayerBuffable : Buffable
 
     void Start()
     {
+        m_buffParent = GetComponent<PlayerController>();    
         m_player = GetComponent<PlayerController>();
-        AddJump(15);
     }
 
     void AddJump(float newJSpeed)

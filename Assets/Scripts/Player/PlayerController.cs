@@ -202,7 +202,7 @@ public class PlayerController : LivingObject
         }
     }
 
-    void DeActivateHitBox()
+    public void DeActivateHitBox()
     {
         if (m_hitBox)
         {

@@ -69,7 +69,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         LifeChanged?.Invoke(m_hp,m_maxHp);
         Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f, false));
+        //Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f, false));
     }
 
     public void SetHp(int hp)
