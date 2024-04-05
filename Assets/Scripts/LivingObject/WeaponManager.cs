@@ -38,6 +38,7 @@ public class WeaponManager : MonoBehaviour
     public void EquipWeapon(Weapon newData) // EQUIPE UNE ARME
     {
         DropObject(false);
+        m_itemData = null;
         m_weaponData = newData;
         if (!m_weaponData) return;
         ChangeVisual(m_weaponData.Prefabs);
@@ -62,9 +63,26 @@ public class WeaponManager : MonoBehaviour
             Destroy(m_visualParent.transform.GetChild(i).gameObject);
         }
         if (!newVisual) return;
-        var handObject = Instantiate(newVisual,m_visualParent.transform.position, Quaternion.Euler(-90,0,0), m_visualParent.transform);
+        var handObject = Instantiate(newVisual,m_visualParent.transform.position, Quaternion.Euler(-900,0,0), m_visualParent.transform);
         handObject.transform.up = m_visualParent.transform.up;
+        handObject.transform.right = m_visualParent.transform.right;
         handObject.transform.forward = m_visualParent.transform.forward;
+    }
+
+    public void LoadItem(Items newData)
+    {
+        m_weaponData = null;
+        m_itemData = newData;
+        if (!m_itemData) return;
+        ChangeVisual(m_itemData.Prefabs);
+    }
+    public void LoadWeapon(Weapon newData)
+    {
+        m_itemData = null;
+        m_weaponData = newData;
+        if (!m_weaponData) return;
+        ChangeVisual(m_weaponData.Prefabs);
+
     }
 
     public void DropObject(bool isDrop)

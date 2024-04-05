@@ -30,7 +30,7 @@ public class EnemyController : LivingObject
 
     private Rigidbody _rb;
 
-    [SerializeField] private Vector3 _position;
+    private Vector3 _position;
 
     private bool _isMoreDistanced;
 
@@ -80,9 +80,12 @@ public class EnemyController : LivingObject
         MoveTowardsPlayer();
         
     }
+
+    //RECOIL THE ENEMY BY KNOCKBACK
     public void Recoil()
     {
         StartCoroutine(recoilTime());
+
         IEnumerator recoilTime()
         {
             _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
@@ -93,6 +96,7 @@ public class EnemyController : LivingObject
     
     
     //MOVE RANDOM
+    //AGENT DESTINATION AT FAKETARGET
    private void Move()
     {
         if (_fakeTarget != null)
@@ -112,6 +116,7 @@ public class EnemyController : LivingObject
         }
 
     } 
+    //RANDOMPOSITON FOR THE FAKE TARGET
    Vector3 SetRandomPosition()
    {
    float randomPosX = Random.Range(-_rangeDistance, _rangeDistance);
@@ -201,14 +206,16 @@ public class EnemyController : LivingObject
         if (player != null)
         {
                 Hit();
+
                 if (_isMoreDistanced == false)
                 {               
                      _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
                     _isMoreDistanced = true;
                 }
+                
 
             if (m_hp <= 0)
-            {
+            {            
                 Die(player);             
             }
             if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
@@ -221,25 +228,11 @@ public class EnemyController : LivingObject
 
     }
 
-    IEnumerator Hitwait()
-    {
-        if(_agent != null)
-        {
-            _agent.enabled = false;  
-            yield return new WaitForSeconds(0.5f);
-            _rb.velocity = Vector3.Lerp(_rb.velocity,Vector3.zero,1f);
-            _agent.enabled = true;
-        }
-    }
-
     //TAKE DAMAGE
     public override void Hit()
     {
         base.Hit();
-        StartCoroutine(Hitwait());
-      
-        Recoil();
-        //Debug.Log("IsHit");
+        Recoil();           
     }
 
     //PLAYER LEAVES THE SPHERE
@@ -257,6 +250,7 @@ public class EnemyController : LivingObject
             IsDying?.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
             gameObject.SetActive(false);
             Destroy(gameObject,30);
+            
         }
         else
         {
@@ -272,8 +266,5 @@ public class EnemyController : LivingObject
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _radius);
     }
-
-
    
-    
 }

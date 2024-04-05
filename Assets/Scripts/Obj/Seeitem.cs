@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class Seeitem : Pickable
 {
@@ -26,6 +24,7 @@ public class Seeitem : Pickable
         {
             return;
         }
+        GetComponent<Rigidbody>().AddForce(transform.forward,ForceMode.Impulse);
       
     }
 

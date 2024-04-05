@@ -641,9 +641,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3979310945023858055}
-  - component: {fileID: 3509398422703003069}
   - component: {fileID: 3509398422703003068}
   - component: {fileID: 3509398422703003071}
+  - component: {fileID: 4446264967688016453}
   m_Layer: 6
   m_Name: Chest Randomized
   m_TagString: Untagged
@@ -670,24 +670,6 @@ Transform:
   m_Father: {fileID: 4255440405160208349}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -94.245, z: 0}
---- !u!143 &3509398422703003069
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4355696158858334013}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.48
-  m_Radius: 0.64
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.27, z: 0}
 --- !u!114 &3509398422703003068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +712,24 @@ MonoBehaviour:
   m_pickable: {fileID: 0}
   m_firstEquip: 1
   m_hideWeapon: 0
+--- !u!143 &4446264967688016453
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355696158858334013}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4716166572169000804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1023,7 @@ GameObject:
   - component: {fileID: 4255440405160208349}
   - component: {fileID: 5000090069282243638}
   - component: {fileID: -5936876664188615909}
+  - component: {fileID: -7548936782835663266}
   m_Layer: 0
   m_Name: ChestBreackable
   m_TagString: Untagged
@@ -1112,6 +1113,22 @@ LODGroup:
     - renderer: {fileID: 1756924100770132999}
     - renderer: {fileID: 944109273345746161}
   m_Enabled: 1
+--- !u!208 &-7548936782835663266
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297845761868542255}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8029486821071251932
 GameObject:
   m_ObjectHideFlags: 0

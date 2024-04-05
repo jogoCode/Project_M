@@ -16,13 +16,17 @@ public class DayCycleManager : MonoBehaviour
     /// <summary>
     /// How much time has passed ingame (in hours).
     /// </summary>
-    public float IngameTime { get; private set; }
+    public float IngameTime { get;  set; }
 
     /// <summary>
     /// How much time as passed in realtime (in seconds).
     /// </summary>
     private float _passedTime;
 
+    public void LoadTime(float Time)
+    {
+        IngameTime = Time;
+    }
     private void Start()
     {
         ConvertToRealTime();

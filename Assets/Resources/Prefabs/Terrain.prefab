@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734762535576185810}
   - component: {fileID: 734762535576185811}
+  - component: {fileID: 1154487049}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -66,6 +67,17 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 0
+--- !u!154 &1154487049
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734762535576185837}
+  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: 1e2098557b0afe040820eea7224cae93, type: 2}
+  m_EnableTreeColliders: 0
 --- !u!1 &734762536531038584
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,8 +205,9 @@ GameObject:
   - component: {fileID: 734762536610319336}
   - component: {fileID: 734762536610319337}
   - component: {fileID: 734762536610319338}
+  - component: {fileID: 654057410}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: TPKillZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,8 +221,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734762536610319339}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalScale: {x: 2000, y: 3, z: 2000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3537981300868173746}
@@ -243,7 +256,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e382aa0b96134fd429fd2f3208633b0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -273,11 +286,23 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734762536610319339}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &654057410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734762536610319339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b423262937af4c4f89878b5b5d74db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &734762536890385726
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 734762536890385726}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.35, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3537981300868173746}
@@ -373,7 +398,7 @@ MeshCollider:
   m_GameObject: {fileID: 734762536890385726}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -396,11 +421,18 @@ MonoBehaviour:
   _tauxSand: 1
   _tauxHill: 10
   _terrainProps:
-  - {fileID: 1167931486679891212, guid: 9e9695ae2eb814e46ac86aadd3ba7968, type: 3}
-  - {fileID: 2548333576050763240, guid: 6ffadaab6b5b1f94aa054b426d0def88, type: 3}
-  - {fileID: 8317906657747924204, guid: cc55984584a485441949d4a0655fef1b, type: 3}
-  - {fileID: 6272686219228450899, guid: dd69ca0333ec4984ebf268d70d48fa08, type: 3}
+  - {fileID: 3782316978495640897, guid: c03f37f539ec95e44af1108a6e1de20e, type: 3}
+  - {fileID: 7625820265864252279, guid: 2df4fe0acd1d7874594a561c95140c6b, type: 3}
+  - {fileID: 3875634566645677439, guid: 6c35f6de6d545be4a869c66218368d33, type: 3}
+  - {fileID: 83653193247168930, guid: 30af5dff70cd8bd419abe14a7b63220c, type: 3}
+  - {fileID: 436629455376199367, guid: e47784fb5ad1e154da7026ad3c9bdced, type: 3}
+  - {fileID: 8372681270410495332, guid: 70884df44c6f89d44a3c8fce56a55c42, type: 3}
+  - {fileID: 618016362304700386, guid: 5229e9977effa8942bd60135c7d89f9e, type: 3}
+  - {fileID: 7297845761868542255, guid: 98a9bbf0ebf83054298c5a1b4ef0f2c0, type: 3}
   _activeTerrain: {fileID: 734762535576185811}
+  _seed: 54654
+  _previousSeed: 
+  _mesh: {fileID: 23800000, guid: e4eb018f617f2d145bdd297fc76015bc, type: 2}
 --- !u!114 &734762536890385696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f1ba1f250253d44a6f991b57a0f8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dayLengthRealtime: 40
+  m_dayLengthRealtime: 200
   m_dayStart: 6
 --- !u!1 &734762537282075056
 GameObject:
@@ -570,7 +602,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemiesPrefabs:
-  - {fileID: 5615991228224828313, guid: d7b8006b36f038349b48f3ca7c5a1ea2, type: 3}
+  - {fileID: 1492229768613920552, guid: b3b9feb04de99ac45a6e87cf3e3f5bae, type: 3}
+  - {fileID: 4897301605079483324, guid: 8b51283b5345e5d458faad2a34ae153b, type: 3}
+  - {fileID: 6721326444774131519, guid: a401f8d33aa7cd44a8a469ab3d7df863, type: 3}
   _rangeDistance: 500
   _max: 100
   _canSpawn: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: 
   _damage: 1
-  _atkSpeed: 5
+  _atkSpeed: 0
   _armorBreak: 0
   _range: 5
   _effect: 0

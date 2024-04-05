@@ -12,7 +12,9 @@ public class TPKillZone : MonoBehaviour
             {
                 other.gameObject.transform.position = new Vector3(0f,20f,0f);
             }
-            else {Destroy(other.gameObject);}
+            else {
+               // Destroy(other.gameObject);
+            }
         }
     }
 }

@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 6528850028580799285}
   - component: {fileID: 6528850028580799280}
   - component: {fileID: 6528850028580799287}
-  - component: {fileID: 6528850028580799286}
   - component: {fileID: -7579575364025025239}
   - component: {fileID: -8222060659303100454}
+  - component: {fileID: 7074865208299644330}
+  - component: {fileID: 5114432151239888878}
   m_Layer: 0
   m_Name: 'Sapin '
   m_TagString: Untagged
@@ -163,24 +164,6 @@ MonoBehaviour:
   m_pickable: {fileID: 0}
   m_firstEquip: 1
   m_hideWeapon: 0
---- !u!143 &6528850028580799286
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3782316978495640897}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 7
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 3, z: 0}
 --- !u!114 &-7579575364025025239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +203,40 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2583931254671848639}
   m_Enabled: 1
+--- !u!208 &7074865208299644330
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782316978495640897}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!143 &5114432151239888878
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782316978495640897}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4096881175624226154
 GameObject:
   m_ObjectHideFlags: 0

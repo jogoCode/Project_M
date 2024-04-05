@@ -21,6 +21,9 @@ public class NewLifeBar : BarManager
     public override void UpdatesValues(float newValue, float newMaxValue) // Update les valeurs du slider "value" et "maxValue"
     {
         base.UpdatesValues(newValue, newMaxValue);
+        _valueHolder = newValue;
+        _maxValueHolder = newMaxValue;
+        _maxValueHolder = newMaxValue;
         if (!_textIsActive) return;
         _TextSlider.text = newValue.ToString();
         if (newValue <= newMaxValue / 2)

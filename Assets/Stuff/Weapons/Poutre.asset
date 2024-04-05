@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dba3d3343af21db4a80c499d589bb0e2, type: 3}
-  m_Name: Sword
+  m_Name: Poutre
   m_EditorClassIdentifier: 
-  _name: Sword
-  _damage: 5
-  _atkSpeed: 4
+  _name: Grosse branche
+  _damage: 150
+  _atkSpeed: 2
   _armorBreak: 0
-  _range: 5
+  _range: 3
   _effect: 0
-  _knockBack: 5
+  _knockBack: 2
   _weaponType: 0
-  _prefabs: {fileID: 4078284589814144167, guid: 84f318648c8a4dd4f81bfd516f37c745,
+  _prefabs: {fileID: 7950382432934324610, guid: 22958bc81d5b0dc41a008499343df581,
     type: 3}
