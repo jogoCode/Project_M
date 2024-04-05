@@ -215,7 +215,7 @@ public class EnemyController : LivingObject
                 
 
             if (m_hp <= 0)
-            {
+            {            
                 Die(player);             
             }
             if (other.gameObject.layer == 1 << 7) return;  // Verifie Si c'est un joueur ou non pour appliquer les feedsBck
