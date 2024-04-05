@@ -2594,7 +2594,6 @@ MonoBehaviour:
   _fakeTarget: {fileID: 185315844}
   _rangeDistance: 20
   _delayChangePos: 5
-  _position: {x: 0, y: 0, z: 0}
 --- !u!4 &1168835998
 Transform:
   m_ObjectHideFlags: 0
@@ -4762,7 +4761,6 @@ MonoBehaviour:
   _fakeTarget: {fileID: 1010907155923733638}
   _rangeDistance: 20
   _delayChangePos: 5
-  _position: {x: 0, y: 0, z: 0}
 --- !u!4 &1010907156517235915
 Transform:
   m_ObjectHideFlags: 0
@@ -4883,7 +4881,6 @@ MonoBehaviour:
   _fakeTarget: {fileID: 1010907155923733638}
   _rangeDistance: 20
   _delayChangePos: 5
-  _position: {x: 0, y: 0, z: 0}
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
   _pos: {fileID: 1010907155949390034}
   _bullets: {fileID: 1010907154874507961}

@@ -50,18 +50,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1382b1350499c04688a20857f554fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hp: 50
-  m_maxHp: 50
+  m_hp: 60
+  m_maxHp: 60
   m_armor: 10
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
-  _moveSpeed: 2
+  _moveSpeed: 5
   _rotSpeed: 180
   _radius: 5
   _fakeTarget: {fileID: 1492229769224183648}
-  _rangeDistance: 20
+  _rangeDistance: 100
   _delayChangePos: 5
-  _position: {x: 0, y: 0, z: 0}
 --- !u!54 &1492229768613920555
 Rigidbody:
   m_ObjectHideFlags: 0

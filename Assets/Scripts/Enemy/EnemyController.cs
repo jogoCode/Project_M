@@ -30,7 +30,7 @@ public class EnemyController : LivingObject
 
     private Rigidbody _rb;
 
-    [SerializeField] private Vector3 _position;
+    private Vector3 _position;
 
     private bool _isMoreDistanced;
 
