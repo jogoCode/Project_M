@@ -57,9 +57,9 @@ public class ChooseABuff : MonoBehaviour
 
     public void CreateButton()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
-            var buffPrefab = Instantiate(m_buffButton, new Vector3(m_buffsParent.transform.position.x + i * m_displayOffset, m_displayPos.y, m_displayPos.z), Quaternion.identity, m_buffsParent.transform);
+            var buffPrefab = Instantiate(m_buffButton, new Vector3(m_displayPos.x + i * m_displayOffset, m_displayPos.y, m_displayPos.z), Quaternion.identity, m_buffsParent.transform);
             var buff = buffPrefab.GetComponent<BuffButton>();
             buff.SetBuffType(RandBuff());
         }

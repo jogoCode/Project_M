@@ -174,7 +174,7 @@ public class PlayerController : LivingObject
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A)) //Lacher Item
+        if (Input.GetKeyDown(KeyCode.A) && m_stateManager.GetState()!= StateManagable.States.ATTACK) //Lacher Item
         {
             if (m_weapon.GetWeaponData() != null || m_weapon.GetItemData() != null)
             {
