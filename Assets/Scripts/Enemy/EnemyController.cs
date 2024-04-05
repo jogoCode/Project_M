@@ -42,7 +42,6 @@ public class EnemyController : LivingObject
 
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
         _rb = GetComponent<Rigidbody>();
-        _agent = GetComponent<NavMeshAgent>();
         
         //Faire un rayon vers le bas qui est capable de voir le terrain
         RaycastHit hit;

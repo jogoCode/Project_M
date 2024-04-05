@@ -60,7 +60,7 @@ MonoBehaviour:
   _radius: 5
   _fakeTarget: {fileID: 1492229769224183648}
   _rangeDistance: 100
-  _delayChangePos: 5
+  _delayChangePos: 2
 --- !u!54 &1492229768613920555
 Rigidbody:
   m_ObjectHideFlags: 0

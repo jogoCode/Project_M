@@ -508,8 +508,7 @@ MonoBehaviour:
   _radius: 5
   _fakeTarget: {fileID: 4897301604599243764}
   _rangeDistance: 100
-  _delayChangePos: 5
-  _position: {x: 0, y: 0, z: 0}
+  _delayChangePos: 2
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
   _pos: {fileID: 4897301604646594464}
   _bullets: {fileID: 988699798542891211, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
