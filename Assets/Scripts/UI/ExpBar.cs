@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ExpBar : BarManager
 {
     [Header("ExpBar")]
-    [SerializeField] Levelable _parentExpSys;
+    public Levelable _parentExpSys;
 
     private void Start()
     {
