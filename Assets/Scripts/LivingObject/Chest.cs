@@ -59,11 +59,7 @@ public class Chest : LivingObject
                 //STICK (40%)
                 if (die > 60)
                 {
-                    //for (int i = 0; i < 5; i++)
-                    //{
-
                     Instantiate(_items[0], transform.position + transform.up, transform.rotation);
-                    //}
                 }
             }
             else

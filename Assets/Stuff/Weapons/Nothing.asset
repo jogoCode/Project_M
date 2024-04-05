@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nothing
   m_EditorClassIdentifier: 
   _name: 
-  _damage: 0
+  _damage: 1
   _atkSpeed: 0
   _armorBreak: 0
   _range: 0
