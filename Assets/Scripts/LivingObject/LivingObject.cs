@@ -98,9 +98,27 @@ public class LivingObject : MonoBehaviour , ILivingObject
         }
         LifeChanged?.Invoke(m_hp, m_maxHp);
     }
+    public void LoadMaxHp(int newMhp)
+    {
+
+        if (m_hp == m_maxHp)
+        {
+            m_maxHp = newMhp;
+            m_hp = m_maxHp;
+        }
+        else
+        {
+            m_maxHp = newMhp;
+        }
+        LifeChanged?.Invoke(m_hp, m_maxHp);
+    }
 
     public void SetDmgBuff(int dmg){
         m_dmgBuff += dmg;
+    }
+    public void LoadDmgBuff(int dmg)
+    {
+        m_dmgBuff = dmg;
     }
 
 

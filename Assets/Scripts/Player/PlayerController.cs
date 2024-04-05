@@ -184,7 +184,7 @@ public class PlayerController : LivingObject
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Attraper Item
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit,2) && m_stateManager.GetState()!= StateManagable.States.ATTACK)
+        if(Physics.Raycast(ray, out hit,2))
         {
             Seeitem seeitem = hit.transform.gameObject.GetComponent<Seeitem>();
             if (seeitem && Input.GetKeyDown(KeyCode.E))
@@ -243,8 +243,11 @@ public class PlayerController : LivingObject
         if (other.gameObject.layer == this.gameObject.layer) return;
         Hit();
     }
-
-
+    //-----------------------GET-------------------------------------
+    public float GetJumpForce()
+    {
+        return m_jumpForce;
+    }
     //-----------------------SET-----------------------------------
     public void SetSpeed(float newSpeed)
     {
@@ -254,6 +257,10 @@ public class PlayerController : LivingObject
     public void SetJumpSpeed(float newJSpeed)
     {
         m_jumpForce += newJSpeed;
+    }
+    public void LoadJumpSpeed(float newJSpeed)
+    {
+        m_jumpForce = newJSpeed;
     }
 
     public void SetBaseSpeed(float newBSpeed)
