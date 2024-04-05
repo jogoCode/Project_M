@@ -22,7 +22,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     int m_dmgBuff = 0;
     protected virtual void Start()
     {
-        IsDying?.Invoke(0,1);
+        //IsDying?.Invoke(0,1);
         LifeChanged?.Invoke(m_hp,m_maxHp);
         if (!m_weapon)
         {
