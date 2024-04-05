@@ -80,6 +80,8 @@ public class EnemyController : LivingObject
         MoveTowardsPlayer();
         
     }
+
+    //RECOIL THE ENEMY BY KNOCKBACK
     public void Recoil()
     {
         StartCoroutine(recoilTime());
@@ -94,6 +96,7 @@ public class EnemyController : LivingObject
     
     
     //MOVE RANDOM
+    //AGENT DESTINATION AT FAKETARGET
    private void Move()
     {
         if (_fakeTarget != null)
@@ -113,6 +116,7 @@ public class EnemyController : LivingObject
         }
 
     } 
+    //RANDOMPOSITON FOR THE FAKE TARGET
    Vector3 SetRandomPosition()
    {
    float randomPosX = Random.Range(-_rangeDistance, _rangeDistance);

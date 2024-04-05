@@ -47,17 +47,17 @@ public class Chest : LivingObject
                     Instantiate(_fx, transform.position + transform.up, transform.rotation);
                 }
                 //APPLE (20%)
-                if (die >= 10 && die <= 30)
+                if (die > 10 && die <= 30)
                 {
                     Instantiate(_items[2], transform.position + transform.up, transform.rotation);
                 }
                 //EPEE (30%)
-                if (die >= 30 && die <= 60)
+                if (die > 30 && die <= 60)
                 {
                     Instantiate(_items[1], transform.position + transform.up, transform.rotation);
                 }
                 //STICK (40%)
-                if (die >= 60)
+                if (die > 60)
                 {
                     //for (int i = 0; i < 5; i++)
                     //{
@@ -77,7 +77,7 @@ public class Chest : LivingObject
                     }
                 }
                 //STICK (60%)
-                if (die >= 40)
+                if (die > 40)
                 {
                     for (int i = 0; i < 3; i++)
                     {
