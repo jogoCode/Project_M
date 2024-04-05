@@ -203,7 +203,7 @@ public class EnemyController : LivingObject
         if (player != null)
         {
                 Hit();
-                _rb.constraints = RigidbodyConstraints.None;
+
                 if (_isMoreDistanced == false)
                 {               
                      _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
