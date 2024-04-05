@@ -17,15 +17,18 @@ public class Chest : LivingObject
 
         var player = other.GetComponentInParent<PlayerController>();
 
-        if (m_hp <= 0)
+        if(player != null)
         {
-            RandomWeapon();
-            Die(player);
-            Destroy(gameObject);
+            if (m_hp <= 0)
+            {
+                RandomWeapon();
+                Die(player);
+                Destroy(gameObject);
 
-            if(_isHurt) 
-            {       
-            player.SetHp(-10);
+                if (_isHurt)
+                {
+                    player.SetHp(-10);
+                }
             }
     }
 
