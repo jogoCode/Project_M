@@ -258,6 +258,10 @@ public class PlayerController : LivingObject
     {
         m_jumpForce += newJSpeed;
     }
+    public void LoadJumpSpeed(float newJSpeed)
+    {
+        m_jumpForce = newJSpeed;
+    }
 
     public void SetBaseSpeed(float newBSpeed)
     {
