@@ -16,7 +16,7 @@ MonoBehaviour:
   _damage: 1
   _atkSpeed: 10
   _armorBreak: 0
-  _range: 3
+  _range: 5
   _effect: 0
   _knockBack: 0
   _weaponType: 0

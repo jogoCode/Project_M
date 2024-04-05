@@ -36,7 +36,7 @@ public class Chest : LivingObject
         {
             //* POURCENTAGE DROP
             int die = Random.Range(0, 100);
-            Debug.Log(die);
+            //Debug.Log(die);
 
 
                 //DAMAGES (10%)
@@ -57,23 +57,23 @@ public class Chest : LivingObject
                 }
                 }
                 //APPLE (20%)
-                if (die >= 10 && die <= 30)
+                if (die > 10 && die <= 30)
                 {
                     Instantiate(_items[2], transform.position, transform.rotation);
                 }
                 //EPEE (30%)
-                if (die >= 30 && die <= 60)
+                if (die > 30 && die <= 60)
                 {
                     Instantiate(_items[1], transform.position, transform.rotation);
                 }
             //STICK (40%)
-            if (die >= 60)
+            if (die > 60)
             {
-                //for (int i = 0; i < 5; i++)
-                //{
+                for (int i = 0; i < 3; i++)                
+                {
 
                     Instantiate(_items[0], transform.position, transform.rotation);
-                //}
+                }
             }
 
             /*/ RANDOM DROP

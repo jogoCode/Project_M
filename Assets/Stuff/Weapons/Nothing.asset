@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Nothing
   m_EditorClassIdentifier: 
   _name: 
-  _damage: 0
-  _atkSpeed: 0
+  _damage: 1
+  _atkSpeed: 5
   _armorBreak: 0
-  _range: 0
+  _range: 5
   _effect: 0
   _knockBack: 0
   _weaponType: 0

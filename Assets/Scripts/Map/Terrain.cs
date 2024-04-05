@@ -1,10 +1,10 @@
-
-using Unity.Burst.CompilerServices;
+using Packages.Rider.Editor.UnitTesting;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.AI;
-using UnityEditor.Rendering.Universal.ShaderGUI;
+using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor.AI; 
+using UnityEngine.AI;
 
 public class Terrain : MonoBehaviour
 {
@@ -15,7 +15,9 @@ public class Terrain : MonoBehaviour
     [SerializeField] private float _tauxHill;
     [SerializeField] private GameObject[] _terrainProps;
     [SerializeField] private UnityEngine.Terrain _activeTerrain;
-
+    public string _seed;
+    public string _previousSeed;
+    [SerializeField] private NavMeshData _mesh;
     
     
     //Tableau 2 dimensions / Tableau dans un tableau / Matrix
@@ -23,6 +25,9 @@ public class Terrain : MonoBehaviour
 
     void Start()
     {
+        _previousSeed = PlayerPrefs.GetString("PreviousSeed");
+        Random.InitState(_seed.GetHashCode());
+        _mesh = AssetDatabase.LoadAssetAtPath<NavMeshData>("Assets/Scenes/SampleScene/NavMesh.asset");
         init();
         genererLaby();
         _terrain.SetHeights(0, 0, _theWorldHeight);
@@ -30,6 +35,8 @@ public class Terrain : MonoBehaviour
         //col.terrainData = _terrain;
         genererProps();
         BakeTheCake();
+        _previousSeed = _seed;
+        PlayerPrefs.SetString("PreviousSeed", _previousSeed);
     }
     
     public void init()
@@ -145,7 +152,31 @@ public class Terrain : MonoBehaviour
     }
     public void BakeTheCake()
     {
-        NavMeshBuilder.ClearAllNavMeshes();
-        NavMeshBuilder.BuildNavMeshAsync();
+        if( _seed != _previousSeed )
+        {
+            
+            UnityEditor.AI.NavMeshBuilder.ClearAllNavMeshes();
+            UnityEditor.AI.NavMeshBuilder.BuildNavMeshAsync();
+            /*  _mesh = new NavMeshData();
+              NavMeshBuildSettings settings = new NavMeshBuildSettings();
+              settings.agentClimb = 1;
+              settings.agentHeight = 0.5f;
+              settings.agentRadius = 0.5f;
+              settings.agentSlope = 60;
+              List<NavMeshBuildSource> sources = new List<NavMeshBuildSource> ();
+              Bounds bounds = new Bounds (Vector3.zero,new Vector3(500,20,500));
+              UnityEngine.AI.NavMeshBuilder.BuildNavMeshData(settings, GetBuildSources(bounds), bounds,Vector3.zero,Quaternion.identity);
+              UnityEngine.AI.NavMeshBuilder.UpdateNavMeshDataAsync(_mesh,settings, GetBuildSources(bounds), bounds);
+              */
+            //UnityEngine.AI.NavMeshBuilder.;
+        }
+        else { NavMesh.AddNavMeshData(_mesh); }
+    }
+    private List<NavMeshBuildSource> GetBuildSources(Bounds bounds)
+    {
+        List<NavMeshBuildSource> sources = new List<NavMeshBuildSource>();
+        UnityEngine.AI.NavMeshBuilder.CollectSources(bounds, LayerMask.GetMask("Default"), NavMeshCollectGeometry.PhysicsColliders, 0, new List<NavMeshBuildMarkup>(), sources);
+        //Debug.LogFormat("Sources {0}", sources.Count);
+        return sources;
     }
 }
