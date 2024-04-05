@@ -257,6 +257,7 @@ public class EnemyController : LivingObject
             IsDying?.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
             gameObject.SetActive(false);
             Destroy(gameObject,30);
+            
         }
         else
         {
