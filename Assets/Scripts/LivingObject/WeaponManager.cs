@@ -63,8 +63,9 @@ public class WeaponManager : MonoBehaviour
             Destroy(m_visualParent.transform.GetChild(i).gameObject);
         }
         if (!newVisual) return;
-        var handObject = Instantiate(newVisual,m_visualParent.transform.position, Quaternion.Euler(-90,0,0), m_visualParent.transform);
+        var handObject = Instantiate(newVisual,m_visualParent.transform.position, Quaternion.Euler(-900,0,0), m_visualParent.transform);
         handObject.transform.up = m_visualParent.transform.up;
+        handObject.transform.right = m_visualParent.transform.right;
         handObject.transform.forward = m_visualParent.transform.forward;
     }
 
@@ -91,7 +92,7 @@ public class WeaponManager : MonoBehaviour
         Vector3 dropPos = new Vector3(CastARay().x, 1+CastARay().y, CastARay().z);
         if (m_weaponData!= null)
         {
-            var lastItemPref = Instantiate(m_pickable);
+            var lastItemPref = Instantiate(m_pickable, dropPos, Quaternion.identity);
             lastItemPref.GetComponent<Seeitem>().SetWeapon(m_weaponData);
             m_weaponData = null;
             if (isDrop)

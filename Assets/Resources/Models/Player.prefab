@@ -1,7 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
-=======
 --- !u!1 &179146700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,7 +2376,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
->>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
 --- !u!1 &191339032423778620
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,11 +2390,7 @@ GameObject:
   - component: {fileID: 6304184563751065651}
   - component: {fileID: 6678650981155281491}
   - component: {fileID: 5197120350453807926}
-<<<<<<< HEAD
-  - component: {fileID: 1695930769}
-=======
   - component: {fileID: 716454956}
->>>>>>> 9439573e0c9e2f14e89466965486df139e345d40
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged

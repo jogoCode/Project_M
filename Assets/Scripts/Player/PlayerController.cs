@@ -243,8 +243,11 @@ public class PlayerController : LivingObject
         if (other.gameObject.layer == this.gameObject.layer) return;
         Hit();
     }
-
-
+    //-----------------------GET-------------------------------------
+    public float GetJumpForce()
+    {
+        return m_jumpForce;
+    }
     //-----------------------SET-----------------------------------
     public void SetSpeed(float newSpeed)
     {

@@ -37,23 +37,33 @@ public class ChooseABuff : MonoBehaviour
         //UpdateBuff();
         BuffButton.isClicked += RemoveBuffs;
         Levelable.isLevelUp += UpdateBuff;
+
+    }
+
+    private void OnDestroy()
+    {
+        BuffButton.isClicked -= RemoveBuffs;
+        Levelable.isLevelUp -= UpdateBuff;
     }
 
     public void UpdateBuff()
     {
-        if (m_canDisplay != true) return;
-        m_canDisplay=false;
         Vector2 camSize = new Vector2(Camera.main.pixelRect.width, Camera.main.pixelRect.height);
-        for (int i = 0; i< 2; i++)
-        {
-            var buffPrefab = Instantiate(m_buffButton,new Vector3(m_buffsParent.transform.position.x + i * m_displayOffset , m_displayPos.y, m_displayPos.z), Quaternion.identity,m_buffsParent.transform);
-            var buff = buffPrefab.GetComponent<BuffButton>();
-            buff.SetBuffType(RandBuff());
-        }
-        m_canDisplay = true;
+        CreateButton();
+        print("mor");
         Debug.Log(Camera.main.pixelRect.width);
     }
 
+
+    public void CreateButton()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            var buffPrefab = Instantiate(m_buffButton, new Vector3(m_buffsParent.transform.position.x + i * m_displayOffset, m_displayPos.y, m_displayPos.z), Quaternion.identity, m_buffsParent.transform);
+            var buff = buffPrefab.GetComponent<BuffButton>();
+            buff.SetBuffType(RandBuff());
+        }
+    }
 
     public void RemoveBuffs()
     {
