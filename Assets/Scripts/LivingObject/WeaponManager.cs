@@ -74,7 +74,7 @@ public class WeaponManager : MonoBehaviour
         Vector3 dropPos = new Vector3(CastARay().x, 1+CastARay().y, CastARay().z);
         if (m_weaponData!= null)
         {
-            var lastItemPref = Instantiate(m_pickable);
+            var lastItemPref = Instantiate(m_pickable, dropPos, Quaternion.identity);
             lastItemPref.GetComponent<Seeitem>().SetWeapon(m_weaponData);
             m_weaponData = null;
             if (isDrop)
