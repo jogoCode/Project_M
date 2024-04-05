@@ -184,7 +184,7 @@ public class PlayerController : LivingObject
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Attraper Item
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit,2))
+        if(Physics.Raycast(ray, out hit,2) && m_stateManager.GetState()!= StateManagable.States.ATTACK)
         {
             Seeitem seeitem = hit.transform.gameObject.GetComponent<Seeitem>();
             if (seeitem && Input.GetKeyDown(KeyCode.E))
