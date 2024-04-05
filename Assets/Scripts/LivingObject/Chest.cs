@@ -38,42 +38,53 @@ public class Chest : LivingObject
             int die = Random.Range(0, 100);
             Debug.Log(die);
 
-
+            if (_canBeHurt)
+            {
                 //DAMAGES (10%)
                 if (die <= 10)
-                {
-                if (_canBeHurt)
-                {
+                {            
                     _isHurt = true;
-                    Instantiate(_fx, transform.position, transform.rotation);
+                    Instantiate(_fx, transform.position + transform.up, transform.rotation);
                 }
-                else // EPEE (10%)
+                //APPLE (20%)
+                if (die > 10 && die <= 30)
+                {
+                    Instantiate(_items[2], transform.position + transform.up, transform.rotation);
+                }
+                //EPEE (30%)
+                if (die > 30 && die <= 60)
+                {
+                    Instantiate(_items[1], transform.position + transform.up, transform.rotation);
+                }
+                //STICK (40%)
+                if (die > 60)
                 {
                     //for (int i = 0; i < 5; i++)
                     //{
 
-                        Instantiate(_items[1], transform.position, transform.rotation);
+                    Instantiate(_items[0], transform.position + transform.up, transform.rotation);
                     //}
                 }
-                }
-                //APPLE (20%)
-                if (die >= 10 && die <= 30)
-                {
-                    Instantiate(_items[2], transform.position, transform.rotation);
-                }
-                //EPEE (30%)
-                if (die >= 30 && die <= 60)
-                {
-                    Instantiate(_items[1], transform.position, transform.rotation);
-                }
-            //STICK (40%)
-            if (die >= 60)
+            }
+            else
             {
-                //for (int i = 0; i < 5; i++)
-                //{
+                //APPLE (40%)
+                if ( die <= 40)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Instantiate(_items[0], transform.position + transform.up, transform.rotation);
+                    }
+                }
+                //STICK (60%)
+                if (die > 40)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Instantiate(_items[1], transform.position + transform.up, transform.rotation);
+                    }
+            }
 
-                    Instantiate(_items[0], transform.position, transform.rotation);
-                //}
             }
 
             /*/ RANDOM DROP
