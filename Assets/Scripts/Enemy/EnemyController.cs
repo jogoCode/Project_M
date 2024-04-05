@@ -84,6 +84,7 @@ public class EnemyController : LivingObject
     public void Recoil()
     {
         StartCoroutine(recoilTime());
+
         IEnumerator recoilTime()
         {
             _rb.AddForce(-transform.forward * (m_weapon.GetWeaponData().KnockBack), ForceMode.Impulse);
@@ -224,23 +225,11 @@ public class EnemyController : LivingObject
 
     }
 
-    IEnumerator Hitwait()
-    {
-        if(_agent != null)
-        {
-            //_agent.enabled = false;  
-            yield return new WaitForSeconds(0.5f);
-            _rb.velocity = Vector3.zero;
-            _agent.enabled = true;
-        }
-    }
-
     //TAKE DAMAGE
     public override void Hit()
     {
         base.Hit();
-        Recoil();
-        StartCoroutine(Hitwait());    
+        Recoil();           
         Debug.Log("IsHit");
     }
 
@@ -273,8 +262,5 @@ public class EnemyController : LivingObject
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _radius);
     }
-
-
    
-    
 }
