@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] GameObject m_pickable;
 
-    [SerializeField] bool m_firstEquip = true;
+    public bool m_firstEquip = true;
 
     [SerializeField] bool m_hideWeapon;
 
