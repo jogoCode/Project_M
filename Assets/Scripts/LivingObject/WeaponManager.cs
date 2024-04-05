@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] GameObject m_pickable;
 
-    [SerializeField] bool m_firstEquip = true;
+    public bool m_firstEquip = true;
 
     [SerializeField] bool m_hideWeapon;
 
@@ -71,9 +71,10 @@ public class WeaponManager : MonoBehaviour
     {
         if (m_firstEquip) return;
 
+        Vector3 dropPos = new Vector3(CastARay().x, 1+CastARay().y, CastARay().z);
         if (m_weaponData!= null)
         {
-            var lastItemPref = Instantiate(m_pickable, transform.position+transform.forward*2, Quaternion.identity);
+            var lastItemPref = Instantiate(m_pickable);
             lastItemPref.GetComponent<Seeitem>().SetWeapon(m_weaponData);
             m_weaponData = null;
             if (isDrop)
@@ -84,7 +85,7 @@ public class WeaponManager : MonoBehaviour
         }
         if (m_itemData != null)
         {
-            var lastItemPref = Instantiate(m_pickable, transform.position + transform.forward * 2, Quaternion.identity);
+            var lastItemPref = Instantiate(m_pickable, dropPos, Quaternion.identity);
             lastItemPref.GetComponent<Seeitem>().SetItem(m_itemData);
             m_itemData = null;
             if (isDrop)
@@ -95,6 +96,17 @@ public class WeaponManager : MonoBehaviour
         }
 
     } // LACHE L'OBJET EN MAIN AU SOL
+
+    public Vector3 CastARay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit; 
+        if(Physics.Raycast(ray,out hit,2))
+        {
+            return hit.point;
+        }
+        return transform.position+transform.forward;
+    }
 
     public void HideWeapon() // CACHE L'ARME EN MAIN
     {
