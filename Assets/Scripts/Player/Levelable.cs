@@ -57,6 +57,16 @@ public class Levelable : MonoBehaviour, ILevelable
         m_lvl++;
         SetMaxExp();
     }
+    //------------------------------------SET------------//
+    public void LoadXp(float xp)
+    {
+        m_exp = xp;
+    }
+
+    public void LoadLvl(int lvl)
+    {
+        m_lvl = lvl;
+    }
 
     //----------------------------------- GET-----------//
 

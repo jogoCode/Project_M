@@ -50,8 +50,6 @@ public class ChooseABuff : MonoBehaviour
     {
         Vector2 camSize = new Vector2(Camera.main.pixelRect.width, Camera.main.pixelRect.height);
         CreateButton();
-        print("mor");
-        Debug.Log(Camera.main.pixelRect.width);
     }
 
 

@@ -233,7 +233,6 @@ public class EnemyController : LivingObject
     {
         base.Hit();
         Recoil();           
-        Debug.Log("IsHit");
     }
 
     //PLAYER LEAVES THE SPHERE

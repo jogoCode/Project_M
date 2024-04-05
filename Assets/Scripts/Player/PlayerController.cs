@@ -248,6 +248,11 @@ public class PlayerController : LivingObject
     {
         return m_jumpForce;
     }
+
+    public Levelable GetLvlSystem()
+    {
+        return m_LevelSystem;
+    }
     //-----------------------SET-----------------------------------
     public void SetSpeed(float newSpeed)
     {

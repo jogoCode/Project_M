@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poutre
   m_EditorClassIdentifier: 
   _name: Grosse branche
-  _damage: 15
+  _damage: 150
   _atkSpeed: 2
   _armorBreak: 0
   _range: 3

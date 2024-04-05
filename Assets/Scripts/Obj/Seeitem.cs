@@ -24,6 +24,7 @@ public class Seeitem : Pickable
         {
             return;
         }
+        GetComponent<Rigidbody>().AddForce(transform.forward,ForceMode.Impulse);
       
     }
 

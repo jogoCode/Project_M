@@ -13,12 +13,13 @@ public class SaveSystem : MonoBehaviour
     private float _xp;
 
     [SerializeField] NewLifeBar _lifebar;
-    [SerializeField] ExpBar _expbar;
+    [SerializeField] ExpBar _expBar;
     [SerializeField] PlayerController _playerController;
     int _playerControllerHp;
     int _playerControllerMaxHp;
     int _buffAtk;
     float _buffJump;
+    float _maxXp;
 
 
     void Update()
@@ -38,12 +39,13 @@ public class SaveSystem : MonoBehaviour
         Weapon playerWeapon = _weaponManager.GetWeaponData();
         Items playerItem = _weaponManager.GetItemData();
 
-        int Lvl = _expbar._parentExpSys.GetLevel();
-        float Exp = _expbar._parentExpSys.GetExp();
+        int Lvl = _expBar._parentExpSys.GetLevel();
+        float Exp = _expBar._parentExpSys.GetExp();
         int playerController = _playerController.GetHp();
         int buffAtk = _playerController.GetBuffDamage();
         float buffjump = _playerController.GetJumpForce();
         int maxHp = _playerController.GetMaxhp();
+        float maxXp = _expBar._parentExpSys.GetMaxExp();
 
         SavedData savedData = new()
         {
@@ -62,6 +64,7 @@ public class SaveSystem : MonoBehaviour
             _currentExp = Exp,
             _playerhp = playerController,
             _maxHealth = maxHp,
+            _maxExp = maxXp,
         };
 
         string jsonData = JsonUtility.ToJson(savedData);
@@ -107,6 +110,9 @@ public class SaveSystem : MonoBehaviour
         _playerController.SaveHp(_playerControllerHp);
         _playerController.LoadDmgBuff(_buffAtk);
         _playerController.LoadJumpSpeed(_buffJump);
+        _playerController.GetLvlSystem().LoadLvl(savedData._lvlsaved);
+        _playerController.GetLvlSystem().LoadXp(savedData._currentExp);
+        _expBar.UpdatesValues(savedData._currentExp, savedData._maxExp);
 
         //_lifebar.UpdatesValues(_lifebar._hpHolder, _lifebar._maxHpHolder);
         Debug.Log("chargement effectuée");
@@ -122,8 +128,9 @@ public class SavedData
 
     public int _lvlsaved;
     public float _currentExp;
+    public float _maxExp;
 
-    
+
     public float _currentHealth;
     public int _maxHealth;
 
@@ -132,6 +139,8 @@ public class SavedData
 
     public int _playerAtkBuffs;
     public float _playerJumpBuffs;
+
+    
 
 
 }
