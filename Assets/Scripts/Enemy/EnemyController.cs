@@ -202,11 +202,13 @@ public class EnemyController : LivingObject
         if (player != null)
         {
                 Hit();
+                _rb.constraints = RigidbodyConstraints.None;
                 if (_isMoreDistanced == false)
                 {               
                      _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
                     _isMoreDistanced = true;
                 }
+                
 
             if (m_hp <= 0)
             {
@@ -226,9 +228,9 @@ public class EnemyController : LivingObject
     {
         if(_agent != null)
         {
-            _agent.enabled = false;  
+            //_agent.enabled = false;  
             yield return new WaitForSeconds(0.5f);
-            _rb.velocity = Vector3.Lerp(_rb.velocity,Vector3.zero,1f);
+            _rb.velocity = Vector3.zero;
             _agent.enabled = true;
         }
     }
@@ -237,9 +239,8 @@ public class EnemyController : LivingObject
     public override void Hit()
     {
         base.Hit();
-        StartCoroutine(Hitwait());
-      
         Recoil();
+        StartCoroutine(Hitwait());    
         Debug.Log("IsHit");
     }
 
