@@ -239,7 +239,7 @@ public class EnemyController : LivingObject
         StartCoroutine(Hitwait());
       
         Recoil();
-        Debug.Log("IsHit");
+        //Debug.Log("IsHit");
     }
 
     //PLAYER LEAVES THE SPHERE

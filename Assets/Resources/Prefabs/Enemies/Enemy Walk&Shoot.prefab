@@ -54,7 +54,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!114 &905052830292754866
 MonoBehaviour:
@@ -79,6 +79,7 @@ MonoBehaviour:
   _fakeTarget: {fileID: 905052831426832123}
   _rangeDistance: 20
   _delayChangePos: 4
+  _position: {x: 0, y: 0, z: 0}
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
   _pos: {fileID: 905052832027542871}
   _bullets: {fileID: 905052830842325531}
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 905052831056187232}
   m_pickable: {fileID: 0}
   m_firstEquip: 0
-  m_hideWeapon: 0
+  m_hideWeapon: 1
 --- !u!1 &905052830734427668
 GameObject:
   m_ObjectHideFlags: 0

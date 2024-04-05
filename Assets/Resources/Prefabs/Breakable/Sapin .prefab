@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 6528850028580799280}
   - component: {fileID: 6528850028580799287}
   - component: {fileID: 6528850028580799286}
+  - component: {fileID: -7579575364025025239}
+  - component: {fileID: -8222060659303100454}
   m_Layer: 0
   m_Name: 'Sapin '
   m_TagString: Untagged
@@ -132,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hp: 5
-  m_maxhp: 5
+  m_maxHp: 0
   m_armor: 0
   m_hitFx: {fileID: 7330330903510834295, guid: c1db10c4212a07e4190c4e7ec6203f4e, type: 3}
   m_weapon: {fileID: 0}
@@ -160,6 +162,7 @@ MonoBehaviour:
   m_visualParent: {fileID: 4096881175624226154}
   m_pickable: {fileID: 0}
   m_firstEquip: 1
+  m_hideWeapon: 0
 --- !u!143 &6528850028580799286
 CharacterController:
   m_ObjectHideFlags: 0
@@ -171,13 +174,52 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 7
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.96, z: 0}
+  m_Center: {x: 0, y: 3, z: 0}
+--- !u!114 &-7579575364025025239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782316978495640897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9414d2c24bf546a4d817b1b9d68e777e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!205 &-8222060659303100454
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782316978495640897}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2583931254671848639}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2583931254671848639}
+  - screenRelativeHeight: 0.003
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2583931254671848639}
+  m_Enabled: 1
 --- !u!1 &4096881175624226154
 GameObject:
   m_ObjectHideFlags: 0
