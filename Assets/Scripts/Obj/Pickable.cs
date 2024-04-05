@@ -20,7 +20,7 @@ public abstract class Pickable : MonoBehaviour, IPickable
         OnPickedUp?.Invoke(null);
     }
 
-    public void OnTriggerEnter(Collider other)
+    /*public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>())
         {
@@ -29,5 +29,5 @@ public abstract class Pickable : MonoBehaviour, IPickable
             //Pick();
             //Destroy(gameObject);
         }
-    }
+    }*/
 }

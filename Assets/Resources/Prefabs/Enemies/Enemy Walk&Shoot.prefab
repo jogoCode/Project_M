@@ -54,7 +54,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!114 &905052830292754866
 MonoBehaviour:
@@ -82,10 +82,7 @@ MonoBehaviour:
   _bullet: {fileID: 8897274857362432247, guid: dc93eb71ce5f13f4694dfdca201ec0e3, type: 3}
   _pos: {fileID: 905052832027542871}
   _bullets: {fileID: 905052830842325531}
-  _nextShootTime: 2
   _delay: 0.8
-  _boxDetect: {fileID: 905052832087444005}
-  _radBox: {x: 0, y: 0, z: 0}
 --- !u!195 &905052830292754867
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -105,7 +102,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &905052830292754876

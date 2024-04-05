@@ -7,9 +7,33 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject[] _enemiesPrefabs;
     [SerializeField] private int _rangeDistance;
     [SerializeField] float _max;
+    private DayCycleManager _cycleManager;
+    [SerializeField] private bool _canSpawn = false;
+
     private void Start()
     {
+        _cycleManager = FindObjectOfType<DayCycleManager>();
+    }
+    private void LateUpdate()
+    {
+        if((_cycleManager.IngameTime >= 19f || _cycleManager.IngameTime <= 5f) && _canSpawn == false)
+        {
+            _canSpawn = true;         
+            StartCoroutine("CanSpawn");
+        }
+        if(!(_cycleManager.IngameTime >= 19f || _cycleManager.IngameTime <= 5f))
+        {
+            _canSpawn = false;
+        }
+
+
+    }
+    IEnumerator CanSpawn() 
+    {
         Spawn();
+        Debug.Log("spawn");
+        yield return new WaitForSeconds(1);
+        
     }
 
     //SPAWN RANDOM ENEMIES RANDOM POSITION

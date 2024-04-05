@@ -22,7 +22,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     int m_dmgBuff = 0;
     protected virtual void Start()
     {
-        IsDying?.Invoke(0,1);
+        //IsDying?.Invoke(0,1);
         LifeChanged?.Invoke(m_hp,m_maxHp);
         if (!m_weapon)
         {
@@ -69,7 +69,7 @@ public class LivingObject : MonoBehaviour , ILivingObject
     {
         LifeChanged?.Invoke(m_hp,m_maxHp);
         Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(5f, 0.5f, true, false));
-        Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f, false));
+        //Camera.main.GetComponent<CameraShake>().StartCoroutine(Camera.main.GetComponent<CameraShake>().Freeze(0.08f, 0.008f, false));
     }
 
     public void SetHp(int hp)
@@ -128,8 +128,8 @@ public class LivingObject : MonoBehaviour , ILivingObject
             }
             else
             {
-                SetHp(damage);   // Change les HP en fonction des dégats de l'arme
             }
+                SetHp(damage);   // Change les HP en fonction des dégats de l'arme
             Hit();
             // PARTICLE
             Instantiate(m_hitFx, new Vector3(transform.position.x, other.transform.position.y, transform.position.z), quaternion.identity);

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -29,16 +30,33 @@ public class EnemyController : LivingObject
 
     private Rigidbody _rb;
 
+    [SerializeField] private Vector3 _position;
+
     private bool _isMoreDistanced;
 
  
     protected override void Start()
     {
+        _agent = GetComponent<NavMeshAgent>();
         base.Start();
 
         _target = FindObjectOfType<PlayerController>().gameObject.transform;
         _rb = GetComponent<Rigidbody>();
-        _agent = GetComponent<NavMeshAgent>();
+        
+        //Faire un rayon vers le bas qui est capable de voir le terrain
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, Vector3.down);
+        
+        //Si le rayon touche on recupere les coordonnees, ca devient le transform position de notre agent
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 100))
+        {
+            if (hit.collider != null)
+            {
+                _agent.Warp(hit.point); // tp l'agent
+            }
+        }
+
+
 
         _agent.speed = _moveSpeed;
 
@@ -51,16 +69,16 @@ public class EnemyController : LivingObject
         {
             _agent = GetComponent<NavMeshAgent>();      
         }
-
     }
 
-    protected virtual void Update()
-    {
 
+
+    protected virtual void Update()
+    {       
         //DETECT AND MOVE
 
         MoveTowardsPlayer();
-
+        
     }
     public void Recoil()
     {
@@ -73,7 +91,7 @@ public class EnemyController : LivingObject
         }
     }
     
-
+    
     //MOVE RANDOM
    private void Move()
     {
@@ -99,7 +117,7 @@ public class EnemyController : LivingObject
    float randomPosX = Random.Range(-_rangeDistance, _rangeDistance);
    float randomPosZ = Random.Range(-_rangeDistance, _rangeDistance);
 
-   Vector3 randomPosition = new Vector3(randomPosX+ transform.position.x, transform.position.y, randomPosZ+ transform.position.z);
+   Vector3 randomPosition = new Vector3(randomPosX+ transform.position.x, _position.y, randomPosZ+ transform.position.z);
 
    return randomPosition;
    }
@@ -173,21 +191,21 @@ public class EnemyController : LivingObject
     //MAKE DAMAGE 
     protected override void OnTriggerEnter(Collider other)
     {
-         base.OnTriggerEnter(other);
+        var playerState = other.GetComponentInParent<StateManagable>();
+        if (!playerState) return;// Verife si le joueur 
+        if (playerState.GetState() != StateManagable.States.ATTACK) return;
+        playerState.GetComponent<PlayerController>().DeActivateHitBox();
+        base.OnTriggerEnter(other);
 
         var player = other.GetComponentInParent<PlayerController>();
         if (player != null)
         {
-            var playerState = other.GetComponentInParent<StateManagable>();
-            if (playerState.GetState() == StateManagable.States.ATTACK)
-            {
                 Hit();
                 if (_isMoreDistanced == false)
                 {               
                      _radius += player.GetComponentInParent<WeaponManager>().GetWeaponData().KnockBack;
                     _isMoreDistanced = true;
                 }
-            }
 
             if (m_hp <= 0)
             {
@@ -237,7 +255,8 @@ public class EnemyController : LivingObject
             var player = killer.GetComponent<PlayerController>();
             player.m_LevelSystem.AddExp(5);
             IsDying?.Invoke(player.m_LevelSystem.GetExp(), player.m_LevelSystem.GetMaxExp());
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Destroy(gameObject,30);
         }
         else
         {

@@ -8,7 +8,7 @@ public class Water : MonoBehaviour
 
     private void Update()
     {
-        if ( _water.position.y < 0.35f && _waterReach == false )
+        if ( _water.position.y <= 0.35f && _waterReach == false )
         {
             for (int i = 0; i < 50; i++)
             {

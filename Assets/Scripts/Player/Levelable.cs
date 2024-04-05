@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
+
 
 public class Levelable : MonoBehaviour, ILevelable
 {
@@ -10,6 +12,8 @@ public class Levelable : MonoBehaviour, ILevelable
     float m_exp = 0;
     float m_maxExp;
 
+
+    public static Action isLevelUp;
 
     private void Start()
     {
@@ -48,7 +52,8 @@ public class Levelable : MonoBehaviour, ILevelable
 
     public void AddLvl() // Level Up
     {
-        Debug.Log("LEVEL UP");
+        //Debug.Log("LEVEL UP");
+        isLevelUp();
         m_lvl++;
         SetMaxExp();
     }

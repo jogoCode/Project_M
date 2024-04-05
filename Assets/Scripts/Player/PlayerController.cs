@@ -65,7 +65,7 @@ public class PlayerController : LivingObject
         AnimationEvent.isNotActive += DeActivateHitBox;
 
         IsSprinting?.Invoke(0);
-        End?.Invoke();
+        //End?.Invoke();
     }
 
     void Update()
@@ -202,7 +202,7 @@ public class PlayerController : LivingObject
         }
     }
 
-    void DeActivateHitBox()
+    public void DeActivateHitBox()
     {
         if (m_hitBox)
         {
@@ -253,7 +253,7 @@ public class PlayerController : LivingObject
 
     public void SetJumpSpeed(float newJSpeed)
     {
-        m_jumpForce = newJSpeed;
+        m_jumpForce += newJSpeed;
     }
 
     public void SetBaseSpeed(float newBSpeed)
