@@ -62,8 +62,9 @@ public class WeaponManager : MonoBehaviour
             Destroy(m_visualParent.transform.GetChild(i).gameObject);
         }
         if (!newVisual) return;
-        var handObject = Instantiate(newVisual,m_visualParent.transform.position, Quaternion.Euler(-90,0,0), m_visualParent.transform);
+        var handObject = Instantiate(newVisual,m_visualParent.transform.position, Quaternion.Euler(-900,0,0), m_visualParent.transform);
         handObject.transform.up = m_visualParent.transform.up;
+        handObject.transform.right = m_visualParent.transform.right;
         handObject.transform.forward = m_visualParent.transform.forward;
     }
 
