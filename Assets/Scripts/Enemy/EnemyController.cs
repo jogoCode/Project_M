@@ -260,7 +260,8 @@ public class EnemyController : LivingObject
         }
         else
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Destroy(gameObject,30);
         }
         
     }

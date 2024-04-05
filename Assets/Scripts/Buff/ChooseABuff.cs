@@ -27,6 +27,7 @@ public class ChooseABuff : MonoBehaviour
         DASH
     }
 
+    bool m_canDisplay = true;
     public void Start()
     {
         if (!m_buffButton)
@@ -40,13 +41,16 @@ public class ChooseABuff : MonoBehaviour
 
     public void UpdateBuff()
     {
+        if (m_canDisplay != true) return;
+        m_canDisplay=false;
         Vector2 camSize = new Vector2(Camera.main.pixelRect.width, Camera.main.pixelRect.height);
         for (int i = 0; i< 2; i++)
         {
-            var buffPrefab = Instantiate(m_buffButton,new Vector3(((m_displayPos.x) / camSize.x) + (i + m_displayOffset), m_displayPos.y / camSize.y, m_displayPos.z), Quaternion.identity,m_buffsParent.transform);
+            var buffPrefab = Instantiate(m_buffButton,new Vector3(m_buffsParent.transform.position.x + i * m_displayOffset , m_displayPos.y, m_displayPos.z), Quaternion.identity,m_buffsParent.transform);
             var buff = buffPrefab.GetComponent<BuffButton>();
             buff.SetBuffType(RandBuff());
         }
+        m_canDisplay = true;
         Debug.Log(Camera.main.pixelRect.width);
     }
 
