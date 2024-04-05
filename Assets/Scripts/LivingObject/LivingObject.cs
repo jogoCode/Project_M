@@ -78,7 +78,12 @@ public class LivingObject : MonoBehaviour , ILivingObject
         m_hp = Mathf.Clamp(m_hp,0,m_maxHp);
         LifeChanged?.Invoke(m_hp, m_maxHp);
     }
-
+    public void SaveHp(int hp)
+    {
+        m_hp = hp;
+        m_hp = Mathf.Clamp(m_hp, 0, m_maxHp);
+        LifeChanged?.Invoke(m_hp, m_maxHp);
+    }
     public void SetMaxHp(int newMhp)
     {
        

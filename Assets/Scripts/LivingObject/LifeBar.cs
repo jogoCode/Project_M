@@ -10,8 +10,8 @@ public class LifeBar : BarManager
     [SerializeField] private Slider _lifeSlider = null;
     [SerializeField] private Text _lifeText = null;
 
-    [SerializeField] private float _hpHolder;
-    [SerializeField] private int _maxHpHolder;
+    public float _hpHolder;
+    public  int _maxHpHolder;
 
 
 
@@ -36,10 +36,13 @@ public class LifeBar : BarManager
         SetMaxLifePoints();
     }
 
+   
+
     //HP VALUE
     private void Update()
     {
-        _hpHolder = GetComponentInParent<LivingObject>().GetHp();
+        _hpHolder =GetComponentInParent<LivingObject>().GetHp();
+
         _lifeSlider.value = _hpHolder;
 
         if(_lifeText != null)
