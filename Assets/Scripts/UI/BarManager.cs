@@ -11,8 +11,8 @@ public class BarManager : MonoBehaviour , IBarManagable
     [SerializeField] protected Text _TextSlider = null;
 
 
-    [SerializeField] protected float _valueHolder;
-    [SerializeField] protected float _maxValueHolder;
+    public float _valueHolder;
+    public float _maxValueHolder;
 
     protected Camera _camera = null;
 

@@ -12,10 +12,11 @@ public class SaveSystem : MonoBehaviour
     private int _lvl;
     private float _xp;
 
-    [SerializeField] LifeBar _lifebar;
+    [SerializeField] NewLifeBar _lifebar;
     [SerializeField] ExpBar _expbar;
     [SerializeField] PlayerController _playerController;
     int _playerControllerHp;
+    int _buffAtk;
 
 
     void Update()
@@ -38,19 +39,26 @@ public class SaveSystem : MonoBehaviour
         int Lvl = _expbar._parentExpSys.GetLevel();
         float Exp = _expbar._parentExpSys.GetExp();
         int playerController = _playerController.GetHp();
-
+        int buffAtk = _playerController.GetBuffDamage();
+        //int buffjump = _playerController.getjumpforce();
         SavedData savedData = new()
         {
-            
+            // sauvegarde de la map 
+            // sauvegarde des bonus
+
+
             _playerPositions = _playerTransforms.position,
             _playerRotations = _playerTransforms.rotation,
+            _playerAtkBuffs = buffAtk,
+            //_playerjumpbuffs = ,
+            
             _weaponInhand = playerWeapon,
             _itemInhand = playerItem,
             _lvlsaved = Lvl,
             _currentHealth = playerController,
             _currentExp = Exp,
             _playerhp = playerController,
-            _maxHealth = _lifebar._maxHpHolder,
+            _maxHealth =(int)_lifebar._maxValueHolder,
         };
 
         string jsonData = JsonUtility.ToJson(savedData);
@@ -71,19 +79,29 @@ public class SaveSystem : MonoBehaviour
 
         _playerWeapon = savedData._weaponInhand;
         _playerItem = savedData._itemInhand;
+        _buffAtk = savedData._playerAtkBuffs;
+        _weaponManager.m_firstEquip = true;
 
-        _weaponManager.EquipItem(_playerItem);
-        _weaponManager.EquipWeapon(_playerWeapon);
-
+        if (!_playerItem)
+        {
+            _weaponManager.LoadItem(_playerItem);
+        }
+        else if (!_playerWeapon)
+        {
+            _weaponManager.LoadWeapon(_playerWeapon);
+        }
+        
         _lvl = savedData._lvlsaved;
         _xp = savedData._currentExp;
-        _lifebar._hpHolder = savedData._currentHealth;
-        _lifebar._maxHpHolder = savedData._maxHealth;
+        _lifebar._valueHolder = savedData._currentHealth;
+        _lifebar._maxValueHolder = savedData._maxHealth;
         _playerControllerHp = savedData._playerhp;
 
 
-        _weaponManager.m_firstEquip = true;
+        
         _playerController.SaveHp(_playerControllerHp);
+        _playerController.SetDmgBuff(_buffAtk);
+
         //_lifebar.UpdatesValues(_lifebar._hpHolder, _lifebar._maxHpHolder);
         Debug.Log("chargement effectuée");
     }
@@ -104,7 +122,9 @@ public class SavedData
     public int _maxHealth;
 
     public float _currentShield;
-
     public int _playerhp;
+
+    public int _playerAtkBuffs;
+    public float _playerJumpBuffs;
 
 }
