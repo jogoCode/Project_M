@@ -21,7 +21,7 @@ public class SaveSystem : MonoBehaviour
     int _buffAtk;
     float _buffJump;
     float _maxXp;
-    float _timeSun;
+    float _passedTime;
 
 
     void Update()
@@ -48,14 +48,10 @@ public class SaveSystem : MonoBehaviour
         float buffjump = _playerController.GetJumpForce();
         int maxHp = _playerController.GetMaxhp();
         float maxXp = _expBar._parentExpSys.GetMaxExp();
-        float time = _dayCycleManager.IngameTime;
+        float time = _dayCycleManager._passedTime;
 
         SavedData savedData = new()
         {
-            // sauvegarde de la map 
-            // sauvegarde des bonus
-
-
             _playerPositions = _playerTransforms.position,
             _playerRotations = _playerTransforms.rotation,
             _playerAtkBuffs = buffAtk,
@@ -92,25 +88,25 @@ public class SaveSystem : MonoBehaviour
         _buffAtk = savedData._playerAtkBuffs;
         _buffJump = savedData._playerJumpBuffs;
         _weaponManager.m_firstEquip = true;
-        _timeSun = savedData._time;
+        _passedTime = savedData._time;
 
-        if (!_playerItem)
-        {
-            _weaponManager.LoadItem(_playerItem);
-        }
-        else if (!_playerWeapon)
+        if (_playerWeapon)
         {
             _weaponManager.LoadWeapon(_playerWeapon);
+            
+        }
+        else if (_playerItem)
+        {
+            _weaponManager.LoadItem(_playerItem);
         }
         
         _lvl = savedData._lvlsaved;
         _xp = savedData._currentExp;
-        //_lifebar._valueHolder = savedData._currentHealth;
+        
+
         _playerControllerMaxHp = savedData._maxHealth;
         _playerControllerHp = savedData._playerhp;
-        _dayCycleManager.LoadTime(_timeSun);
-
-
+        _dayCycleManager.LoadTime(_passedTime);
 
         _playerController.LoadMaxHp(savedData._maxHealth);
         _playerController.SaveHp(_playerControllerHp);

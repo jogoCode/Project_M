@@ -21,11 +21,11 @@ public class DayCycleManager : MonoBehaviour
     /// <summary>
     /// How much time as passed in realtime (in seconds).
     /// </summary>
-    private float _passedTime;
+    public float _passedTime;
 
     public void LoadTime(float Time)
     {
-        IngameTime = Time;
+        _passedTime = Time;
     }
     private void Start()
     {
